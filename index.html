@@ -496,8 +496,8 @@
                 </div>
                 <div class="portfolio-content">
                   <span class="category">Graphics</span>
-                  <h3>Creative Brand Identity</h3>
-                  <p>Vestibulum id ligula porta felis euismod semper at vulputate.</p>
+                  <h3>Creative Banner Design</h3>
+                  <p>A creative banner design is a visually striking graphic used for branding, advertising, or promotions. It combines colors, typography, and images to capture attention and convey messages effectively. Whether for digital or print, a well-designed banner enhances engagement and reinforces brand identity.</p>
                 </div>
               </div>
             </div><!-- End Portfolio Item -->
@@ -505,10 +505,10 @@
             <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-motion">
               <div class="portfolio-card">
                 <div class="portfolio-image">
-                  <img src="assets/img/portfolio/portfolio-7.webp" class="img-fluid" alt="" loading="lazy">
+                  <img src="assets/img/portfolio/desaley banner-6.png" class="img-fluid" alt="" loading="lazy">
                   <div class="portfolio-overlay">
                     <div class="portfolio-actions">
-                      <a href="assets/img/portfolio/portfolio-7.webp" class="glightbox preview-link" data-gallery="portfolio-gallery-motion"><i class="bi bi-eye"></i></a>
+                      <a href="assets/img/portfolio/desaley banner-6.png" class="glightbox preview-link" data-gallery="portfolio-gallery-motion"><i class="bi bi-eye"></i></a>
                       <a href="portfolio-details.html" class="details-link"><i class="bi bi-arrow-right"></i></a>
                     </div>
                   </div>
@@ -962,6 +962,36 @@
                       <div id="response-message" class="text-center mt-3"></div>
                     </div>
                   </form>
+                  <script>
+                    document.getElementById('data-form').addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        
+                        const formData = new FormData(this);
+                        
+                        fetch('https://script.google.com/macros/s/AKfycbwtU72C6mhZ5CJZYyFcm6e76T8mgqC2QAcokla8cCKY6n4kFndNjrGwsA1ecdMDQWL1EA/exec', {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === "Success") {
+                                document.getElementById('response-message').innerHTML = 
+                                    '<div class="alert alert-success">' + data.message + '</div>';
+                                // Redirect to your original contact page after 2 seconds
+                                setTimeout(() => {
+                                    window.location.href = 'https://yourdomain.com/contact.html'; // Replace with your actual contact page URL
+                                }, 2000);
+                            } else {
+                                document.getElementById('response-message').innerHTML = 
+                                    '<div class="alert alert-danger">Error submitting form</div>';
+                            }
+                        })
+                        .catch(error => {
+                            document.getElementById('response-message').innerHTML = 
+                                '<div class="alert alert-danger">Error: ' + error.message + '</div>';
+                        });
+                    });
+                    </script>
                     
                 
 
