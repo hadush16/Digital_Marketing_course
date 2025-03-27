@@ -932,62 +932,38 @@
           <div class="col-lg-6">
             <div class="contact-form card" data-aos="fade-up" data-aos-delay="300">
               <div class="card-body p-4 p-lg-5">
+                  <form id="data-form" action="https://script.google.com/macros/s/AKfycbwtU72C6mhZ5CJZYyFcm6e76T8mgqC2QAcokla8cCKY6n4kFndNjrGwsA1ecdMDQWL1EA/exec" method="POST" class="p-4 shadow-lg rounded">
+                    <div class="row g-3">
+                      <div class="col-12">
+                        <label for="name" class="form-label">Your Name</label>
+                        <input type="text" name="name" class="form-control" placeholder="Enter your name" required>
+                      </div>
                   
-                <form id="data-form" class="p-4 shadow-lg rounded">
-                  <div class="row g-3">
                       <div class="col-12">
-                          <label for="name" class="form-label">Your Name</label>
-                          <input type="text" name="name" class="form-control" placeholder="Enter your name" required>
+                        <label for="email" class="form-label">Your Email</label>
+                        <input type="email" class="form-control" name="email" placeholder="Enter your email" required>
                       </div>
+                  
                       <div class="col-12">
-                          <label for="email" class="form-label">Your Email</label>
-                          <input type="email" class="form-control" name="email" placeholder="Enter your email" required>
+                        <label for="subject" class="form-label">Subject</label>
+                        <input type="text" class="form-control" name="subject" placeholder="Enter subject" required>
                       </div>
+                  
                       <div class="col-12">
-                          <label for="subject" class="form-label">Subject</label>
-                          <input type="text" class="form-control" name="subject" placeholder="Enter subject" required>
+                        <label for="message" class="form-label">Message</label>
+                        <textarea class="form-control" name="message" rows="5" placeholder="Write your message" required></textarea>
                       </div>
-                      <div class="col-12">
-                          <label for="message" class="form-label">Message</label>
-                          <textarea class="form-control" name="message" rows="5" placeholder="Write your message" required></textarea>
-                      </div>
+                  
                       <div class="col-12 text-center">
-                          <button type="submit" class="btn btn-primary w-100 py-2">Submit Message</button>
+                        <button type="submit" class="btn btn-primary w-100 py-2">Submit Message</button>
                       </div>
+                  
+                      <!-- Success & Error Messages -->
                       <div id="response-message" class="text-center mt-3"></div>
-                  </div>
-              </form>
-              
-              <script>
-              document.getElementById('data-form').addEventListener('submit', function(e) {
-                  e.preventDefault();
+                    </div>
+                  </form>
                   
-                  const formData = new FormData(this);
-                  
-                  fetch('https://script.google.com/macros/s/AKfycbyOjVhXpkOIJl9OpMTtqpamSHpIEnRB4wLtzP913MMn/dev', {
-                      method: 'POST',
-                      body: formData
-                  })
-                  .then(response => response.json())
-                  .then(data => {
-                      if (data.status === "Success") {
-                          document.getElementById('response-message').innerHTML = 
-                              '<div class="alert alert-success">' + data.message + '</div>';
-                          // Redirect to your original contact page after 2 seconds
-                          setTimeout(() => {
-                              window.location.href = 'https://digitalsunriseads.netlify.app/#contact'; // Replace with your actual contact page URL
-                          }, 2000);
-                      } else {
-                          document.getElementById('response-message').innerHTML = 
-                              '<div class="alert alert-danger">Error submitting form</div>';
-                      }
-                  })
-                  .catch(error => {
-                      document.getElementById('response-message').innerHTML = 
-                          '<div class="alert alert-danger">Error: ' + error.message + '</div>';
-                  });
-              });
-              </script>
+                    
                 
 
               </div>
