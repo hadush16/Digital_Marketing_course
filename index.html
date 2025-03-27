@@ -932,40 +932,74 @@
           <div class="col-lg-6">
             <div class="contact-form card" data-aos="fade-up" data-aos-delay="300">
               <div class="card-body p-4 p-lg-5">
-                  <form id="data-form" action="https://script.google.com/macros/s/AKfycbwtU72C6mhZ5CJZYyFcm6e76T8mgqC2QAcokla8cCKY6n4kFndNjrGwsA1ecdMDQWL1EA/exec" method="POST" class="p-4 shadow-lg rounded">
-                    <div class="row g-3">
+                <form id="data-form" class="p-4 shadow-lg rounded">
+                  <div class="row g-3">
                       <div class="col-12">
-                        <label for="name" class="form-label">Your Name</label>
-                        <input type="text" name="name" class="form-control" placeholder="Enter your name" required>
+                          <label for="name" class="form-label">Your Name</label>
+                          <input type="text" name="name" class="form-control" placeholder="Enter your name" required>
                       </div>
-                  
                       <div class="col-12">
-                        <label for="email" class="form-label">Your Email</label>
-                        <input type="email" class="form-control" name="email" placeholder="Enter your email" required>
+                          <label for="email" class="form-label">Your Email</label>
+                          <input type="email" class="form-control" name="email" placeholder="Enter your email" required>
                       </div>
-                  
                       <div class="col-12">
-                        <label for="subject" class="form-label">Subject</label>
-                        <input type="text" class="form-control" name="subject" placeholder="Enter subject" required>
+                          <label for="subject" class="form-label">Subject</label>
+                          <input type="text" class="form-control" name="subject" placeholder="Enter subject" required>
                       </div>
-                  
                       <div class="col-12">
-                        <label for="message" class="form-label">Message</label>
-                        <textarea class="form-control" name="message" rows="5" placeholder="Write your message" required></textarea>
+                          <label for="message" class="form-label">Message</label>
+                          <textarea class="form-control" name="message" rows="5" placeholder="Write your message" required></textarea>
                       </div>
-                  
                       <div class="col-12 text-center">
-                        <button type="submit" class="btn btn-primary w-100 py-2">Submit Message</button>
+                          <button type="submit" class="btn btn-primary w-100 py-2">Submit Message</button>
                       </div>
-                  
                       <!-- Success & Error Messages -->
                       <div id="response-message" class="text-center mt-3"></div>
-                    </div>
-                  </form>
-                  
-                    
-                
-
+                  </div>
+              </form>
+            
+                <!-- JavaScript to handle form submission -->
+                <script>
+                    document.getElementById('data-form').addEventListener('submit', function(e) {
+                        e.preventDefault(); // Prevent the default form submission
+            
+                        const formData = new FormData(this);
+                        const responseMessage = document.getElementById('response-message');
+            
+                        // Send the form data to Google Apps Script
+                        fetch('https://script.google.com/macros/s/AKfycbwtU72C6mhZ5CJZYyFcm6e76T8mgqC2QAcokla8cCKY6n4kFndNjrGwsA1ecdMDQWL1EA/exec', {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok: ' + response.statusText);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.status === "Success") {
+                                // Display success message
+                                responseMessage.innerHTML = 
+                                    '<div class="alert alert-success">' + data.message + '</div>';
+                                // Redirect after 2 seconds
+                                setTimeout(() => {
+                                    window.location.href = 'https://digitalsunriseads.netlify.app/#contact';
+                                }, 2000);
+                            } else {
+                                // Display error message from the server
+                                responseMessage.innerHTML = 
+                                    '<div class="alert alert-danger">Error: ' + data.message + '</div>';
+                            }
+                        })
+                        .catch(error => {
+                            // Display fetch error
+                            responseMessage.innerHTML = 
+                                '<div class="alert alert-danger">Error: ' + error.message + '</div>';
+                            console.error('Fetch error:', error);
+                        });
+                    });
+                </script>
               </div>
             </div>
           </div>
