@@ -20,7 +20,7 @@ document.getElementById("data-form").addEventListener("submit", function(event) 
     event.preventDefault(); // Prevent default form submission
 
     let formData = new FormData(this);
-    let googleFormUrl = "https://script.google.com/macros/s/AKfycbwtU72C6mhZ5CJZYyFcm6e76T8mgqC2QAcokla8cCKY6n4kFndNjrGwsA1ecdMDQWL1EA/exec";
+    let googleFormUrl = "https://script.google.com/macros/s/AKfycbyOjVhXpkOIJl9OpMTtqpamSHpIEnRB4wLtzP913MMn/dev";
 
     fetch(googleFormUrl, {
       method: "POST",
