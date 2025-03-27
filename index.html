@@ -964,7 +964,7 @@
                   
                   const formData = new FormData(this);
                   
-                  fetch('https://script.google.com/macros/s/AKfycbwtU72C6mhZ5CJZYyFcm6e76T8mgqC2QAcokla8cCKY6n4kFndNjrGwsA1ecdMDQWL1EA/exec', {
+                  fetch('https://script.google.com/macros/s/AKfycbyOjVhXpkOIJl9OpMTtqpamSHpIEnRB4wLtzP913MMn/dev', {
                       method: 'POST',
                       body: formData
                   })
@@ -975,7 +975,7 @@
                               '<div class="alert alert-success">' + data.message + '</div>';
                           // Redirect to your original contact page after 2 seconds
                           setTimeout(() => {
-                              window.location.href = 'https://yourdomain.com/contact.html'; // Replace with your actual contact page URL
+                              window.location.href = 'https://digitalsunriseads.netlify.app/#contact'; // Replace with your actual contact page URL
                           }, 2000);
                       } else {
                           document.getElementById('response-message').innerHTML = 
