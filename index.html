@@ -934,71 +934,66 @@
               <div class="card-body p-4 p-lg-5">
                 <form id="data-form" class="p-4 shadow-lg rounded">
                   <div class="row g-3">
-                      <div class="col-12">
-                          <label for="name" class="form-label">Your Name</label>
-                          <input type="text" name="name" class="form-control" placeholder="Enter your name" required>
-                      </div>
-                      <div class="col-12">
-                          <label for="email" class="form-label">Your Email</label>
-                          <input type="email" class="form-control" name="email" placeholder="Enter your email" required>
-                      </div>
-                      <div class="col-12">
-                          <label for="subject" class="form-label">Subject</label>
-                          <input type="text" class="form-control" name="subject" placeholder="Enter subject" required>
-                      </div>
-                      <div class="col-12">
-                          <label for="message" class="form-label">Message</label>
-                          <textarea class="form-control" name="message" rows="5" placeholder="Write your message" required></textarea>
-                      </div>
-                      <div class="col-12 text-center">
-                          <button type="submit" class="btn btn-primary w-100 py-2">Submit Message</button>
-                      </div>
-                      <!-- Success & Error Messages -->
-                      <div id="response-message" class="text-center mt-3"></div>
+                    <div class="col-12">
+                      <label for="name" class="form-label">Your Name</label>
+                      <input type="text" name="name" class="form-control" placeholder="Enter your name" required>
+                    </div>
+                    <div class="col-12">
+                      <label for="email" class="form-label">Your Email</label>
+                      <input type="email" class="form-control" name="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="col-12">
+                      <label for="subject" class="form-label">Subject</label>
+                      <input type="text" class="form-control" name="subject" placeholder="Enter subject" required>
+                    </div>
+                    <div class="col-12">
+                      <label for="message" class="form-label">Message</label>
+                      <textarea class="form-control" name="message" rows="5" placeholder="Write your message" required></textarea>
+                    </div>
+                    <div class="col-12 text-center">
+                      <button type="submit" class="btn btn-primary w-100 py-2">Submit Message</button>
+                    </div>
+                    <div id="response-message" class="text-center mt-3"></div>
                   </div>
-              </form>
-            
-                <!-- JavaScript to handle form submission -->
+                </form>
+              
                 <script>
-                    document.getElementById('data-form').addEventListener('submit', function(e) {
-                        e.preventDefault(); // Prevent the default form submission
-            
-                        const formData = new FormData(this);
-                        const responseMessage = document.getElementById('response-message');
-            
-                        // Send the form data to Google Apps Script
-                        fetch('https://script.google.com/macros/s/AKfycbwno6DA7a5j-3DmiWBK0HU48phGa1_crAwsbRuYiHMFIXyjFQAcppUYCEtx1tVu7HWw4g/exec', {
-                            method: 'POST',
-                            body: formData
-                        })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Network response was not ok: ' + response.statusText);
-                            }
-                            return response.json();
-                        })
-                        .then(data => {
-                            if (data.status === "Success") {
-                                // Display success message
-                                responseMessage.innerHTML = 
-                                    '<div class="alert alert-success">' + data.message + '</div>';
-                                // Redirect after 2 seconds
-                                setTimeout(() => {
-                                    window.location.href = 'https://digitalsunriseads.netlify.app/#contact';
-                                }, 2000);
-                            } else {
-                                // Display error message from the server
-                                responseMessage.innerHTML = 
-                                    '<div class="alert alert-danger">Error: ' + data.message + '</div>';
-                            }
-                        })
-                        .catch(error => {
-                            // Display fetch error
-                            responseMessage.innerHTML = 
-                                '<div class="alert alert-danger">Error: ' + error.message + '</div>';
-                            console.error('unssucsesful :', error);
-                        });
+                  document.getElementById('data-form').addEventListener('submit', function(e) {
+                    e.preventDefault(); // Prevent default form submission
+              
+                    const formData = new FormData(this);
+                    const urlEncodedData = new URLSearchParams(formData).toString();
+                    const responseMessage = document.getElementById('response-message');
+              
+                    // Replace with your Google Apps Script Web App URL
+                    const scriptURL = 'https://script.google.com/macros/s/AKfycbyOjVhXpkOIJl9OpMTtqpamSHpIEnRB4wLtzP913MMn/dev';
+              
+                    fetch(scriptURL, {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                      },
+                      body: urlEncodedData
+                    })
+                    .then(response => {
+                      if (!response.ok) {
+                        throw new Error('Network response was not ok: ' + response.statusText);
+                      }
+                      return response.json();
+                    })
+                    .then(data => {
+                      if (data.status === 'Success') {
+                        responseMessage.innerHTML = '<div class="alert alert-success">' + data.message + '</div>';
+                        this.reset(); // Clear the form
+                      } else {
+                        responseMessage.innerHTML = '<div class="alert alert-danger">Error: ' + data.message + '</div>';
+                      }
+                    })
+                    .catch(error => {
+                      responseMessage.innerHTML = '<div class="alert alert-danger">Error: ' + error.message + '</div>';
+                      console.error('Fetch error:', error);
                     });
+                  });
                 </script>
               </div>
             </div>
