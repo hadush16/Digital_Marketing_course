@@ -959,14 +959,12 @@
               
                 <script>
                   document.getElementById('data-form').addEventListener('submit', function(e) {
-                    e.preventDefault(); // Prevent default form submission
-              
+                    e.preventDefault();
                     const formData = new FormData(this);
                     const urlEncodedData = new URLSearchParams(formData).toString();
                     const responseMessage = document.getElementById('response-message');
-              
-                    // Replace with your Google Apps Script Web App URL
-                    const scriptURL = 'https://script.google.com/macros/s/AKfycbyOjVhXpkOIJl9OpMTtqpamSHpIEnRB4wLtzP913MMn/dev';
+                    
+                    const scriptURL = 'https://script.google.com/macros/s/AKfycbwno6DA7a5j-3DmiWBK0HU48phGa1_crAwsbRuYiHMFIXyjFQAcppUYCEtx1tVu7HWw4g/exec';
               
                     fetch(scriptURL, {
                       method: 'POST',
@@ -977,14 +975,14 @@
                     })
                     .then(response => {
                       if (!response.ok) {
-                        throw new Error('Network response was not ok: ' + response.statusText);
+                        throw new Error('Network response not ok: ' + response.statusText);
                       }
                       return response.json();
                     })
                     .then(data => {
                       if (data.status === 'Success') {
                         responseMessage.innerHTML = '<div class="alert alert-success">' + data.message + '</div>';
-                        this.reset(); // Clear the form
+                        this.reset();
                       } else {
                         responseMessage.innerHTML = '<div class="alert alert-danger">Error: ' + data.message + '</div>';
                       }
