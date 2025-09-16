@@ -1,987 +1,217 @@
 <!DOCTYPE html>
 <html lang="en">
-
+  <!-- Header & Navigation -->
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">
+        <img src="assets/img/favicon.png" alt="Logo" style="height:32px;vertical-align:middle;margin-right:8px;">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="service-details.html">Service</a></li>
+          <li class="nav-item"><a class="nav-link" href="portfolio-details.html">Sign Up / Sign In</a></li>
+          <li class="nav-item"><a class="nav-link" href="starter-page.html">Payment</a></li>
+          <li class="nav-item"><a class="nav-link" href="starter-page.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<!-- End Header -->
 <head>
   <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>digitalsunriseads</title>
-  <meta name="description" content="">
-  <meta name="keywords" content="">
-
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/Digital Sunrise ADS.png" rel="apple-touch-icon"> 
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Questrial:wght@400&display=swap" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Marketing Course List</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-  <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
-  <meta name="google-adsense-account" content="ca-pub-3237559839274253">
-
-
- 
+  <style>
+    body { font-family: 'Roboto', sans-serif; background: #f8f9fa; }
+    .course-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .course-card:hover {
+      box-shadow: 0 8px 32px rgba(0,0,0,0.16);
+      transform: translateY(-4px) scale(1.02);
+    }
+    .course-img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    .course-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .course-desc { font-size: 0.98rem; color: #555; flex-grow: 1; }
+    .enroll-btn { margin-top: 1rem; width: 100%; }
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      color: #0d6efd;
+      letter-spacing: 0.5px;
+    }
+    @media (max-width: 767px) {
+      .course-img { height: 120px; }
+      .section-title { font-size: 1.1rem; }
+      .course-title { font-size: 1rem; }
+      .course-card { padding: 1rem; }
+    }
+  </style>
 </head>
-
-<body class="index-page">
-
-  <header id="header" class="header d-flex align-items-center sticky-top">
-    <div class="header-container container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
-
-      <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
-       
-        <h1 class="sitename">Digital Sunrise Ads</h1>
-      </a>
-
-      <nav id="navmenu" class="navmenu">
-        <ul>
-          <li><a href="#hero" class="active">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#resume">Resume</a></li>
-          <li><a href="#portfolio">Portfolio</a></li>
-          <li><a href="#services">Services</a></li>
-          
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-      </nav>
-
-      <div class="header-social-links">
-        <a href="https://x.com/belay341035" class="twitter"><i class="bi bi-twitter-x"></i></a>
-        <a href="https://web.facebook.com/new.light.14224094" class="facebook"><i class="bi bi-facebook"></i></a>
-        <a href="https://www.instagram.com/hadush130?igsh=bDVybjVtb3o1aTk1" class="instagram"><i class="bi bi-instagram"></i></a>
-        <a href="https://www.linkedin.com/in/hadushmobile?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="linkedin"><i class="bi bi-linkedin"></i></a>
-      </div>
-
+<body>
+  <header class="bg-primary text-white py-4 mb-4">
+    <div class="container text-center">
+      <h1 class="mb-1">Digital Marketing Courses</h1>
+      <p class="lead mb-0"></p>
     </div>
   </header>
-
-  <main class="main">
-
-    <!-- Hero Section -->
-    <section id="hero" class="hero section">
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row align-items-center content">
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-            <h2> Digital marketing specialist </h2>
-            <p class="lead">Transforming ideas into elegant solutions through creative design and innovative development</p>
-            <div class="cta-buttons" data-aos="fade-up" data-aos-delay="300">
-              <a href="#portfolio" class="btn btn-primary">View My Work</a>
-              <a href="#contact" class="btn btn-outline">Let's Connect</a>
-            </div>
-            <div class="hero-stats" data-aos="fade-up" data-aos-delay="400">
-              <div class="stat-item">
-                <span class="stat-number">3+</span>
-                <span class="stat-label">Years Experience</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-number">10+</span>
-                <span class="stat-label">Projects Completed</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-number">50+</span>
-                <span class="stat-label">Happy Clients</span>
-              </div>
-            </div>
-          </div>
-                  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3237559839274253"
-            crossorigin="anonymous"></script>
-        <!-- digital -->
-        <ins class="adsbygoogle"
-            style="display:block"
-            data-ad-client="ca-pub-3237559839274253"
-            data-ad-slot="4475097902"
-            data-ad-format="auto"
-            data-full-width-responsive="true"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3237559839274253"
-     crossorigin="anonymous"></script>
-
-          <div class="col-lg-6">
-            <div class="hero-image">
-              <img src="assets/img/profile/1000005407.ico" alt="Portfolio Hero Image" class="img-fluid" data-aos="zoom-out" data-aos-delay="300">
-              <div class="shape-1"></div>
-              <div class="shape-2"></div>
-            </div>
+  <main class="container">
+    <section>
+      <h2 class="mb-4 text-center">Available Courses</h2>
+      <!-- Beginner Digital Marketing -->
+      <div class="section-title">Beginner Digital Marketing</div>
+      <div class="row">
+        <div class="col-12 col-sm-6 col-lg-4">
+          <div class="course-card h-100">
+            <img src="assets/img/portfolio/Digital Sunrise ADS.png" alt="Intro to Digital Marketing" class="course-img">
+            <div class="course-title">Introduction to Digital Marketing</div>
+            <div class="course-desc">Learn the basics of digital marketing, including key concepts, channels, and strategies for online success.</div>
+            <a href="service-details.html?course=intro-digital-marketing" class="btn btn-primary enroll-btn">Enroll Now</a>
           </div>
         </div>
-
+        <div class="col-12 col-sm-6 col-lg-4">
+          <div class="course-card h-100">
+            <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80" alt="Social Media Fundamentals" class="course-img">
+            <div class="course-title">Social Media Fundamentals</div>
+            <div class="course-desc">Understand the basics of Facebook, Instagram, and Twitter for business promotion.</div>
+            <a href="service-details.html?course=social-media-fundamentals" class="btn btn-primary enroll-btn">Enroll Now</a>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+          <div class="course-card h-100">
+            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Content Creation Basics" class="course-img">
+            <div class="course-title">Content Creation Basics</div>
+            <div class="course-desc">Learn how to create engaging posts, images, and videos for your brand.</div>
+            <a href="service-details.html?course=content-creation-basics" class="btn btn-primary enroll-btn">Enroll Now</a>
+          </div>
+        </div>
       </div>
-
-    </section><!-- /Hero Section -->
-
-    <!-- About Section -->
-    <section id="about" class="about section light-background">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>About</h2>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3237559839274253"
-     crossorigin="anonymous"></script>
-        <div class="title-shape">
-          <svg viewBox="0 0 200 20" xmlns="http://www.w3.org/2000/svg">
-            <path d="M 0,10 C 40,0 60,20 100,10 C 140,0 160,20 200,10" fill="none" stroke="currentColor" stroke-width="2"></path>
-          </svg>
-        </div>
-        <p>I'm a multifaceted digital marketer and mobile app developer with a strong track record in managing YouTube channels, overseeing online payments, and coordinating comprehensive social media strategies. I leverage data-driven insights and creative approaches to enhance brand presence, drive user engagement, and optimize conversions across multiple platforms. My expertise in both technical development and digital marketing ensures seamless integration of innovative app solutions with robust marketing campaigns, providing businesses with a competitive edge in today’s digital landscape.</p>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row align-items-center">
-          <div class="col-lg-6 position-relative" data-aos="fade-right" data-aos-delay="200">
-            <div class="about-image">
-              <img src="assets/img/profile/1000005407.ico" alt="Profile Image" class="img-fluid rounded-4">
-            </div>
-          </div>
-
-          <div class="col-lg-6" data-aos="fade-left" data-aos-delay="300">
-            <div class="about-content">
-              <span class="subtitle">About Me</span>
-              <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3237559839274253"
-              crossorigin="anonymous"></script>
-
-
-              <h2>Digital Marketer &amp; mobile app Developer</h2>
-
-              <p class="lead mb-4">
-                I am a dedicated digital marketer and mobile app developer with a passion for driving impactful digital experiences. 
-                Leveraging data-driven strategies and creative problem-solving, I work to elevate brand presence, enhance user engagement, and deliver compelling online campaigns.
-                 I thrive on innovation and continuously seek out opportunities to blend creativity with technology, ensuring every project makes a meaningful impact.</p>
-
-              <p class="mb-4">Contact Information</p>
-
-              <div class="personal-info">
-                <div class="row g-4">
-                  <div class="col-6">
-                    <div class="info-item">
-                      <span class="label">Name</span>
-                      <span class="value">Hadush Brhane</span>
-                    </div>
-                  </div>
-                               <div>
-                    <div class="info-item">
-                               </div>
-                  <div class="col-6">
-                    <div class="info-item">
-                      <span class="label">Email</span>
-                      <span class="value">hadushmobilesoftware@gmail.com</span>
-                    </div>
-                  </div>
-                 
-                  <div class="col-6">
-                    <div class="info-item">
-                      <span class="label">Occupation</span>
-                      <span class="value">digital  marketer</span>
-                    </div>
-                  </div>
- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3237559839274253"
-                  crossorigin="anonymous"></script>
-                  <div class="col-6">
-                    <div class="info-item">
-                      <span class="label">Nationality</span>
-                      <span class="value">Ethiopian</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="signature mt-4">
-                <div class="signature-image">
-                  <img src="assets/img/misc/signature.png" alt="" class="img-fluid">
-                </div>
-                <div class="signature-info">
-                  <h4>Hadush Brhane</h4>
-                  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3237559839274253"
-                  crossorigin="anonymous"></script>
-                  <p>Digital Marketing specialist</p>
-
-                </div>
-              </div>
-            </div>
+      <!-- Intermediate Digital Marketing -->
+      <div class="section-title">Intermediate Digital Marketing</div>
+      <div class="row">
+        <div class="col-12 col-sm-6 col-lg-4">
+          <div class="course-card h-100">
+            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=80" alt="Social Media Marketing" class="course-img">
+            <div class="course-title">Social Media Marketing</div>
+            <div class="course-desc">Master Facebook, Instagram, YouTube, and TikTok marketing to grow your brand and engage your audience.</div>
+            <a href="service-details.html?course=social-media-marketing" class="btn btn-primary enroll-btn">Enroll Now</a>
           </div>
         </div>
-
+        <div class="col-12 col-sm-6 col-lg-4">
+          <div class="course-card h-100">
+            <img src="https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=400&q=80" alt="SEO" class="course-img">
+            <div class="course-title">Search Engine Optimization (SEO)</div>
+            <div class="course-desc">Boost your website’s visibility on Google and other search engines with proven SEO techniques.</div>
+            <a href="service-details.html?course=seo" class="btn btn-primary enroll-btn">Enroll Now</a>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+          <div class="course-card h-100">
+            <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Email Marketing" class="course-img">
+            <div class="course-title">Email Marketing Essentials</div>
+            <div class="course-desc">Learn how to build email lists, create campaigns, and analyze results for better engagement.</div>
+            <a href="service-details.html?course=email-marketing" class="btn btn-primary enroll-btn">Enroll Now</a>
+          </div>
+        </div>
       </div>
-
-    </section><!-- /About Section -->
-
-    <!-- Skills Section -->
-    <section id="skills" class="skills section">
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row g-4 skills-animation">
-
-          <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
-            <div class="skill-box">
-              <h3>dart</h3>
-              <p>I leverage Dart's clean syntax and powerful asynchronous features to build efficient, scalable applications that deliver exceptional performance.</p>
-              <span class="text-end d-block">90%</span>
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
+      <!-- Advanced Digital Marketing -->
+      <div class="section-title">Advanced Digital Marketing</div>
+      <div class="row">
+        <div class="col-12 col-sm-6 col-lg-4">
+          <div class="course-card h-100">
+            <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="YouTube Channel Management" class="course-img">
+            <div class="course-title">YouTube Channel Management</div>
+            <div class="course-desc">Learn how to optimize, grow, and monetize your YouTube channel for maximum impact.</div>
+            <a href="service-details.html?course=youtube-channel-management" class="btn btn-primary enroll-btn">Enroll Now</a>
           </div>
-
-          <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
-            <div class="skill-box">
-              <h3>flutter</h3>
-              <p>I harness Flutter's dynamic UI toolkit to craft visually stunning, high-performance mobile apps that run seamlessly across platforms.</p>
-              <span class="text-end d-block">90%</span>
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="20">
-            <div class="skill-box">
-              <h3>Youtube Managmnet</h3>
-              <p>​I specialize in YouTube channel management, focusing on content strategy, audience growth, and AdSense monetization to maximize revenue.</p>
-              <span class="text-end d-block">90%</span>
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="200"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
-            <div class="skill-box">
-              <h3>adobe premiere pro</h3>
-              <p>​I leverage Adobe Premiere Pro's advanced editing tools to craft high-quality, engaging video content that captivates audiences. </p>
-              <span class="text-end d-block">80%</span>
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
-            <div class="skill-box">
-              <h3>Photoshop</h3>
-              <p>​I utilize Adobe Photoshop's advanced features to create, enhance, and edit images, artwork, and illustrations, delivering high-quality visual content.</p>
-              <span class="text-end d-block">99%</span>
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="99" aria-valuemin="0" aria-valuemax="100">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
-            <div class="skill-box">
-              <h3>adobe illustrator </h3>
-              <p>I utilize Adobe Illustrator's robust vector graphics capabilities to design scalable, precise, and visually compelling illustrations, logos, and icons.</p>
-              <span class="text-end d-block">97%</span>
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="97" aria-valuemin="0" aria-valuemax="100">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="20">
-            <div class="skill-box">
-              <h3>python</h3>
-              <p>​I leverage Python's clear syntax and dynamic capabilities to develop efficient, scalable applications across diverse domains.</p>
-              <span class="text-end d-block">90%</span>
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="200"></div>
-              </div>
-            </div>
-          </div>
-
         </div>
-
+        <div class="col-12 col-sm-6 col-lg-4">
+          <div class="course-card h-100">
+            <img src="https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=400&q=80" alt="Advanced SEO" class="course-img">
+            <div class="course-title">Advanced SEO Strategies</div>
+            <div class="course-desc">Explore technical SEO, link building, and analytics for higher search rankings.</div>
+            <a href="service-details.html?course=advanced-seo" class="btn btn-primary enroll-btn">Enroll Now</a>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+          <div class="course-card h-100">
+            <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80" alt="Paid Advertising" class="course-img">
+            <div class="course-title">Paid Advertising & Google Ads</div>
+            <div class="course-desc">Master Google Ads, Facebook Ads, and retargeting for effective paid campaigns.</div>
+            <a href="service-details.html?course=paid-advertising" class="btn btn-primary enroll-btn">Enroll Now</a>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+          <div class="course-card h-100">
+            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Graphic Design" class="course-img">
+            <div class="course-title">Graphic Design for Marketers</div>
+            <div class="course-desc">Create compelling visuals using Photoshop and Illustrator to enhance your marketing campaigns.</div>
+            <a href="service-details.html?course=graphic-design" class="btn btn-primary enroll-btn">Enroll Now</a>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+          <div class="course-card h-100">
+            <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Analytics & Conversion" class="course-img">
+            <div class="course-title">Analytics & Conversion Optimization</div>
+            <div class="course-desc">Use Google Analytics and other tools to track, analyze, and improve your marketing results.</div>
+            <a href="service-details.html?course=analytics-conversion" class="btn btn-primary enroll-btn">Enroll Now</a>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+          <div class="course-card h-100">
+            <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=400&q=80" alt="Marketing Automation" class="course-img">
+            <div class="course-title">Marketing Automation & CRM</div>
+            <div class="course-desc">Automate your marketing processes and manage customer relationships with advanced tools.</div>
+            <a href="service-details.html?course=marketing-automation" class="btn btn-primary enroll-btn">Enroll Now</a>
+          </div>
+        </div>
       </div>
-
-    </section><!-- /Skills Section -->
-
-    <!-- Resume Section -->
-    <section id="resume" class="resume section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Resume</h2>
-        <div class="title-shape">
-          <svg viewBox="0 0 200 20" xmlns="http://www.w3.org/2000/svg">
-            <path d="M 0,10 C 40,0 60,20 100,10 C 140,0 160,20 200,10" fill="none" stroke="currentColor" stroke-width="2"></path>
-          </svg>
-        </div>
-        <p>Digital Marketer, Mobile App Developer & Graphic Design Specialists</p>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row">
-          <div class="col-12">
-            <div class="resume-wrapper">
-              <div class="resume-block" data-aos="fade-up">
-                <h2>Work Experience</h2>
-                <p class="lead">Throughout my career, I’ve combined my expertise in digital marketing, mobile app development, and graphic design to drive impactful results. 
-                  I’ve led campaigns that boost brand engagement, developed innovative mobile solutions that enhance user experiences, and created compelling visual content that strengthens brand identity. 
-                  My work experience reflects a commitment to excellence, continuous learning, and the ability to thrive in dynamic, fast-paced environments.</p>
-
-                <div class="timeline">
-                  <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
-                    <div class="timeline-left">
-                      <h4 class="company">Ic software solutiosn PLC </h4>
-                      <span class="period">Jun, 2023 - Current</span>
-                    </div>
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-right">
-                      <h3 class="position">Digital Marketer Specialist</h3>
-                      <p class="description">At IC Software Solutions PLC, 
-                        as a Digital Marketer Specialist, I led comprehensive digital marketing initiatives to boost brand visibility and drive quality leads. 
-                        I developed and executed strategies spanning SEO, PPC, email marketing, and social media campaigns, which resulted in increased website traffic and improved conversion rates. 
-                        Leveraging data analytics and market research, I continuously optimized our digital efforts for maximum ROI, collaborating closely with cross-functional teams to ensure alignment with broader business goals. This role allowed me to significantly contribute to the company's market presence and revenue growth.</p>
-                    </div>
-                  </div>
-
-                  <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
-                    <div class="timeline-left">
-                      <h4 class="company">Sened media Youtube channel</h4>
-                      <span class="period">2023-current</span>
-                    </div>
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-right">
-                      <h3 class="position">Youtube Manager specialist</h3>
-                      <p class="description">
-                        YouTube Manager Specialist at Sened Media YouTube Channel
-                      </p>
-                      <ul>
-                        <li>Content Strategy Development: Formulated and executed tailored content strategies to enhance audience engagement and channel growth.</li>
-                        <li>Video Optimization: Crafted compelling video titles, detailed descriptions, and relevant tags to improve search visibility and viewer retention.​
-                        </li>
-                        <li>Channel Analytics Monitoring: Regularly analyzed performance metrics to inform content planning and identify areas for improvement.</li>
-                        <li>Audience Interaction: Engaged with viewers through comments and community posts, fostering a loyal and active subscriber base.</li>
-                        <li>Collaborative Projects: Coordinated with content creators and marketing teams to ensure cohesive branding and messaging across all videos.</li>
-                        <li>Thumbnail and Description Creation: Designed eye-catching thumbnails and wrote compelling video descriptions to attract viewers and encourage interaction.</li>
-                    </ul>
-                      <p></p>
-                    </div>
-                  </div>
-
-                  <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
-                    <div class="timeline-left">
-                      <h4 class="company">bahta funny </h4>
-                      <span class="period">2023-current</span>
-                    </div>
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-right">
-                      <h3 class="position">Graphic design specialist</h3>
-                      <p class="description">As a Graphic Design Specialist at Bahta Funny YouTube Channel, I am responsible for creating engaging visual content that enhances the channel's brand identity and viewer experience. 
-                        <ul>key responsibilities include:</ul> 
-                        <ul>
-                          <li>Video Thumbnail Design: Developing eye-catching thumbnails that accurately represent video content and attract viewer attention</li>
-                          <li>Channel Branding: Designing consistent visual elements such as banners, logos, and icons to establish a cohesive brand presence across the channel.</li>
-                          <li>Motion Graphics Creation: Incorporating animations and motion graphics to enrich video content and maintain viewer engagement</li>
-                          <li>Collaborative Content Planning: Working closely with content creators and marketing teams to align visual designs with video themes and marketing strategies.</li>
-                          <li>Performance Analysis: Monitoring viewer engagement metrics to assess the effectiveness of visual designs and making data-driven adjustments as needed.</li>
-                        </ul>
-                        ​</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="resume-block" data-aos="fade-up" data-aos-delay="100">
-                <h2>My Education</h2>
-                <p class="lead">​I am currently pursuing a degree in Computer Science and Engineering at Mekelle Institute of Technology (MIT), a prominent institution established in 2002 in Mekelle, Ethiopia, dedicated to excellence in engineering, science, and technology education.
-                   MIT offers a range of undergraduate programs, including Computer Science and Engineering, and is renowned for its commitment to research and development in technological fields.</p>
-
-                <div class="timeline">
-                  <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
-                    <div class="timeline-left">
-                      <h4 class="company">Mekelle Institute of Technology (MIT)</h4>
-                      <span class="period">2019 - current</span>
-                    </div>
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-right">
-                      <h3 class="position">degree in Computer Science and Engineering</h3>
-                      <p class="description">Pursuing a degree in Computer Science and Engineering (CSE) at Mekelle Institute of Technology provides a comprehensive education that integrates principles of computer science with engineering practices. This program equips students with the skills to design, develop, and optimize both software and hardware systems. Core subjects typically include programming languages, algorithms, data structures, computer architecture, operating systems, and software engineering. Additionally, students explore areas such as artificial intelligence, networking, and information security. This interdisciplinary approach prepares graduates to address complex technological challenges and innovate across various sectors.</p>
-                    </div>
-                  </div>
-
-                  <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
-                    <div class="timeline-left">
-                      <h4 class="company">Coursera</h4>
-                      <span class="period">2025</span>
-                    </div>
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-right">
-                      <h3 class="position">Digital Marketing &amp; Graphic Design</h3>
-                      <p class="description">Coursera offers a variety of digital marketing courses, including the "Google Digital Marketing & E-commerce Professional Certificate" and the "Digital Marketing Specialization" by the University of Illinois. These programs cover essential topics like SEO, social media marketing, and content marketing, providing flexible, self-paced learning with industry-recognized certifications.</p>
-                    </div>
-                  </div>
-
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-    </section><!-- /Resume Section -->
-
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="portfolio section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Portfolio</h2>
-        <div class="title-shape">
-          <svg viewBox="0 0 200 20" xmlns="http://www.w3.org/2000/svg">
-            <path d="M 0,10 C 40,0 60,20 100,10 C 140,0 160,20 200,10" fill="none" stroke="currentColor" stroke-width="2"></path>
-          </svg>
-        </div>
-        <p>Hadush  – Digital Marketing Specialist | Online Payments Expert | YouTube Manager</p>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
-
-          <div class="portfolio-filters-container" data-aos="fade-up" data-aos-delay="200">
-            <ul class="portfolio-filters isotope-filters">
-              <li data-filter="*" class="filter-active">All Work</li>
-              <li data-filter=".filter-web">mobile Development</li>
-              <li data-filter=".filter-graphics">Graphics</li>
-              <li data-filter=".filter-motion">YouTube Managmnet</li>
-              <li data-filter=".filter-brand">Branding</li>
-            </ul>
-          </div>
-
-          <div class="row g-4 isotope-container" data-aos="fade-up" data-aos-delay="300">
-
-            <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-web">
-              <div class="portfolio-card">
-                <div class="portfolio-image">
-                  <img src="assets/img/portfolio/desaley banner-one by one.png" class="img-fluid" alt="" loading="lazy">
-                  <div class="portfolio-overlay">
-                    <div class="portfolio-actions">
-                      <a href="assets/img/portfolio/desaley banner-one by one.png" class="glightbox preview-link" data-gallery="dejen.png"><i class="bi bi-eye"></i></a>
-                      <a href="portfolio-details.html" class="details-link"><i class="bi bi-arrow-right"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="portfolio-content">
-                  <span class="category">mobile App Design</span>
-                  <h3>Modern mobile App Development</h3>
-                  <p>Modern mobile app development delivers fast, scalable, and user-friendly apps using cutting-edge frameworks, AI, and secure payments for seamless experiences. 🚀</p>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-graphics">
-              <div class="portfolio-card">
-                <div class="portfolio-image">
-                  <img src="assets/img/portfolio/desaley banner-one by one.png" class="img-fluid" alt="" loading="lazy">
-                  <div class="portfolio-overlay">
-                    <div class="portfolio-actions">
-                      <a href="assets/img/portfolio/desaley banner-one by one.png" class="glightbox preview-link" data-gallery="portfolio-gallery-graphics"><i class="bi bi-eye"></i></a>
-                      <a href="portfolio-details.html" class="details-link"><i class="bi bi-arrow-right"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="portfolio-content">
-                  <span class="category">Graphics</span>
-                  <h3>Creative Banner Design</h3>
-                  <p>A creative banner design is a visually striking graphic used for branding, advertising, or promotions. It combines colors, typography, and images to capture attention and convey messages effectively. Whether for digital or print, a well-designed banner enhances engagement and reinforces brand identity.</p>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-motion">
-              <div class="portfolio-card">
-                <div class="portfolio-image">
-                  <img src="assets/img/portfolio/desaley banner-one by one.png" class="img-fluid" alt="" loading="lazy">
-                  <div class="portfolio-overlay">
-                    <div class="portfolio-actions">
-                      <a href="assets/img/portfolio/desaley banner-one by one.png" class="glightbox preview-link" data-gallery="portfolio-gallery-motion"><i class="bi bi-eye"></i></a>
-                      <a href="portfolio-details.html" class="details-link"><i class="bi bi-arrow-right"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="portfolio-content">
-                  <span class="category">Youtube Managmnet</span>
-                  <h3>Yutube Managmnet</h3>
-                  <p>Optimizing content, growing audiences, and maximizing revenue through strategic video SEO, engagement tactics, and monetization solutions. 🚀</p>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-brand">
-              <div class="portfolio-card">
-                <div class="portfolio-image">
-                  <img src="assets/img/portfolio/desaley banner-one by one.png" class="img-fluid" alt="" loading="lazy">
-                  <div class="portfolio-overlay">
-                    <div class="portfolio-actions">
-                      <a href="assets/img/portfolio/desaley banner-one by one.png" class="glightbox preview-link" data-gallery="portfolio-gallery-brand"><i class="bi bi-eye"></i></a>
-                      <a href="portfolio-details.html" class="details-link"><i class="bi bi-arrow-right"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="portfolio-content">
-                  <span class="category">Branding</span>
-                  <h3> Branding & Monetization</h3>
-                  <p>Building a strong digital presence through YouTube growth, digital marketing strategies, and merchandise sales. Enhancing brand identity, audience engagement, and revenue generation.</p>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-web">
-              <div class="portfolio-card">
-                <div class="portfolio-image">
-                  <img src="assets/img/portfolio/online payment.png" class="img-fluid" alt="" loading="lazy">
-                  <div class="portfolio-overlay">
-                    <div class="portfolio-actions">
-                      <a href="assets/img/portfolio/online payment.png" class="glightbox preview-link" data-gallery="portfolio-gallery-web"><i class="bi bi-eye"></i></a>
-                      <a href="portfolio-details.html" class="details-link"><i class="bi bi-arrow-right"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="portfolio-content">
-                  <span class="category">Online payments/span>
-                  <h3>Online Payments Solutions</h3>
-                  <p>Secure and seamless payment processing for education fees, shopping, certifications, and more. Supporting multiple gateways for fast, reliable, and hassle-free transactions.</p>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-graphics">
-              <div class="portfolio-card">
-                <div class="portfolio-image">
-                  <img src="assets/img/portfolio/online payment.png" class="img-fluid" alt="" loading="lazy">
-                  <div class="portfolio-overlay">
-                    <div class="portfolio-actions">
-                      <a href="assets/img/portfolio/online payment.png" class="glightbox preview-link" data-gallery="portfolio-gallery-graphics"><i class="bi bi-eye"></i></a>
-                      <a href="portfolio-details.html" class="details-link"><i class="bi bi-arrow-right"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="portfolio-content">
-                  <span class="category">Digital Marketing </span>
-                  <h3>Social Media Ads Manager</h3>
-                  <p>Expert in managing and optimizing ads across Facebook, Instagram, YouTube, TikTok, and Google Ads. Driving targeted reach, engagement, and conversions through data-driven strategies.</p>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-          </div><!-- End Portfolio Container -->
-
-        </div>
-
-      </div>
-
-    </section><!-- /Portfolio Section -->
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials section light-background">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Testimonials</h2>
-        <div class="title-shape">
-          <svg viewBox="0 0 200 20" xmlns="http://www.w3.org/2000/svg">
-            <path d="M 0,10 C 40,0 60,20 100,10 C 140,0 160,20 200,10" fill="none" stroke="currentColor" stroke-width="2"></path>
-          </svg>
-        </div>
-        <p>
-          Real feedback from clients and partners showcasing the impact of my digital marketing, YouTube management, and online payment solutions. Proven results, satisfied clients! </p>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="testimonials-slider swiper init-swiper">
-          <script type="application/json" class="swiper-config">
-            {
-              "slidesPerView": 1,
-              "loop": true,
-              "speed": 600,
-              "autoplay": {
-                "delay": 5000
-              },
-              "navigation": {
-                "nextEl": ".swiper-button-next",
-                "prevEl": ".swiper-button-prev"
-              }
-            }
-          </script>
-
-          <div class="swiper-wrapper">
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <div class="row">
-                  <div class="col-lg-8">
-                    <h2>Bahta Funny’s YouTube Growth!</h2>
-                    <p>
-                      "Thanks to Hadush’s expertise in YouTube branding & management, my engagement has skyrocketed, content is optimized, and monetization is at its best! I’m not just entertaining—I'm building a strong digital brand!"                    </p>
-                    <p>
-                      "With Hadush as my branding manager, my channel has grown exponentially with optimized content, more engagement, and increased revenue. Comedy is just the beginning—thanks to him!"                     </p>
-                    <div class="profile d-flex align-items-center">
-                      <img src="assets/img/person/haftom.png" class="profile-img" alt="">
-                      <div class="profile-info">
-                        <h3>Haftom Atsbeha</h3>
-                        <span>Client</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 d-none d-lg-block">
-                    <div class="featured-img-wrapper">
-                      <img src="assets/img/person/haftom.png" class="featured-img" alt="">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End Testimonial Item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <div class="row">
-                  <div class="col-lg-8">
-                    <h2>Mhreteab Araya’s YouTube Success!</h2>
-                    <p>
-                      "Hadush has been a game-changer as my branding manager and AdSense specialist. He’s optimized my channel, boosted engagement, and maximized revenue. I’m reaching new heights!"
-                    </p>
-                    <p>
-                      "Thanks to Hadush’s YouTube branding and AdSense management, my content has been optimized, audience engagement is higher than ever, and my earnings have soared. I'm leveling up thanks to him!"
-
-                    </p>
-                    <div class="profile d-flex align-items-center">
-                      <img src="assets/img/person/mhreteab.png" class="profile-img" alt="">
-                      <div class="profile-info">
-                        <h3>Mhretab Araya</h3>
-                        <span>Client</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 d-none d-lg-block">
-                    <div class="featured-img-wrapper">
-                      <img src="assets/img/person/mhreteab.png" class="featured-img" alt="">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End Testimonial Item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <div class="row">
-                  <div class="col-lg-8">
-                    <h2>
-                      Tesfay’s Educational Payment Success
-                    </h2>
-                    <p>
-                     "Thanks to Hadush's help with online educational payments, I was able to smoothly get admitted to the program"
-                    </p>
-                    <p>
-                      "I truly appreciate his support and commitment. One day, I’ll cover the currency difference as promised!"                    </p>
-                    <div class="profile d-flex align-items-center">
-                      <img src="assets/img/person/tesfay.png" class="profile-img" alt="">
-                      <div class="profile-info">
-                        <h3>Tesfay</h3>
-                        <span>Student</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 d-none d-lg-block">
-                    <div class="featured-img-wrapper">
-                      <img src="assets/img/person/tesfay.png" class="featured-img" alt="">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End Testimonial Item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <div class="row">
-                  <div class="col-lg-8">
-                    <h2>Kiflom’s Educational Payment Success</h2>
-                    <p>
-                      "With Hadush’s assistance in online educational payments, I successfully enrolled in the program"                    </p>
-                    <p>
-                      "His support and dedication made the process smooth, and I’m grateful for his help!"                   </p>
-                    <div class="profile d-flex align-items-center">
-                      <img src="assets/img/person/kimflom.png" class="profile-img" alt="">
-                      <div class="profile-info">
-                        <h3>Kiflom </h3>
-                        <span>Student</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 d-none d-lg-block">
-                    <div class="featured-img-wrapper">
-                      <img src="assets/img/person/kimflom.png" class="featured-img" alt="">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End Testimonial Item -->
-
-          </div>
-
-          <div class="swiper-navigation w-100 d-flex align-items-center justify-content-center">
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section><!-- /Testimonials Section -->
-
-    <!-- Services Section -->
-    <section id="services" class="services section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Services</h2>
-        <div class="title-shape">
-          <svg viewBox="0 0 200 20" xmlns="http://www.w3.org/2000/svg">
-            <path d="M 0,10 C 40,0 60,20 100,10 C 140,0 160,20 200,10" fill="none" stroke="currentColor" stroke-width="2"></path>
-          </svg>
-        </div>
-        <p>Hadush’s Digital Services
-
-          </p>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row align-items-center">
-          <div class="col-lg-4 mb-5 mb-lg-0">
-            <h2 class="fw-bold mb-4 servies-title">My Services Include:</h2>
-            <p class="mb-4">I offer expert solutions in digital marketing, online payment processing, YouTube branding, and mobile app development to help businesses and individuals succeed in the digital world..</p>
-            <a href="#" class="btn btn-outline-primary">See all services</a>
-          </div>
-          <div class="col-lg-8">
-            <div class="row g-4">
-
-              <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
-                <div class="service-item">
-                  <i class="bi bi-activity icon"></i>
-                  <h3><a href="service-details.html">Digital Marketing:</a></h3>
-                  <p>Crafting data-driven strategies, managing ad campaigns, and optimizing social media presence across platforms.</p>
-                </div>
-              </div><!-- End Service Item -->
-
-              <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
-                <div class="service-item">
-                  <i class="bi bi-easel icon"></i>
-                  <h3><a href="service-details.html">YouTube Branding & Management: </a></h3>
-                  <p>Optimizing content, driving engagement, and maximizing monetization for YouTube creators.
-
-                  </p>
-                </div>
-              </div><!-- End Service Item -->
-
-              <div class="col-md-6" data-aos="fade-up" data-aos-delay="400">
-                <div class="service-item">
-                  <i class="bi bi-broadcast icon"></i>
-                  <h3><a href="service-details.html">Mobile App Development:</a></h3>
-                  <p>Creating high-performance, user-friendly mobile apps tailored to meet business needs.</p>
-                </div>
-              </div><!-- End Service Item -->
-
-              <div class="col-md-6" data-aos="fade-up" data-aos-delay="500">
-                <div class="service-item">
-                  <i class="bi bi-bounding-box-circles icon"></i>
-                  <h3><a href="service-details.html">Online Payment Solutions:</a></h3>
-                  <p>Setting up secure, efficient payment systems for education, shopping, and more.
-
-                  </p>
-                </div>
-              </div><!-- End Service Item -->
-
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-    </section><!-- /Services Section -->
-
-    
-    <!-- Contact Section -->
-    <section id="contact" class="contact section light-background">
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row g-5">
-          <div class="col-lg-6">
-            <div class="content" data-aos="fade-up" data-aos-delay="200">
-              <div class="section-category mb-3">Contact</div>
-              <h2 class="display-5 mb-4">I am ready to help you</h2>
-              <p class="lead mb-4">I'm eager to connect with you! Whether you have questions, feedback, or opportunities you'd like to discuss, please don't hesitate to reach out. 
-                You can contact me through the following channels:</p>
-
-              <div class="contact-info mt-5">
-                <div class="info-item d-flex mb-3">
-                  <i class="bi bi-envelope-at me-3"></i>
-                  <span>hadush12brhane@gmail.com</span>
-                </div>
-
-                <div class="info-item d-flex mb-3">
-                  <i class="bi bi-telephone me-3"></i>
-                  <span>+251714224955</span>
-                </div>
-
-                <div class="info-item d-flex mb-4">
-                  <i class="bi bi-geo-alt me-3"></i>
-                  <span>mekelle,Tigray po.box 2138</span>
-                </div>
-
-                <a href="#" class="map-link d-inline-flex align-items-center">
-                  Open Map
-                  <i class="bi bi-arrow-right ms-2"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-6">
-            <div class="contact-form card" data-aos="fade-up" data-aos-delay="300">
-              <div class="card-body p-4 p-lg-5">
-                <form id="data-form" class="p-4 shadow-lg rounded">
-                  <div class="row g-3">
-                    <div class="col-12">
-                      <label for="name" class="form-label">Your Name</label>
-                      <input type="text" name="name" class="form-control" placeholder="Enter your name" required>
-                    </div>
-                    <div class="col-12">
-                      <label for="email" class="form-label">Your Email</label>
-                      <input type="email" class="form-control" name="email" placeholder="Enter your email" required>
-                    </div>
-                    <div class="col-12">
-                      <label for="subject" class="form-label">Subject</label>
-                      <input type="text" class="form-control" name="subject" placeholder="Enter subject" required>
-                    </div>
-                    <div class="col-12">
-                      <label for="message" class="form-label">Message</label>
-                      <textarea class="form-control" name="message" rows="5" placeholder="Write your message" required></textarea>
-                    </div>
-                    <div class="col-12 text-center">
-                      <button type="submit" class="btn btn-primary w-100 py-2">Submit Message</button>
-                    </div>
-                    <div id="response-message" class="text-center mt-3"></div>
-                  </div>
-                </form>
-              
-                <script>
-                  document.getElementById('data-form').addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    const formData = new FormData(this);
-                    const urlEncodedData = new URLSearchParams(formData).toString();
-                    const responseMessage = document.getElementById('response-message');
-                    
-                    const scriptURL = 'https://script.google.com/macros/s/AKfycbwno6DA7a5j-3DmiWBK0HU48phGa1_crAwsbRuYiHMFIXyjFQAcppUYCEtx1tVu7HWw4g/exec';
-              
-                    fetch(scriptURL, {
-                      method: 'POST',
-                      headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                      },
-                      body: urlEncodedData
-                    })
-                    .then(response => {
-                      if (!response.ok) {
-                        throw new Error('Network response not ok: ' + response.statusText);
-                      }
-                      return response.json();
-                    })
-                    .then(data => {
-                      if (data.status === 'Success') {
-                        responseMessage.innerHTML = '<div class="alert alert-success">' + data.message + '</div>';
-                        this.reset();
-                      } else {
-                        responseMessage.innerHTML = '<div class="alert alert-danger">Error: ' + data.message + '</div>';
-                      }
-                    })
-                    .catch(error => {
-                      responseMessage.innerHTML = '<div class="alert alert-danger">Error: ' + error.message + '</div>';
-                      console.error('Fetch error:', error);
-                    });
-                  });
-                </script>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section><!-- /Contact Section -->
-
+    </section>
+    <section class="my-5">
+      <h2>Contact & Support</h2>
+      <p>For questions or enrollment support, email <a href="mailto:hadushmobilesoftware@gmail.com">hadushmobilesoftware@gmail.com</a> or call +251714224955.</p>
+    </section>
   </main>
-
-  <footer id="footer" class="footer">
-
-    <div class="container">
-      <div class="copyright text-center ">
-        <p>© <span>Copyright</span> <strong class="px-1 sitename">Hadush Brhane</strong> <span>All Rights Reserved</span></p>
-      </div>
-      <div class="social-links d-flex justify-content-center">
-        <a href="https://x.com/belay341035"><i class="bi bi-twitter-x"></i></a>
-        <a href="https://web.facebook.com/new.light.14224094"><i class="bi bi-facebook"></i></a>
-        <a href="https://www.instagram.com/hadush130?igsh=bDVybjVtb3o1aTk1"><i class="bi bi-instagram"></i></a>
-        <a href="https://www.linkedin.com/in/hadushmobile?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><i class="bi bi-linkedin"></i></a>
-
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you've purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-        Designed by <a href="https://t.me/HadushB12">Hadush Brhane</a>
-      </div>
+  <footer class="bg-light py-3 mt-5">
+  <div class="container text-center">
+    <p>© 2025 Hadush Brhane. All Rights Reserved.</p>
+    <div class="d-flex justify-content-center gap-3 mb-2">
+      <a href="https://x.com/belay341035"><i class="bi bi-twitter-x"></i></a>
+      <a href="https://web.facebook.com/new.light.14224094"><i class="bi bi-facebook"></i></a>
+      <a href="https://www.instagram.com/hadush130?igsh=bDVybjVtb3o1aTk1"><i class="bi bi-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/hadushmobile"><i class="bi bi-linkedin"></i></a>
     </div>
-    <meta name="google-adsense-account" content="ca-pub-3237559839274253">
-
-  </footer>
-
-  <!-- Scroll Top -->
-   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3237559839274253"
-     crossorigin="anonymous"></script>
-
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Vendor JS Files -->
+    <div class="credits">
+      Designed by <a href="https://t.me/HadushB12">Hadush Brhane</a>
+    </div>
+  </div>
+</footer>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-
-  <!-- Main JS File -->
-  <script src="assets/js/main.js"></script>
-  <script src="script.js"></script>
-
 </body>
-<meta name="google-adsense-account" content="ca-pub-3237559839274253">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3237559839274253"
-crossorigin="anonymous"></script>
-
-
 </html>
