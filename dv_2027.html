@@ -1,0 +1,512 @@
+<!--  <!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>DV‑2027 — Digital SunriseAds Assistance</title>
+  <style>
+    :root{
+      --bg:#f6f8fa; --card:#fff; --accent:#0aa; --muted:#666; --maxw:980px;
+      --pad:16px; --radius:10px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:var(--bg);font-family:system-ui,Segoe UI,Roboto,Arial;color:#111}
+    .wrap{max-width:var(--maxw);margin:18px auto;padding:12px}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+    .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--accent);font-weight:700}
+    .brand img{height:44px;width:auto;border-radius:6px;display:block}
+    .brand .partner{display:flex;align-items:center;gap:8px}
+    .menu{display:flex;gap:14px;align-items:center}
+    .menu a{color:#0b3;text-decoration:none;padding:6px 8px;border-radius:6px;font-weight:600}
+    .hamburger{display:none;background:transparent;border:0;padding:8px;cursor:pointer}
+    .hamburger div{width:22px;height:2px;background:#111;margin:4px 0;border-radius:2px}
+
+    header{margin-bottom:12px}
+    h1{margin:0;color:var(--accent);font-size:1.25rem}
+    .hero{display:block;width:100%;max-height:240px;object-fit:cover;border-radius:8px;margin-top:12px}
+
+    .layout{display:grid;grid-template-columns:1fr 360px;gap:14px}
+    .card{background:var(--card);border-radius:var(--radius);padding:var(--pad);box-shadow:0 2px 10px rgba(0,0,0,0.04)}
+    .muted{color:var(--muted);font-size:.95rem}
+    .warning{background:#fff8e6;border-left:4px solid #ffd966;padding:10px;border-radius:6px;margin:10px 0}
+    label{display:block;margin-top:10px;font-weight:600;font-size:.95rem}
+    input,textarea,select,button{width:100%;padding:10px;margin-top:6px;border-radius:8px;border:1px solid #ddd;font-size:.95rem}
+    button{background:var(--accent);color:#fff;border:0;cursor:pointer}
+    ol,ul{margin:8px 0 12px 20px}
+    footer{margin-top:12px;color:var(--muted);font-size:.9rem}
+    .small{font-size:.92rem}
+
+    @media (max-width:900px){
+      .layout{grid-template-columns:1fr}
+      .menu{display:none;position:absolute;top:64px;left:12px;right:12px;background:var(--card);padding:12px;border-radius:10px;box-shadow:0 6px 20px rgba(0,0,0,0.08);flex-direction:column}
+      .menu.open{display:flex}
+      .hamburger{display:block}
+      .brand img{height:38px}
+
+    }
+
+    .social {
+  margin-top: 20px;
+  text-align: center;
+}
+.social h3 {
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.social-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.social-links a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff;
+  padding: 8px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #111;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  transition: all 0.2s ease;
+}
+.social-links a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.social-links img {
+  width: 20px;
+  height: 20px;
+}
+.whatsapp { color: #25D366; }
+.telegram { color: #0088cc; }
+.youtube { color: #FF0000; }
+
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="nav" aria-label="Main navigation">
+      <a class="brand" href="#">
+        <img src="assets/img/favicon.png" alt="Digital SunriseAds logo" onerror="this.style.display='none'">
+        <div>
+          <div>Digital SunriseAds</div>
+          <div style="font-size:0.85rem;color:var(--muted)">DV‑2027 assistance</div>
+        </div>
+      </a>
+
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="partner" title="Official DV Program">
+          <a href="https://dvprogram.state.gov/" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit">
+            <img src="assets/img/U.S._Department_of_State_official_seal.svg.png" alt="DV Program" style="height:80px;width:70px;border-radius:8px">
+            <span class="muted small">dvprogram.state.gov</span>
+          </a>
+        </div>
+
+        <div class="menu" id="menu">
+          <a href="#">Home</a>
+          <a href="#info">Info</a>
+          <a href="#form">Services</a>
+          <a href="https://forms.gle/jsSFprDzbBJRfcAX7">Contact</a>
+          
+        </div>
+  <div class="social-links">
+    <a href="https://wa.me/251961224955" target="_blank" class="whatsapp" title="WhatsApp">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp">
+      WhatsApp
+    </a>
+    <a href="https://www.youtube.com/@digitalsunrisea" target="_blank" class="youtube" title="YouTube">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube">
+      YouTube
+    </a>
+  </div>
+  
+        <button class="hamburger" id="hambtn" aria-label="Toggle menu" aria-expanded="false">
+          <div></div><div></div><div></div>
+        </button>
+      </div>
+    </nav>
+    
+
+    <header>
+      <h1>DV‑2027 — Instructions & USD 1 Payment Assistance</h1>
+      <div class="muted small">Official site: <a href="https://dvprogram.state.gov/" target="_blank" rel="noopener noreferrer">dvprogram.state.gov</a></div>
+      <img class="hero" src="assets/dv2027.jpg" alt="DV 2027 banner" onerror="this.style.display='none'">
+    </header>
+
+    <div class="layout">
+      <main class="card" aria-labelledby="info">
+        <h2 id="info">Quick facts</h2>
+        <p class="muted small">Expected entry window: early Oct 2025 → early Nov 2025 (likely ~Nov 5). Results: typically announced in May following year. Confirm exact dates on the official DV Program website.</p>
+
+        <div class="warning">
+          Official DV entry fee is $1. Digital SunriseAds provides advisory help and will assist with the USD 1 entry payment on client request.
+        </div>
+
+        <h3>What you must do (steps)</h3>
+        <ol>
+          <li>Provide your details using the contact form on the right (full name, email, country of birth).</li>
+          <li>Send a recent passport-style photo that meets DV specs (we'll validate it).</li>
+          <li>Send the equivalent payment for $1 entry handling/payment via the secure payment link/instructions we provide (Bank or walet).</li>
+        </ol>
+
+        <h3>What Digital SunriseAds will do (steps)</h3>
+        <ol>
+          <li>Fill the DV entry form based on the details you provided (we will share the completed draft with you for confirmation).</li>
+          <li>Check and confirm photo eligibility against DV requirements; request a replacement if needed.</li>
+          <li>Process the USD 1 entry handling payment through the secure payment </li>
+          <li>Return payment confirmation and a summary of the submitted entry so you can keep records and check status on the official site <a href="https://dvprogram.state.gov/" > dvprogram.state.gov </a>.</li>
+        </ol>
+
+        <h3>Notes</h3>
+        <ul>
+          <li>We will never ask for your Entrant Status confirmation number. Keep that number safe — you need it to check results on </li>
+          <li>All payments are processed via secure providers; .</li>
+        </ul>
+
+        <footer class="muted">Use Entrant Status Check on <a href="https://dvprogram.state.gov/" > dvprogram.state.gov </a> to view results.
+            <br>
+             Be cautious of scams.
+             <div class="social">
+  <h3>Connect with us</h3>
+  <div class="social-links">
+    <a href="https://wa.me/251961224955" target="_blank" class="whatsapp" title="WhatsApp">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp">
+      WhatsApp
+    </a>
+    <a href="https://t.me/hbwelldone" target="_blank" class="telegram" title="Telegram">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg" alt="Telegram">
+      Telegram
+    </a>
+    <a href="https://www.youtube.com/@digitalsunrisea" target="_blank" class="youtube" title="YouTube">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube">
+      YouTube
+    </a>
+  </div>
+</div>
+
+            </footer>
+      </main>
+
+      <aside class="card" aria-labelledby="form">
+        <h2 id="form">Request assistance & USD 1 payment</h2> -->
+
+        <!-- // ...existing code... -->
+<!-- <form id="assistForm" autocomplete="off" novalidate>
+  <label for="fullName">Full name (as in passport)</label>
+  <input id="fullName" name="fullName" type="text" required placeholder="Full name">
+
+  <label for="gender">Gender</label>
+  <select id="gender" name="gender" required>
+    <option value="">-- select --</option>
+    <option>Male</option>
+    <option>Female</option>
+    <option>Other</option>
+  </select>
+
+  <label for="dob">Date of birth</label>
+  <input id="dob" name="dob" type="date" required>
+
+  <label for="birthCountry">Country of birth</label>
+  <input id="birthCountry" name="birthCountry" type="text" placeholder="Country of birth">
+
+  <label for="photo">Photograph (passport-style, JPG/PNG)</label>
+  <input id="photo" name="photo" type="file" accept="image/*">
+
+  <label for="phone">Phone number </label>
+  <input id="phone" name="phone" type="tel" placeholder="+123456789">
+
+  <label for="email">Email address</label>
+  <input id="email" name="email" type="email" required placeholder="you@example.com">
+
+  <label for="maritalStatus">Marital status</label>
+  <select id="maritalStatus" name="maritalStatus">
+    <option value="">-- select --</option>
+    <option>Single</option>
+    <option>Married</option>
+    <option>Divorced</option>
+    <option>Widowed</option>
+  </select>
+
+  <select id="service" name="service">
+    <option>Payment assistance (USD 1)</option>
+    <option>Form review</option>
+    <option>Photo check</option>
+    <option>Full package</option>
+  </select>
+
+  <label for="payMethod">Preferred payment method</label>
+  <select id="payMethod" name="payMethod">
+    <option>Bank</option>
+    <option>Tele birr</option>
+    <option>M-pesa</option>
+  </select>
+
+  <label for="consent" style="margin-top:10px;font-weight:600">Consent</label>
+  <select id="consent" name="consent" required>
+    <option value="">-- select --</option>
+    <option value="i-will-pay">I confirm I will pay USD 1 handled by Digital SunriseAds</option>
+    <option value="request-reimbursement">I request coverage for the USD 1 </option>
+  </select>
+
+  <div style="margin-top:12px">
+    <button type="submit">Send request</button>
+  </div>
+
+  <p class="muted small" style="margin-top:8px">We will reply with secure payment instructions and next steps. We never ask for your confirmation number. Official site: <a href="https://dvprogram.state.gov/" target="_blank" rel="noopener noreferrer">dvprogram.state.gov</a>.</p>
+</form>
+
+<div id="formStatus" class="muted small" style="margin-top:8px"></div>
+
+<script>
+  // *** Replace with your deployed Google Apps Script web app URL (see instructions below) ***
+  const webAppUrl = 'https://script.google.com/macros/s/AKfycbxJowvbYirhGUukip20czcMRLnoLq3FEVsIKhJsi2O5n_9-EOKwvJcrnjbv5sZSFO2l/exec';
+
+  const form = document.getElementById('assistForm');
+  const statusEl = document.getElementById('formStatus');
+  const submitBtn = form.querySelector('button[type="submit"]');
+
+  function setStatus(text, isError = false) {
+    statusEl.textContent = text;
+    statusEl.style.color = isError ? '#b00' : 'inherit';
+  }
+
+  async function readFileAsDataUrl(file) {
+    return new Promise((resolve, reject) => {
+      if (!file) return resolve('');
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => reject(new Error('Failed to read file'));
+      reader.readAsDataURL(file);
+    });
+  }
+
+  form.addEventListener('submit', async (evt) => {
+    evt.preventDefault();
+    setStatus('');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    try {
+      // collect form values into FormData (avoid setting Content-Type manually)
+      const fd = new FormData(form);
+
+      // handle photo
+      const photoInput = document.getElementById('photo');
+      const file = photoInput && photoInput.files && photoInput.files[0];
+      if (file) {
+        if (!file.type.startsWith('image/')) throw new Error('Photo must be an image');
+        if (file.size > 5 * 1024 * 1024) throw new Error('Photo too large (max 5MB)');
+        const dataUrl = await readFileAsDataUrl(file);
+        fd.set('photoDataUrl', dataUrl);
+      } else {
+        fd.set('photoDataUrl', '');
+      }
+
+      fd.set('submittedAt', new Date().toISOString());
+
+      // IMPORTANT: do NOT set 'Content-Type' header. Sending FormData avoids preflight.
+      const resp = await fetch(webAppUrl, {
+        method: 'POST',
+        body: fd
+      });
+
+      const text = await resp.text();
+      let json;
+      try { json = JSON.parse(text); } catch (e) { json = { status: 'ERROR', message: 'Invalid JSON response' }; }
+
+      if (json && json.status === 'OK') {
+        setStatus('Request submitted successfully. Reference row id: ' + (json.id || 'unknown'));
+        form.reset();
+      } else {
+        setStatus('Error submitting request: ' + (json && json.message ? json.message : 'Unknown error'), true);
+      }
+    } catch (err) {
+      setStatus('Error: ' + (err.message || err), true);
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send request';
+    }
+  });
+</script>
+
+
+</body>
+</html> --> 
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>DV-2027 — Digital SunriseAds Assistance</title>
+  <style>
+    :root{
+      --bg:#f6f8fa; --card:#fff; --accent:#0aa; --muted:#666; --maxw:980px;
+      --pad:16px; --radius:10px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:var(--bg);font-family:system-ui,Segoe UI,Roboto,Arial;color:#111}
+    .wrap{max-width:var(--maxw);margin:18px auto;padding:12px}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+    .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--accent);font-weight:700}
+    .brand img{height:44px;width:auto;border-radius:6px;display:block}
+    .brand .partner{display:flex;align-items:center;gap:8px}
+    .menu{display:flex;gap:14px;align-items:center}
+    .menu a{color:#0b3;text-decoration:none;padding:6px 8px;border-radius:6px;font-weight:600}
+    .hamburger{display:none;background:transparent;border:0;padding:8px;cursor:pointer}
+    .hamburger div{width:22px;height:2px;background:#111;margin:4px 0;border-radius:2px}
+
+    header{margin-bottom:12px}
+    h1{margin:0;color:var(--accent);font-size:1.25rem}
+    .hero{display:block;width:100%;max-height:240px;object-fit:cover;border-radius:8px;margin-top:12px}
+
+    .layout{display:grid;grid-template-columns:1fr 360px;gap:14px}
+    .card{background:var(--card);border-radius:var(--radius);padding:var(--pad);box-shadow:0 2px 10px rgba(0,0,0,0.04)}
+    .muted{color:var(--muted);font-size:.95rem}
+    .warning{background:#fff8e6;border-left:4px solid #ffd966;padding:10px;border-radius:6px;margin:10px 0}
+    footer{margin-top:12px;color:var(--muted);font-size:.9rem}
+    .small{font-size:.92rem}
+
+    @media (max-width:900px){
+      .layout{grid-template-columns:1fr}
+      .menu{display:none;position:absolute;top:64px;left:12px;right:12px;background:var(--card);padding:12px;border-radius:10px;box-shadow:0 6px 20px rgba(0,0,0,0.08);flex-direction:column}
+      .menu.open{display:flex}
+      .hamburger{display:block}
+      .brand img{height:38px}
+    }
+  </style>
+  <script async custom-element="amp-auto-ads"
+        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+</script>
+</head>
+<body>
+  <amp-auto-ads type="adsense"
+        data-ad-client="ca-pub-3237559839274253">
+</amp-auto-ads>
+  <div class="wrap">
+    <nav class="nav" aria-label="Main navigation">
+      <a class="brand" href="#">
+        <img src="assets/img/favicon.png" alt="Digital SunriseAds logo" onerror="this.style.display='none'">
+        <div>
+          <div>Digital SunriseAds</div>
+          <div style="font-size:0.85rem;color:var(--muted)">DV-2027 assistance</div>
+        </div>
+      </a>
+
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="partner" title="Official DV Program">
+          <a href="https://dvprogram.state.gov/" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit">
+            <img src="assets/img/U.S._Department_of_State_official_seal.svg.png" alt="DV Program" style="height:80px;width:70px;border-radius:8px">
+            <span class="muted small">dvprogram.state.gov</span>
+          </a>
+        </div>
+
+        <div class="menu" id="menu">
+          <a href="#">Home</a>
+          <a href="#info">Info</a>
+          <a href="#form">Services</a>
+          <a href="https://forms.gle/jsSFprDzbBJRfcAX7">Contact</a>
+        </div>
+          <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
+            <a href="https://wa.me/251961224955" target="_blank" style="text-decoration:none;color:#0a0;font-weight:600;">WhatsApp</a>
+            <a href="https://www.youtube.com/@digitalsunrisea" target="_blank" style="text-decoration:none;color:#c00;font-weight:600;">YouTube</a>
+          </div>
+        
+
+        <button class="hamburger" id="hambtn" aria-label="Toggle menu" aria-expanded="false">
+          <div></div><div></div><div></div>
+        </button>
+      </div>
+    </nav>
+
+    <header>
+      <h1>DV-2027 — Instructions & USD 1 Payment Assistance</h1>
+      <div class="muted small">Official site: <a href="https://dvprogram.state.gov/" target="_blank" rel="noopener noreferrer">dvprogram.state.gov</a></div>
+      <img class="hero" src="assets/dv2027.jpg" alt="DV 2027 banner" onerror="this.style.display='none'">
+    </header>
+
+    <div class="layout">
+      <main class="card" aria-labelledby="info">
+        <h2 id="info">Quick facts</h2>
+        <p class="muted small">Expected entry window: early Oct 2025 → early Nov 2025 (likely ~Nov 5). Results: typically announced in May following year. Confirm exact dates on the official DV Program website.</p>
+
+        <div class="warning">
+          Official DV entry fee is $1. Digital SunriseAds provides advisory help and will assist with the USD 1 entry payment on client request.
+        </div>
+
+        <h3>What you must do (steps)</h3>
+        <ol>
+          <li>Provide your details using the contact form on the right (full name, email, country of birth).</li>
+          <li>Send a recent passport-style photo that meets DV specs (we'll validate it).</li>
+          <li>Send the equivalent payment for $1 entry handling/payment via the secure payment link/instructions we provide (Bank or wallet).</li>
+        </ol>
+
+        <h3>What Digital SunriseAds will do (steps)</h3>
+        <ol>
+          <li>Fill the DV entry form based on the details you provided (we will share the completed draft with you for confirmation).</li>
+          <li>Check and confirm photo eligibility against DV requirements; request a replacement if needed.</li>
+          <li>Process the USD 1 entry handling payment through the secure payment channel.</li>
+          <li>Return payment confirmation and a summary of the submitted entry so you can keep records and check status on the official site <a href="https://dvprogram.state.gov/">dvprogram.state.gov</a>.</li>
+        </ol>
+
+        <h3>Notes</h3>
+        <script async custom-element="amp-auto-ads"
+        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+</script>
+        <ul>
+          <li>We will never ask for your Entrant Status confirmation number. Keep that number safe — you need it to check results.</li>
+          <li>All payments are processed via secure providers.</li>
+        </ul>
+
+        <footer class="muted">
+          Use Entrant Status Check on <a href="https://dvprogram.state.gov/">dvprogram.state.gov</a> to view results.
+          <br>Be cautious of scams.
+          <!-- Social Media Section -->
+        <div style="margin-top:16px; text-align:center;">
+          <p class="muted small">Connect with us:</p>
+          <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
+            <a href="https://wa.me/251961224955" target="_blank" style="text-decoration:none;color:#0a0;font-weight:600;">WhatsApp</a>
+            <a href="https://t.me/hbwelldone" target="_blank" style="text-decoration:none;color:#0088cc;font-weight:600;">Telegram</a>
+            <a href="https://www.youtube.com/@digitalsunrisea" target="_blank" style="text-decoration:none;color:#c00;font-weight:600;">YouTube</a>
+          </div>
+        </div>
+        </footer>
+      </main>
+
+      <aside class="card" aria-labelledby="form">
+        <h2 id="form">Request assistance & USD 1 payment</h2>
+
+        <!-- Embedded Google Form -->
+        <iframe 
+          src="https://docs.google.com/forms/d/e/1FAIpQLSdRm-3wkzsfzQWQraGLCrFQyp0KojAXwqCBoeSphlUsE5rZsg/viewform?embedded=true" 
+          width="100%" 
+          height="850" 
+          frameborder="0" 
+          marginheight="0" 
+          marginwidth="0"
+          style="border:0; border-radius:10px; background:#fff;">
+          Loading…
+        </iframe>
+
+        <p class="muted small" style="margin-top:8px">
+          We will reply with secure payment instructions and next steps.  
+          We never ask for your confirmation number.  
+          Official site: 
+          <a href="https://dvprogram.state.gov/" target="_blank" rel="noopener noreferrer">dvprogram.state.gov</a>.
+        </p>
+
+        
+      </aside>
+    </div>
+  </div>
+  <script async custom-element="amp-auto-ads"
+        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+</script>
+<amp-auto-ads type="adsense"
+        data-ad-client="ca-pub-3237559839274253">
+</amp-auto-ads>
+  
+</body>
+</html>
