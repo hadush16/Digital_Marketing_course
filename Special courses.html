@@ -3,102 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Sunrise Ads </title>
+    <title>Digital Sunrise Ads | Master Digital Marketing</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3237559839274253" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
-        :root { --brand: #0d6efd; --bg: #f8f9fa; }
-        body { background: var(--bg); font-family: 'Inter', sans-serif; }
+        :root { --primary: #0d6efd; --dark: #121212; }
+        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background: #fdfdfd; }
+        .hero-gradient { background: linear-gradient(135deg, #121212 0%, #1a1a1a 100%); color: white; padding: 100px 0 60px; }
         .course-card { 
-            border: none; border-radius: 20px; transition: 0.3s; 
-            overflow: hidden; background: white; height: 100%;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            border: 1px solid #eee; border-radius: 24px; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            background: #fff; height: 100%; position: relative; overflow: hidden;
         }
-        .course-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(13,110,253,0.15); }
-        .card-img-top { height: 180px; object-fit: cover; background: #e9ecef; }
-        .btn-view { border-radius: 12px; font-weight: 600; padding: 10px 20px; }
+        .course-card:hover { transform: translateY(-12px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); border-color: var(--primary); }
+        .category-tag { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: var(--primary); }
+        .btn-main { border-radius: 50px; padding: 12px 30px; font-weight: 600; transition: 0.3s; }
+        /* Ad Placement Styling */
+        .ad-slot { background: #f8f9fa; border: 1px dashed #ccc; text-align: center; padding: 20px; margin: 20px 0; border-radius: 12px; }
     </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="index.html">DIGITAL SUNRISE ADS</a>
+        <a class="navbar-brand fw-bold" href="index.html">DIGITAL <span class="text-primary">SUNRISE</span> ADS</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="#courses">All Modules</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">Support</a></li>
+                <li class="nav-item ms-lg-3"><a class="btn btn-primary btn-sm px-4 rounded-pill" href="contact.html">Enroll Now</a></li>
+            </ul>
+        </div>
     </div>
 </nav>
 
-<div class="container py-5">
-    <div class="text-center mb-5">
-        <h1 class="fw-bold text-dark">Your Digital Marketing Path</h1>
-        <p class="text-muted">Master the 5 core pillars of online growth.</p>
-    </div>
-
-    <div class="row g-4">
-        <div class="col-md-6 col-lg-4">
-            <div class="card course-card">
-                <div class="p-4 text-center bg-primary text-white">
-                    <i class="bi bi-megaphone display-4"></i>
-                </div>
-                <div class="card-body p-4">
-                    <h5 class="fw-bold">Module 4: Social Ads</h5>
-                    <p class="small text-muted">FB, IG, TikTok & X Ad Campaigns</p>
-                    <a href="course-details.html?mod=4" class="btn btn-primary w-100 btn-view">Learn Details</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6 col-lg-4">
-            <div class="card course-card">
-                <div class="p-4 text-center bg-success text-white">
-                    <i class="bi bi-pen display-4"></i>
-                </div>
-                <div class="card-body p-4">
-                    <h5 class="fw-bold">Module 5: Storytelling</h5>
-                    <p class="small text-muted">Branding & Content Strategy</p>
-                    <a href="course-details.html?mod=5" class="btn btn-success w-100 btn-view text-white">Learn Details</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6 col-lg-4">
-            <div class="card course-card">
-                <div class="p-4 text-center bg-warning text-dark">
-                    <i class="bi bi-search display-4"></i>
-                </div>
-                <div class="card-body p-4">
-                    <h5 class="fw-bold">Module 6: Search SEO</h5>
-                    <p class="small text-muted">Google Ranking & Keyword SEM</p>
-                    <a href="course-details.html?mod=6" class="btn btn-warning w-100 btn-view text-dark">Learn Details</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6 col-lg-4">
-            <div class="card course-card">
-                <div class="p-4 text-center bg-info text-white">
-                    <i class="bi bi-people display-4"></i>
-                </div>
-                <div class="card-body p-4">
-                    <h5 class="fw-bold">Module 7: Influencers</h5>
-                    <p class="small text-muted">Email, Outreach & Mobile</p>
-                    <a href="course-details.html?mod=7" class="btn btn-info w-100 btn-view text-white">Learn Details</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6 col-lg-4">
-            <div class="card course-card">
-                <div class="p-4 text-center bg-danger text-white">
-                    <i class="bi bi-graph-up-arrow display-4"></i>
-                </div>
-                <div class="card-body p-4">
-                    <h5 class="fw-bold">Module 9: Data & ROI</h5>
-                    <p class="small text-muted">Google Analytics & Meta Data</p>
-                    <a href="course-details.html?mod=9" class="btn btn-danger w-100 btn-view">Learn Details</a>
-                </div>
-            </div>
+<header class="hero-gradient">
+    <div class="container text-center">
+        <span class="badge bg-primary mb-3 px-3 py-2 rounded-pill">#1 Marketing School in Ethiopia</span>
+        <h1 class="display-3 fw-bold mb-4">Advance Your Career in <br><span class="text-primary">Digital Marketing</span></h1>
+        <p class="lead text-secondary mb-5 mx-auto" style="max-width: 700px;">Hands-on training focused on real ROI, data analytics, and professional ad management.</p>
+        <div class="d-flex justify-content-center gap-3">
+            <a href="#courses" class="btn btn-primary btn-main">Explore Modules</a>
+            <a href="contact.html" class="btn btn-outline-light btn-main">Free Consultation</a>
         </div>
     </div>
+</header>
+
+<div class="container ad-slot">
+    <small class="text-muted d-block mb-2">Advertisement</small>
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3237559839274253" data-ad-slot="YOUR_AD_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script> (adsbygoogle = window.adsbygoogle || []).push({}); </script>
 </div>
+
+<section id="courses" class="container py-5">
+    <div class="row g-4">
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="course-card p-4">
+                <div class="category-tag mb-2">Paid Advertising</div>
+                <h4 class="fw-bold">Module 4: Social Ads Mastery</h4>
+                <p class="text-muted small">Master Facebook, Instagram, TikTok & X Ads. Create high-converting campaigns from scratch.</p>
+                <div class="d-flex justify-content-between align-items-center mt-4">
+                    <span class="fw-bold text-success">ETB 3,500</span>
+                    <a href="course-details.html?mod=4" class="btn btn-dark btn-sm rounded-pill px-4">View Details</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="course-card p-4">
+                <div class="category-tag mb-2">Creative Strategy</div>
+                <h4 class="fw-bold">Module 5: Brand Storytelling</h4>
+                <p class="text-muted small">Develop content plans and branded stories that build trust and drive organic sales.</p>
+                <div class="d-flex justify-content-between align-items-center mt-4">
+                    <span class="fw-bold text-success">ETB 2,000</span>
+                    <a href="course-details.html?mod=5" class="btn btn-dark btn-sm rounded-pill px-4">View Details</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="course-card p-4">
+                <div class="category-tag mb-2">Search Engines</div>
+                <h4 class="fw-bold">Module 6: Google SEO/SEM</h4>
+                <p class="text-muted small">Rank #1 organically and learn Google Ads (PPC) to dominate the search results.</p>
+                <div class="d-flex justify-content-between align-items-center mt-4">
+                    <span class="fw-bold text-success">ETB 4,000</span>
+                    <a href="course-details.html?mod=6" class="btn btn-dark btn-sm rounded-pill px-4">View Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="bg-dark text-white py-5 mt-5">
+    <div class="container text-center">
+        <p class="mb-0">&copy; 2025 Digital Sunrise Ads. All Rights Reserved.</p>
+        <small class="text-secondary">Designed by Hadush Brhane</small>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
