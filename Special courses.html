@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Sunrise Ads | Academy</title>
+    <title>Digital Sunrise Ads | Master Academy</title>
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3237559839274253" crossorigin="anonymous"></script>
     <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"></script>
@@ -12,110 +12,112 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     
     <style>
-        :root { --p-blue: #0062ff; --p-cyan: #00d2ff; --dark: #050608; }
-        body { background-color: var(--dark); color: #fff; font-family: 'Segoe UI', Roboto, sans-serif; }
+        :root { --accent: #00d2ff; --primary: #0062ff; --dark-bg: #05060a; --glass: rgba(255, 255, 255, 0.05); }
+        body { background-color: var(--dark-bg); color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
         
-        /* Premium Background Effect */
-        .bg-glow {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% -20%, #1a2a4a, transparent);
-            z-index: -1;
-        }
-
-        .navbar { background: rgba(5, 6, 8, 0.9) !important; backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .nav-glass { background: rgba(5, 6, 10, 0.8); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255,255,255,0.1); }
         
-        .hero-title {
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
-            font-weight: 800;
-            background: linear-gradient(to right, #fff, var(--p-cyan));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
+        .hero-section { padding: 120px 0 80px; background: radial-gradient(circle at top right, #102a5a, transparent); }
+        .hero-title { font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 900; background: linear-gradient(45deg, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* Responsive Glass Cards */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 28px;
-            padding: 2rem;
-            transition: 0.4s;
-            height: 100%;
-            backdrop-filter: blur(12px);
+        /* Responsive Module Cards */
+        .module-card {
+            background: var(--glass); border: 1px solid rgba(255,255,255,0.1); border-radius: 30px;
+            padding: 35px; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); height: 100%;
+            backdrop-filter: blur(10px); position: relative; overflow: hidden;
         }
-        .glass-card:hover {
-            border-color: var(--p-cyan);
-            background: rgba(255, 255, 255, 0.07);
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 210, 255, 0.15);
-        }
+        .module-card:hover { transform: translateY(-15px); border-color: var(--accent); background: rgba(255,255,255,0.08); box-shadow: 0 20px 50px rgba(0, 210, 255, 0.2); }
+        
+        .icon-box { width: 70px; height: 70px; border-radius: 20px; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 25px; box-shadow: 0 10px 20px rgba(0, 98, 255, 0.3); }
 
-        .btn-action {
-            background: linear-gradient(45deg, var(--p-blue), var(--p-cyan));
-            color: white; border: none; border-radius: 50px;
-            padding: 12px 35px; font-weight: 700; transition: 0.3s;
-        }
-        .btn-action:hover { box-shadow: 0 0 25px rgba(0, 210, 255, 0.5); color: white; transform: scale(1.05); }
-
-        .price-badge { background: rgba(0, 210, 255, 0.1); color: var(--p-cyan); padding: 4px 12px; border-radius: 50px; font-size: 0.85rem; }
+        .btn-premium { background: linear-gradient(90deg, var(--primary), var(--accent)); color: #fff; border: none; border-radius: 50px; padding: 15px 40px; font-weight: 700; transition: 0.3s; }
+        .btn-premium:hover { box-shadow: 0 0 30px rgba(0, 210, 255, 0.5); transform: scale(1.05); color: #fff; }
+        
+        .price-text { font-size: 1.5rem; font-weight: 800; color: var(--accent); }
     </style>
 </head>
 <body>
     <amp-auto-ads type="adsense" data-ad-client="ca-pub-3237559839274253"></amp-auto-ads>
-    <div class="bg-glow"></div>
 
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark nav-glass fixed-top">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="index.html">SUNRISE<span class="text-info">ADS</span></a>
-            <a href="https://wa.me/251714224955" class="btn btn-outline-info btn-sm rounded-pill px-4">Direct Chat</a>
+            <a class="navbar-brand fw-bold fs-3" href="index.html"><i class="bi bi-lightning-charge-fill text-info"></i> SUNRISE<span class="text-info">ADS</span></a>
+            <div class="ms-auto"><a href="https://wa.me/251714224955" class="btn btn-outline-info rounded-pill px-4">Contact Tutor</a></div>
         </div>
     </nav>
 
-    <header class="container py-5 mt-5 text-center">
-        <h1 class="hero-title mb-4">Master Digital <br>High-ROI Advertising</h1>
-        <p class="lead text-secondary mb-5 px-3">Ethiopia's most detailed curriculum for Ads, SEO, and Data Metrics.</p>
-        
-        <div class="my-4" style="min-height:90px">
-            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3237559839274253" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
-            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    <header class="hero-section text-center">
+        <div class="container">
+            <h1 class="hero-title mb-3">Master Digital <br>Marketing ROI</h1>
+            <p class="lead text-secondary fs-4 mb-5">Professional curriculum tailored for the Ethiopian digital landscape.</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="#curriculum" class="btn btn-premium">Explore Modules</a>
+            </div>
         </div>
     </header>
 
-    <section class="container mb-5">
+    <section id="curriculum" class="container py-5">
         <div class="row g-4">
-            <div class="col-12 col-lg-4">
-                <div class="glass-card">
-                    <div class="d-flex justify-content-between mb-4">
-                        <i class="bi bi-megaphone-fill fs-1 text-info"></i>
-                        <span class="price-badge">Module 4</span>
-                    </div>
-                    <h3 class="fw-bold">Social Media Ads</h3>
-                    <p class="text-secondary small">Master FB, IG, TikTok & X Ads. Includes creative hooks and daily budget scaling.</p>
-                    <hr class="border-secondary">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="fw-bold fs-5">ETB 3,500</span>
-                        <a href="course-details.html?mod=4" class="btn btn-action btn-sm">Details</a>
+            <div class="col-lg-4 col-md-6">
+                <div class="module-card">
+                    <div class="icon-box"><i class="bi bi-megaphone"></i></div>
+                    <h3 class="fw-bold">Module 4: Social Ads</h3>
+                    <p class="text-secondary small mb-4">Meta, TikTok, & X advertising strategies. Master the secret algorithms of 2025.</p>
+                    <div class="d-flex justify-content-between align-items-center mt-auto">
+                        <span class="price-text">ETB 3,500</span>
+                        <a href="course-details.html?mod=4" class="btn btn-outline-info rounded-pill px-3">Details</a>
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-lg-4">
-                <div class="glass-card">
-                    <div class="d-flex justify-content-between mb-4">
-                        <i class="bi bi-graph-up-arrow fs-1 text-warning"></i>
-                        <span class="price-badge">Module 9</span>
-                    </div>
-                    <h3 class="fw-bold">Data Analytics</h3>
-                    <p class="text-secondary small">Learn Google Analytics 4, Meta Pixel, and ROI tracking for campaigns.</p>
-                    <hr class="border-secondary">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="fw-bold fs-5">ETB 4,500</span>
-                        <a href="course-details.html?mod=9" class="btn btn-action btn-sm">Details</a>
+            <div class="col-lg-4 col-md-6">
+                <div class="module-card">
+                    <div class="icon-box" style="background: linear-gradient(135deg, #00ff88, #00d2ff);"><i class="bi bi-pen"></i></div>
+                    <h3 class="fw-bold">Module 5: Storytelling</h3>
+                    <p class="text-secondary small mb-4">Branded content and psychology-based marketing. Stop selling, start connecting.</p>
+                    <div class="d-flex justify-content-between align-items-center mt-auto">
+                        <span class="price-text">ETB 2,800</span>
+                        <a href="course-details.html?mod=5" class="btn btn-outline-info rounded-pill px-3">Details</a>
                     </div>
                 </div>
             </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="module-card">
+                    <div class="icon-box" style="background: linear-gradient(135deg, #ffcc00, #ff9900);"><i class="bi bi-search"></i></div>
+                    <h3 class="fw-bold">Module 6: SEO & SEM</h3>
+                    <p class="text-secondary small mb-4">Search engine dominance. Learn how to rank #1 on Google organically and via Ads.</p>
+                    <div class="d-flex justify-content-between align-items-center mt-auto">
+                        <span class="price-text">ETB 4,200</span>
+                        <a href="course-details.html?mod=6" class="btn btn-outline-info rounded-pill px-3">Details</a>
+                    </div>
+                </div>
             </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="module-card">
+                    <div class="icon-box" style="background: linear-gradient(135deg, #ff00cc, #3333ff);"><i class="bi bi-phone"></i></div>
+                    <h3 class="fw-bold">Module 7: Influencer/Email</h3>
+                    <p class="text-secondary small mb-4">Mobile-first marketing, Influencer outreach plans, and automated email funneling.</p>
+                    <div class="d-flex justify-content-between align-items-center mt-auto">
+                        <span class="price-text">ETB 3,200</span>
+                        <a href="course-details.html?mod=7" class="btn btn-outline-info rounded-pill px-3">Details</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="module-card">
+                    <div class="icon-box" style="background: linear-gradient(135deg, #ff3300, #ff9900);"><i class="bi bi-graph-up"></i></div>
+                    <h3 class="fw-bold">Module 9: Analytics</h3>
+                    <p class="text-secondary small mb-4">Data-driven decisions. Meta Ads Manager & Google Analytics 4 (GA4).</p>
+                    <div class="d-flex justify-content-between align-items-center mt-auto">
+                        <span class="price-text">ETB 4,500</span>
+                        <a href="course-details.html?mod=9" class="btn btn-outline-info rounded-pill px-3">Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <footer class="text-center py-5 border-top border-secondary mt-5">
-        <p class="text-secondary mb-0">© 2025 Digital Sunrise Ads | Hadush Brhane</p>
+    <footer class="py-5 text-center border-top border-secondary mt-5">
+        <p class="text-secondary mb-0">© 2025 Hadush Brhane - Digital Sunrise Ads</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
