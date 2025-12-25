@@ -154,47 +154,47 @@
             d.topics.forEach(t => html += `<div class="topic-point"><h4>${t}</h4><p class="text-secondary small">Industry standard best-practice implementation.</p></div>`);
             document.getElementById('mContent').innerHTML = html;
         }
-
-        // --- GOOGLE APPS SCRIPT SUBMISSION LOGIC ---
+// --- UPDATED SUBMISSION LOGIC ---
         document.getElementById('enrollForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const submitBtn = document.getElementById('submitBtn');
             const responseMsg = document.getElementById('response-message');
+            // Ensure this URL is your LATEST deployment URL
             const scriptURL = 'https://script.google.com/macros/s/AKfycbwno6DA7a5j-3DmiWBK0HU48phGa1_crAwsbRuYiHMFIXyjFQAcppUYCEtx1tVu7HWw4g/exec';
 
-            // Loading State
             submitBtn.disabled = true;
             submitBtn.innerText = "Processing...";
-            responseMsg.innerHTML = '<div class="alert alert-info">Saving your enrollment...</div>';
+            responseMsg.innerHTML = '<div class="alert alert-info">Checking registration status...</div>';
 
             const formData = new FormData(this);
-            const urlEncodedData = new URLSearchParams(formData).toString();
-
+            
+            // We use 'fetch' without 'no-cors' to actually read the response
             fetch(scriptURL, {
                 method: 'POST',
-                mode: 'no-cors', // Essential for Google Apps Script to work across domains
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: urlEncodedData
+                body: formData // Send as FormData
             })
-            .then(() => {
-                // Success State
-                responseMsg.innerHTML = '<div class="alert alert-success">Enrollment Saved! Opening WhatsApp...</div>';
-                
-                // Redirect to WhatsApp after 1.5 seconds
-                setTimeout(() => {
-                    const waText = `Hello, I just registered for the ${d.title} course.`;
-                    window.location.href = "https://wa.me/message/CMIS3ANMGVB7C1?text=" + encodeURIComponent(waText);
-                }, 1500);
+            .then(res => res.json()) // Parse the JSON from your Apps Script
+            .then(data => {
+                if (data.status === 'Duplicate') {
+                    responseMsg.innerHTML = `<div class="alert alert-warning">⚠️ ${data.message}</div>`;
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = "ENROLL NOW";
+                } else {
+                    responseMsg.innerHTML = '<div class="alert alert-success">Enrollment Saved! Opening WhatsApp...</div>';
+                    setTimeout(() => {
+                        const waText = `Hello, I just registered for the ${d.title} course.`;
+                        window.location.href = "https://wa.me/message/CMIS3ANMGVB7C1?text=" + encodeURIComponent(waText);
+                    }, 1500);
+                }
             })
             .catch(error => {
-                // Error State
                 submitBtn.disabled = false;
                 submitBtn.innerText = "ENROLL NOW";
-                responseMsg.innerHTML = '<div class="alert alert-danger">Error: ' + error.message + '</div>';
-                console.error('Error!', error.message);
+                responseMsg.innerHTML = '<div class="alert alert-danger">Connection Error. Please try again.</div>';
             });
         });
+        
     </script>
 </body>
 </html>
