@@ -3,100 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EthioJobs | Professional Portal</title>
+    <title>EthioJobs | Professional Portal 2025</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --primary: #003366; --secondary: #00509d; --accent: #facc15; --bg: #f8fafc; --white: #ffffff; }
-        * { box-sizing: border-box; transition: 0.3s; }
-        body { font-family: 'Segoe UI', Roboto, sans-serif; margin: 0; background: var(--bg); display: flex; }
+        :root { --primary: #003366; --danger: #dc2626; --success: #16a34a; --bg: #f1f5f9; }
+        * { box-sizing: border-box; transition: 0.2s; }
+        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg); display: flex; }
 
-        /* --- SIDEBAR DRAWER --- */
-        #sidebar { width: 280px; height: 100vh; background: var(--primary); color: white; position: fixed; left: -280px; z-index: 1000; overflow-y: auto; }
+        /* --- SIDEBAR --- */
+        #sidebar { width: 280px; height: 100vh; background: var(--primary); color: white; position: fixed; left: -280px; z-index: 1001; }
         #sidebar.active { left: 0; }
-        .sidebar-header { padding: 30px 20px; background: rgba(0,0,0,0.2); text-align: center; }
+        .sidebar-header { padding: 25px; background: rgba(0,0,0,0.2); font-weight: bold; }
         #sidebar ul { list-style: none; padding: 0; }
-        #sidebar li { padding: 15px 25px; border-bottom: 1px solid rgba(255,255,255,0.05); cursor: pointer; display: flex; align-items: center; gap: 12px; }
-        #sidebar li:hover { background: var(--secondary); padding-left: 35px; }
+        #sidebar li { padding: 15px 25px; border-bottom: 1px solid #ffffff11; cursor: pointer; }
 
-        /* --- MAIN LAYOUT --- */
-        .content { flex: 1; width: 100%; min-height: 100vh; }
-        header { background: var(--white); padding: 15px 5%; display: flex; align-items: center; gap: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 900; }
-        .menu-trigger { font-size: 1.5rem; cursor: pointer; color: var(--primary); border: none; background: none; }
+        /* --- MAIN --- */
+        .main { flex: 1; width: 100%; }
+        header { background: white; padding: 15px 5%; display: flex; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 900; }
+        .menu-btn { font-size: 1.5rem; cursor: pointer; border: none; background: none; color: var(--primary); }
         
-        .nav-categories { display: flex; gap: 10px; overflow-x: auto; padding: 15px 5%; background: white; border-top: 1px solid #eee; scrollbar-width: none; }
-        .cat-pill { padding: 8px 18px; background: #e2e8f0; border-radius: 20px; cursor: pointer; white-space: nowrap; font-size: 0.9rem; font-weight: 600; }
-        .cat-pill.active { background: var(--primary); color: white; }
+        .cat-bar { display: flex; gap: 10px; overflow-x: auto; padding: 15px 5%; background: white; border-top: 1px solid #eee; }
+        .pill { padding: 8px 20px; background: #e2e8f0; border-radius: 20px; cursor: pointer; white-space: nowrap; font-weight: 600; font-size: 0.9rem; }
+        .pill.active { background: var(--primary); color: white; }
 
-        /* --- JOB CARDS --- */
-        .container { padding: 30px 5%; max-width: 1200px; margin: auto; }
-        .job-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-        .job-card { background: var(--white); border-radius: 12px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); border: 1px solid #eef2f6; text-decoration: none; color: inherit; display: flex; flex-direction: column; position: relative; }
-        .job-card:hover { transform: translateY(-5px); box-shadow: 0 12px 20px rgba(0,0,0,0.08); border-color: var(--secondary); }
+        .container { padding: 25px 5%; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
         
-        .level-badge { font-size: 0.7rem; font-weight: 800; padding: 4px 10px; border-radius: 4px; text-transform: uppercase; margin-bottom: 10px; display: inline-block; width: fit-content; }
-        .junior { background: #dcfce7; color: #166534; }
-        .mid { background: #dbeafe; color: #1e40af; }
-        .senior { background: #fef9c3; color: #854d0e; }
-
-        .job-card h3 { margin: 5px 0; font-size: 1.15rem; color: var(--primary); }
-        .job-card .company { color: #64748b; font-weight: 600; font-size: 0.95rem; }
-        .job-card .meta { margin-top: auto; padding-top: 15px; font-size: 0.85rem; color: #94a3b8; display: flex; justify-content: space-between; }
-
-        /* --- OVERLAY --- */
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; z-index: 999; }
+        /* --- JOB CARD --- */
+        .job-card { background: white; padding: 20px; border-radius: 12px; text-decoration: none; color: inherit; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 4px solid var(--primary); position: relative; }
+        .job-card.expired { opacity: 0.6; border-top-color: #94a3b8; grayscale: 1; }
+        .job-card:hover { transform: translateY(-5px); }
+        
+        .status-badge { font-size: 0.7rem; font-weight: 800; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; margin-bottom: 8px; display: inline-block; }
+        .expired-label { background: #fee2e2; color: var(--danger); }
+        .active-label { background: #dcfce7; color: var(--success); }
+        
+        .meta-info { font-size: 0.85rem; color: #64748b; margin-top: 10px; display: flex; flex-direction: column; gap: 4px; }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; z-index: 1000; }
         .overlay.active { display: block; }
-
-        @media (max-width: 768px) { .job-list { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
     <nav id="sidebar">
-        <div class="sidebar-header"><h3>ETHIOJOBS MENU</h3></div>
-        <ul>
-            <li onclick="filterJobs('all')"><i class="fa fa-briefcase"></i> All Vacancies</li>
-            <li onclick="filterJobs('Banking')"><i class="fa fa-university"></i> Banking & Finance</li>
-            <li onclick="filterJobs('NGO')"><i class="fa fa-hands-helping"></i> NGO & Social Work</li>
-            <li onclick="filterJobs('IT')"><i class="fa fa-code"></i> IT & Engineering</li>
-            <li onclick="filterJobs('Health')"><i class="fa fa-user-md"></i> Healthcare</li>
-            <li onclick="filterJobs('Education')"><i class="fa fa-graduation-cap"></i> Education</li>
-        </ul>
+        <div class="sidebar-header">Job Categories</div>
+        <ul id="sidebarList">
+            </ul>
     </nav>
-
     <div class="overlay" id="overlay"></div>
 
-    <div class="content">
+    <div class="main">
         <header>
-            <button class="menu-trigger" onclick="toggleMenu()"><i class="fa fa-bars"></i></button>
-            <h2 style="color: var(--primary); margin:0;">Portal</h2>
-            <div style="margin-left:auto;"><i class="fa fa-search"></i></div>
+            <button class="menu-btn" onclick="toggleMenu()"><i class="fa fa-bars"></i></button>
+            <h2 style="margin: 0 0 0 20px; color: var(--primary)">EthioJobs Portal</h2>
         </header>
 
-        <div class="nav-categories" id="catNav">
-            <div class="cat-pill active" onclick="filterJobs('all')">All</div>
-            <div class="cat-pill" onclick="filterJobs('Banking')">Banking</div>
-            <div class="cat-pill" onclick="filterJobs('NGO')">NGO</div>
-            <div class="cat-pill" onclick="filterJobs('IT')">Technology</div>
-            <div class="cat-pill" onclick="filterJobs('Health')">Health</div>
-            <div class="cat-pill" onclick="filterJobs('Education')">Education</div>
-        </div>
+        <div class="cat-bar" id="catBar">
+            </div>
 
-        <div class="container">
-            <div class="job-list" id="jobGrid">
-                </div>
-        </div>
+        <div class="container" id="jobGrid"></div>
     </div>
 
     <script>
-        // --- DATA STORE ---
+        // --- CENTRAL DATABASE ---
         const jobs = [
-            { id: 1, cat: 'Banking', level: 'senior', title: 'Corporate Branch Manager', company: 'Abyssinia Bank', loc: 'Addis Ababa', date: '2 hours ago' },
-            { id: 2, cat: 'IT', level: 'mid', title: 'Fullstack Developer', company: 'E-Tech Ethiopia', loc: 'Remote', date: '5 hours ago' },
-            { id: 3, cat: 'NGO', level: 'junior', title: 'Field Coordinator', company: 'Save the Children', loc: 'Hawassa', date: '1 day ago' },
-            { id: 4, cat: 'Health', level: 'mid', title: 'Medical Laboratory Lead', company: 'Red Cross', loc: 'Mekele', date: '2 days ago' },
-            { id: 5, cat: 'Education', level: 'senior', title: 'University Lecturer', company: 'Addis Ababa University', loc: 'Addis Ababa', date: '3 days ago' },
-            { id: 6, cat: 'Banking', level: 'junior', title: 'Customer Service Officer', company: 'Dashen Bank', loc: 'Gondar', date: '4 days ago' }
+            { 
+                id: 1, title: "Senior Auditor", company: "Abyssinia Bank", cat: "Banking", 
+                level: "Senior", workplace: "Addis Ababa", needed: 3, 
+                deadline: "2025-12-30" // ACTIVE
+            },
+            { 
+                id: 2, title: "Software Engineer", company: "Safaricom", cat: "IT", 
+                level: "Mid-Level", workplace: "Remote", needed: 1, 
+                deadline: "2025-12-20" // EXPIRED
+            },
+            { 
+                id: 3, title: "Health Officer", company: "World Vision", cat: "NGO", 
+                level: "Junior", workplace: "Hawassa", needed: 5, 
+                deadline: "2026-01-15" // ACTIVE
+            }
         ];
+
+        const categories = ["Banking", "IT", "NGO", "Health", "Education"];
 
         function toggleMenu() {
             document.getElementById('sidebar').classList.toggle('active');
@@ -104,38 +91,56 @@
         }
         document.getElementById('overlay').onclick = toggleMenu;
 
-        function renderJobs(filter = 'all') {
+        function init() {
+            // Setup Side Drawer & Cat Bar
+            const sideList = document.getElementById('sidebarList');
+            const catBar = document.getElementById('catBar');
+            
+            let catHtml = `<div class="pill active" onclick="filterJobs('all')">All Jobs</div>`;
+            let sideHtml = `<li onclick="filterJobs('all')">All Jobs</li>`;
+
+            categories.forEach(c => {
+                catHtml += `<div class="pill" onclick="filterJobs('${c}')">${c}</div>`;
+                sideHtml += `<li onclick="filterJobs('${c}')">${c}</li>`;
+            });
+
+            catBar.innerHTML = catHtml;
+            sideList.innerHTML = sideHtml;
+            filterJobs('all');
+        }
+
+        function filterJobs(cat) {
             const grid = document.getElementById('jobGrid');
+            const today = new Date();
             grid.innerHTML = '';
             
-            const filtered = filter === 'all' ? jobs : jobs.filter(j => j.cat === filter);
+            const filtered = cat === 'all' ? jobs : jobs.filter(j => j.cat === cat);
             
             filtered.forEach(job => {
+                const jobDeadline = new Date(job.deadline);
+                const isExpired = jobDeadline < today;
+                
                 grid.innerHTML += `
-                    <a href="job-details.html?id=${job.id}" class="job-card">
-                        <span class="level-badge ${job.level}">${job.level}</span>
-                        <h3>${job.title}</h3>
-                        <p class="company">${job.company}</p>
-                        <div class="meta">
-                            <span><i class="fa fa-map-marker-alt"></i> ${job.loc}</span>
-                            <span>${job.date}</span>
+                    <a href="job-details.html?id=${job.id}" class="job-card ${isExpired ? 'expired' : ''}">
+                        <span class="status-badge ${isExpired ? 'expired-label' : 'active-label'}">
+                            ${isExpired ? 'Expired' : 'Active'}
+                        </span>
+                        <h3 style="margin:5px 0;">${job.title}</h3>
+                        <p style="margin:0; font-weight:600; color:#475569;">${job.company}</p>
+                        <div class="meta-info">
+                            <span><i class="fa fa-map-marker-alt"></i> ${job.workplace}</span>
+                            <span><i class="fa fa-users"></i> ${job.needed} Positions</span>
+                            <span style="color:${isExpired ? 'red' : 'green'}">
+                                <i class="fa fa-calendar-times"></i> Deadline: ${job.deadline}
+                            </span>
                         </div>
                     </a>
                 `;
             });
+            if(document.getElementById('sidebar').classList.contains('active')) toggleMenu();
         }
 
-        function filterJobs(cat) {
-            renderJobs(cat);
-            // Update active pills
-            document.querySelectorAll('.cat-pill').forEach(p => {
-                p.classList.remove('active');
-                if(p.innerText === cat || (cat==='all' && p.innerText==='All')) p.classList.add('active');
-            });
-            if(window.innerWidth < 768) toggleMenu(); 
-        }
-
-        renderJobs(); // Initial load
+        init();
     </script>
 </body>
 </html>
