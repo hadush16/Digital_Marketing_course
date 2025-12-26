@@ -3,68 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EthioJobs Portal | Dec 2025</title>
-    <link rel="stylesheet" href="style.css">
+    <title>EthioJobs | Professional Job Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --primary: #003366; --accent: #facc15; --bg: #f4f7fa; --text: #333; }
+        * { box-sizing: border-box; transition: 0.3s; }
+        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg); color: var(--text); display: flex; }
+
+        /* --- SIDE DRAWER --- */
+        #sidebar { width: 260px; height: 100vh; background: var(--primary); color: white; position: fixed; left: -260px; z-index: 1000; padding: 20px; }
+        #sidebar.active { left: 0; }
+        #sidebar ul { list-style: none; padding: 0; margin-top: 50px; }
+        #sidebar li { padding: 15px; border-bottom: 1px solid #ffffff1a; cursor: pointer; display: flex; align-items: center; gap: 10px; }
+        #sidebar li:hover { background: #ffffff1a; }
+
+        /* --- MAIN CONTENT --- */
+        .main-wrapper { flex: 1; padding: 20px; width: 100%; }
+        header { display: flex; align-items: center; gap: 20px; background: white; padding: 15px 5%; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .search-box { flex: 1; position: relative; }
+        .search-box input { width: 100%; padding: 12px 40px; border: 1px solid #ddd; border-radius: 30px; }
+        .search-box i { position: absolute; left: 15px; top: 15px; color: #999; }
+
+        /* --- JOB GRID --- */
+        .job-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; margin-top: 30px; }
+        .job-card { background: white; border-radius: 15px; padding: 25px; border-top: 5px solid var(--primary); box-shadow: 0 2px 10px rgba(0,0,0,0.05); text-decoration: none; color: inherit; }
+        .job-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .tag { font-size: 11px; font-weight: bold; padding: 4px 12px; border-radius: 20px; background: #eee; margin-bottom: 10px; display: inline-block; }
+        .tag.urgent { background: #ffebee; color: #c62828; }
+        .job-card h3 { margin: 10px 0; color: var(--primary); font-size: 1.2rem; }
+        .meta { font-size: 0.9rem; color: #666; display: flex; align-items: center; gap: 10px; }
+        
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; z-index: 999; }
+        .overlay.active { display: block; }
+
+        @media (max-width: 768px) { header { flex-direction: column; } .search-box { width: 100%; } }
+    </style>
 </head>
 <body>
 
-    <nav id="sidebar">
-        <div class="sidebar-header">
-            <h2>EthioJobs</h2>
-        </div>
+    <div id="sidebar">
+        <h2>EthioJobs</h2>
         <ul>
-            <li onclick="filterJobs('all')"><i class="fa fa-home"></i> Home</li>
-            <li onclick="filterJobs('banking')"><i class="fa fa-university"></i> Banking</li>
-            <li onclick="filterJobs('tech')"><i class="fa fa-laptop-code"></i> Technology</li>
-            <li onclick="filterJobs('health')"><i class="fa fa-stethoscope"></i> Healthcare</li>
+            <li><i class="fa fa-th-large"></i> main</li>
+            <li><i class="fa fa-briefcase"></i> Browse Jobs</li>
+            <li><i class="fa fa-building"></i> Companies</li>
+            <li><i class="fa fa-bookmark"></i> Saved Jobs</li>
         </ul>
-    </nav>
-
-    <header>
-        <button id="menuBtn"><i class="fa fa-bars"></i></button>
-        <div class="search-box">
-            <input type="text" id="jobSearch" placeholder="Search by job title or company...">
-        </div>
-    </header>
-
-    <div class="container">
-        <h2>Latest Job Vacancies</h2>
-        
-        <div id="jobList">
-            <div class="job-card" 
-                 data-category="banking" 
-                 data-title="Branch Manager"
-                 data-company="Commercial Bank of Ethiopia"
-                 data-desc="Manage daily branch operations and customer relations."
-                 data-req="BA in Management, 5+ years experience."
-                 data-loc="Addis Ababa">
-                <span class="badge senior">Senior</span>
-                <h3>Branch Manager</h3>
-                <p>CBE • Addis Ababa</p>
-                <button class="view-btn">View Details</button>
-            </div>
-
-            </div>
     </div>
+    <div class="overlay" id="overlay"></div>
 
-    <div id="detailModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2 id="modalTitle"></h2>
-            <p id="modalCompany" class="company-name"></p>
-            <hr>
-            <h4>Description</h4>
-            <p id="modalDesc"></p>
-            <h4>Requirements</h4>
-            <p id="modalReq"></p>
-            <p><strong>Location:</strong> <span id="modalLoc"></span></p>
-            <a href="mailto:apply@example.com" class="apply-btn">Apply Now</a>
+    <div class="main-wrapper">
+        <header>
+            <button onclick="toggleMenu()" style="border:none; background:none; font-size:1.5rem; cursor:pointer;"><i class="fa fa-bars"></i></button>
+            <div class="search-box">
+                <i class="fa fa-search"></i>
+                <input type="text" placeholder="Search by job title or keyword...">
+            </div>
+            <div style="font-weight: bold;">Dec 2025</div>
+        </header>
+
+        <div class="job-grid">
+            <a href="job-details.html?id=1" class="job-card">
+                <span class="tag urgent">Urgent</span>
+                <h3>Project Manager</h3>
+                <div class="meta"><i class="fa fa-building"></i> Safaricom Ethiopia</div>
+                <div class="meta"><i class="fa fa-map-marker-alt"></i> Addis Ababa</div>
+                <div style="margin-top:15px; font-weight:bold; color:var(--primary);">View Details →</div>
+            </a>
+
+            <a href="job-details.html?id=2" class="job-card">
+                <span class="tag">Banking</span>
+                <h3>Senior Auditor</h3>
+                <div class="meta"><i class="fa fa-building"></i> Awash Bank</div>
+                <div class="meta"><i class="fa fa-map-marker-alt"></i> Adama</div>
+                <div style="margin-top:15px; font-weight:bold; color:var(--primary);">View Details →</div>
+            </a>
+
+            <a href="job-details.html?id=3" class="job-card">
+                <span class="tag">NGO</span>
+                <h3>Health Coordinator</h3>
+                <div class="meta"><i class="fa fa-building"></i> World Vision</div>
+                <div class="meta"><i class="fa fa-map-marker-alt"></i> Bahir Dar</div>
+                <div style="margin-top:15px; font-weight:bold; color:var(--primary);">View Details →</div>
+            </a>
         </div>
     </div>
+     <div class="job-grid">
+            <a href="job-details.html?id=1" class="job-card">
+                <span class="tag urgent">Urgent</span>
+                <h3>Project Manager</h3>
+                <div class="meta"><i class="fa fa-building"></i> Safaricom Ethiopia</div>
+                <div class="meta"><i class="fa fa-map-marker-alt"></i> Addis Ababa</div>
+                <div style="margin-top:15px; font-weight:bold; color:var(--primary);">View Details →</div>
+            </a>
 
-    <div id="overlay"></div>
+            <a href="job-details.html?id=2" class="job-card">
+                <span class="tag">Banking</span>
+                <h3>Senior Auditor</h3>
+                <div class="meta"><i class="fa fa-building"></i> Awash Bank</div>
+                <div class="meta"><i class="fa fa-map-marker-alt"></i> Adama</div>
+                <div style="margin-top:15px; font-weight:bold; color:var(--primary);">View Details →</div>
+            </a>
 
-    <script src="script.js"></script>
+            <a href="job-details.html?id=3" class="job-card">
+                <span class="tag">NGO</span>
+                <h3>Health Coordinator</h3>
+                <div class="meta"><i class="fa fa-building"></i> World Vision</div>
+                <div class="meta"><i class="fa fa-map-marker-alt"></i> Bahir Dar</div>
+                <div style="margin-top:15px; font-weight:bold; color:var(--primary);">View Details →</div>
+            </a>
+        </div>
+    </div>
+     <div class="job-grid">
+            <a href="job-details.html?id=1" class="job-card">
+                <span class="tag urgent">Urgent</span>
+                <h3>Project Manager</h3>
+                <div class="meta"><i class="fa fa-building"></i> Safaricom Ethiopia</div>
+                <div class="meta"><i class="fa fa-map-marker-alt"></i> Addis Ababa</div>
+                <div style="margin-top:15px; font-weight:bold; color:var(--primary);">View Details →</div>
+            </a>
+
+            <a href="job-details.html?id=2" class="job-card">
+                <span class="tag">Banking</span>
+                <h3>Senior Auditor</h3>
+                <div class="meta"><i class="fa fa-building"></i> Awash Bank</div>
+                <div class="meta"><i class="fa fa-map-marker-alt"></i> Adama</div>
+                <div style="margin-top:15px; font-weight:bold; color:var(--primary);">View Details →</div>
+            </a>
+
+            <a href="job-details.html?id=3" class="job-card">
+                <span class="tag">NGO</span>
+                <h3>Health Coordinator</h3>
+                <div class="meta"><i class="fa fa-building"></i> World Vision</div>
+                <div class="meta"><i class="fa fa-map-marker-alt"></i> Bahir Dar</div>
+                <div style="margin-top:15px; font-weight:bold; color:var(--primary);">View Details →</div>
+            </a>
+        </div>
+    </div>
+     <div class="job-grid">
+            <a href="job-details.html?id=1" class="job-card">
+                <span class="tag urgent">Urgent</span>
+                <h3>Project Manager</h3>
+                <div class="meta"><i class="fa fa-building"></i> Safaricom Ethiopia</div>
+                <div class="meta"><i class="fa fa-map-marker-alt"></i> Addis Ababa</div>
+                <div style="margin-top:15px; font-weight:bold; color:var(--primary);">View Details →</div>
+            </a>
+
+            <a href="job-details.html?id=2" class="job-card">
+                <span class="tag">Banking</span>
+                <h3>Senior Auditor</h3>
+                <div class="meta"><i class="fa fa-building"></i> Awash Bank</div>
+                <div class="meta"><i class="fa fa-map-marker-alt"></i> Adama</div>
+                <div style="margin-top:15px; font-weight:bold; color:var(--primary);">View Details →</div>
+            </a>
+
+            <a href="job-details.html?id=3" class="job-card">
+                <span class="tag">NGO</span>
+                <h3>Health Coordinator</h3>
+                <div class="meta"><i class="fa fa-building"></i> World Vision</div>
+                <div class="meta"><i class="fa fa-map-marker-alt"></i> Bahir Dar</div>
+                <div style="margin-top:15px; font-weight:bold; color:var(--primary);">View Details →</div>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('overlay').classList.toggle('active');
+        }
+        document.getElementById('overlay').onclick = toggleMenu;
+    </script>
 </body>
 </html>
