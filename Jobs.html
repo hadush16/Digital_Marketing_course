@@ -3,217 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JobPortal | All-In-One</title>
+    <title>EthioJobs Clone | Ethiopia's Job Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* --- 1. GLOBAL STYLES --- */
         :root {
-            --primary: #2563eb;
-            --dark: #1e293b;
-            --light: #f8fafc;
-            --accent: #0f172a;
-            --junior: #10b981;
-            --senior: #f59e0b;
-            --lead: #ef4444;
+            --primary-blue: #003366; /* Ethiojobs Style */
+            --accent-yellow: #facc15;
+            --bg-gray: #f3f4f6;
+            --text-dark: #1f2937;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            background-color: var(--light);
-            color: var(--dark);
-            display: flex;
+        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg-gray); color: var(--text-dark); display: flex; flex-direction: column; min-height: 100vh; }
+
+        /* --- SIDE DRAWER --- */
+        #sidebar {
+            position: fixed; left: -280px; width: 280px; height: 100%;
+            background: var(--primary-blue); color: white;
+            transition: 0.3s; z-index: 1001; padding: 20px; box-shadow: 5px 0 15px rgba(0,0,0,0.2);
+        }
+        #sidebar.active { left: 0; }
+        #sidebar ul { list-style: none; padding: 0; margin-top: 50px; }
+        #sidebar li { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
+        #sidebar li:hover { background: rgba(255,255,255,0.1); }
+
+        /* --- HEADER & NAV --- */
+        header {
+            background: white; padding: 1rem 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: var(--shadow); position: sticky; top: 0; z-index: 1000;
+        }
+        .menu-btn { font-size: 1.5rem; cursor: pointer; color: var(--primary-blue); }
+        .search-container { flex: 1; margin: 0 2rem; }
+        .search-container input {
+            width: 100%; padding: 10px 15px; border: 1px solid #ddd; border-radius: 8px;
         }
 
-        /* --- 2. SIDE DRAWER HACK --- */
-        #drawer-toggle { display: none; }
-        
-        #drawer {
-            position: fixed;
-            left: -280px;
-            width: 280px;
-            height: 100vh;
-            background: var(--dark);
-            color: white;
-            transition: all 0.3s ease;
-            z-index: 1000;
-            padding: 20px;
-            box-sizing: border-box;
+        /* --- JOB CATEGORY NAV --- */
+        .category-scroll {
+            display: flex; gap: 10px; overflow-x: auto; padding: 15px 5%;
+            background: white; border-bottom: 1px solid #ddd;
         }
-
-        #drawer-toggle:checked ~ #drawer { left: 0; }
-        #drawer-toggle:checked ~ .overlay { display: block; }
-
-        .drawer-label {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: var(--primary);
-            color: white;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            z-index: 999;
+        .cat-tag {
+            white-space: nowrap; padding: 8px 16px; background: #e5e7eb;
+            border-radius: 20px; font-weight: 600; cursor: pointer; transition: 0.2s;
         }
+        .cat-tag:hover, .cat-tag.active { background: var(--primary-blue); color: white; }
 
-        .overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
-            display: none;
-            z-index: 998;
-        }
-
-        /* --- 3. CATEGORY SWITCHING LOGIC --- */
-        input[type="radio"] { display: none; }
-
-        /* Navigation Styling */
-        .category-tabs {
-            display: flex;
-            gap: 10px;
-            margin: 80px 0 20px 0;
-            background: white;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
-        .tab-btn {
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            background: #e2e8f0;
-            font-weight: 600;
-            transition: 0.2s;
-        }
-
-        /* Logic: Show/Hide Sections based on Radio */
-        .job-container { display: none; animation: fadeIn 0.4s ease; }
-
-        #tab-all:checked ~ .category-tabs label[for="tab-all"],
-        #tab-tech:checked ~ .category-tabs label[for="tab-tech"],
-        #tab-design:checked ~ .category-tabs label[for="tab-design"] {
-            background: var(--primary);
-            color: white;
-        }
-
-        #tab-all:checked ~ #all-content,
-        #tab-tech:checked ~ #tech-content,
-        #tab-design:checked ~ #design-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        /* --- 4. JOB CARDS & LEVELS --- */
+        /* --- JOB LISTINGS --- */
+        .main-content { padding: 20px 5%; max-width: 1000px; margin: 0 auto; width: 100%; }
         .job-card {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            border-left: 5px solid var(--primary);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            background: white; margin-bottom: 15px; padding: 20px;
+            border-radius: 10px; box-shadow: var(--shadow);
+            display: flex; justify-content: space-between; align-items: center;
+            border-left: 6px solid var(--primary-blue);
+            transition: transform 0.2s;
         }
-
+        .job-card:hover { transform: translateY(-3px); }
+        .job-info h3 { margin: 0 0 5px 0; color: var(--primary-blue); }
+        .job-details { font-size: 0.9rem; color: #6b7280; }
         .level-badge {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            font-weight: bold;
-            margin-bottom: 10px;
+            padding: 4px 12px; border-radius: 4px; font-size: 0.75rem;
+            font-weight: bold; text-transform: uppercase;
+        }
+        .junior { background: #dcfce7; color: #166534; }
+        .senior { background: #fef9c3; color: #854d0e; }
+        .urgent { background: #fee2e2; color: #991b1b; }
+
+        .apply-btn {
+            background: var(--primary-blue); color: white;
+            padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600;
         }
 
-        .lvl-junior { background: #d1fae5; color: var(--junior); }
-        .lvl-senior { background: #fef3c7; color: var(--senior); }
-        .lvl-lead { background: #fee2e2; color: var(--lead); }
-
-        .main-wrapper {
-            flex: 1;
-            padding: 0 40px 40px 40px;
-            max-width: 1200px;
-            margin: 0 auto;
+        /* --- UTILITY --- */
+        .hidden { display: none; }
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 1000; display: none;
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        h2 { border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; grid-column: 1 / -1; }
+        .overlay.active { display: block; }
     </style>
 </head>
 <body>
 
-    <input type="checkbox" id="drawer-toggle">
-    <label for="drawer-toggle" class="drawer-label">☰ Menu</label>
-    <div class="overlay"></div>
-
-    <nav id="drawer">
-        <h2>JobPortal</h2>
-        <p>Welcome, User</p>
-        <hr>
-        <ul style="list-style: none; padding: 0;">
-            <li style="margin: 20px 0;"><label for="tab-all" style="cursor:pointer">🏠 Dashboard</label></li>
-            <li style="margin: 20px 0;">👤 Profile Settings</li>
-            <li style="margin: 20px 0;">📄 My Applications</li>
-            <li style="margin: 20px 0;">⚙️ Preferences</li>
+    <div id="sidebar">
+        <h2>EthioJobs Menu</h2>
+        <ul>
+            <li onclick="filterJobs('all')"><i class="fa fa-home"></i> Dashboard</li>
+            <li><i class="fa fa-user"></i> Candidate Profile</li>
+            <li><i class="fa fa-briefcase"></i> My Applications</li>
+            <li><i class="fa fa-bell"></i> Job Alerts</li>
+            <li style="color: var(--accent-yellow)"><i class="fa fa-star"></i> Premium Jobs</li>
         </ul>
-    </nav>
-
-    <div class="main-wrapper">
-        <input type="radio" name="job-cat" id="tab-all" checked>
-        <input type="radio" name="job-cat" id="tab-tech">
-        <input type="radio" name="job-cat" id="tab-design">
-
-        <div class="category-tabs">
-            <label for="tab-all" class="tab-btn">All Jobs</label>
-            <label for="tab-tech" class="tab-btn">Technology</label>
-            <label for="tab-design" class="tab-btn">Design</label>
-        </div>
-
-        <section class="job-container" id="all-content">
-            <h2>Recent Postings</h2>
-            <div class="job-card">
-                <span class="level-badge lvl-junior">Junior</span>
-                <h3>Frontend Intern</h3>
-                <p>React, Tailwind CSS • Remote</p>
-                <strong>$2k - $4k</strong>
-            </div>
-            <div class="job-card">
-                <span class="level-badge lvl-senior">Senior</span>
-                <h3>Project Manager</h3>
-                <p>Agile, Scrum • London, UK</p>
-                <strong>$90k - $110k</strong>
-            </div>
-        </section>
-
-        <section class="job-container" id="tech-content">
-            <h2>Tech & Engineering</h2>
-            <div class="job-card">
-                <span class="level-badge lvl-lead">Lead</span>
-                <h3>System Architect</h3>
-                <p>AWS, Kubernetes, Go • Hybrid</p>
-                <strong>$150k+</strong>
-            </div>
-            <div class="job-card">
-                <span class="level-badge lvl-junior">Junior</span>
-                <h3>QA Tester</h3>
-                <p>Selenium, Python • Remote</p>
-                <strong>$50k - $65k</strong>
-            </div>
-        </section>
-
-        <section class="job-container" id="design-content">
-            <h2>Creative & Design</h2>
-            <div class="job-card">
-                <span class="level-badge lvl-senior">Senior</span>
-                <h3>Lead UI Designer</h3>
-                <p>Figma, Adobe XD • New York</p>
-                <strong>$110k - $130k</strong>
-            </div>
-        </section>
     </div>
 
+    <div class="overlay" id="overlay"></div>
+
+    <header>
+        <div class="menu-btn" onclick="toggleMenu()"><i class="fa fa-bars"></i></div>
+        <div class="search-container">
+            <input type="text" id="jobSearch" placeholder="Search jobs by title or company..." onkeyup="searchJobs()">
+        </div>
+        <div style="font-weight: bold; color: var(--primary-blue);">EthioJobs</div>
+    </header>
+
+    <div class="category-scroll">
+        <div class="cat-tag active" onclick="filterJobs('all')">All Jobs</div>
+        <div class="cat-tag" onclick="filterJobs('banking')">Banking</div>
+        <div class="cat-tag" onclick="filterJobs('tech')">IT & Telecoms</div>
+        <div class="cat-tag" onclick="filterJobs('health')">Healthcare</div>
+        <div class="cat-tag" onclick="filterJobs('ngo')">NGO / Social</div>
+    </div>
+
+    <main class="main-content" id="jobList">
+        <h2 id="sectionTitle">Latest Jobs (Dec 2025)</h2>
+
+        <div class="job-card" data-category="banking" data-title="Branch Manager">
+            <div class="job-info">
+                <span class="level-badge senior">Senior Level</span>
+                <h3>Branch Manager</h3>
+                <div class="job-details">Commercial Bank of Ethiopia • Addis Ababa • Full-time</div>
+                <div style="margin-top: 10px; font-size: 0.8rem;">Posted: 2 hours ago</div>
+            </div>
+            <a href="#" class="apply-btn">Apply Now</a>
+        </div>
+
+        <div class="job-card" data-category="tech" data-title="Frontend Developer">
+            <div class="job-info">
+                <span class="level-badge junior">Junior Level</span>
+                <h3>Frontend Developer (React)</h3>
+                <div class="job-details">Ethio Telecom • Hybrid • Contract</div>
+                <div style="margin-top: 10px; font-size: 0.8rem;">Posted: Dec 24, 2025</div>
+            </div>
+            <a href="#" class="apply-btn">Apply Now</a>
+        </div>
+
+        <div class="job-card" data-category="ngo" data-title="Program Coordinator">
+            <div class="job-info">
+                <span class="level-badge urgent">Urgent</span>
+                <h3>Program Coordinator</h3>
+                <div class="job-details">UNICEF Ethiopia • Hawassa • Full-time</div>
+                <div style="margin-top: 10px; font-size: 0.8rem;">Posted: Dec 20, 2025</div>
+            </div>
+            <a href="#" class="apply-btn">Apply Now</a>
+        </div>
+    </main>
+
+    <script>
+        // 1. Sidebar Toggle
+        function toggleMenu() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('overlay').classList.toggle('active');
+        }
+        document.getElementById('overlay').onclick = toggleMenu;
+
+        // 2. Search Functionality
+        function searchJobs() {
+            let input = document.getElementById('jobSearch').value.toLowerCase();
+            let cards = document.getElementsByClassName('job-card');
+            
+            for (let card of cards) {
+                let title = card.getAttribute('data-title').toLowerCase();
+                if (title.includes(input)) {
+                    card.style.display = "flex";
+                } else {
+                    card.style.display = "none";
+                }
+            }
+        }
+
+        // 3. Category Filter
+        function filterJobs(category) {
+            let cards = document.getElementsByClassName('job-card');
+            let tags = document.getElementsByClassName('cat-tag');
+
+            // Update UI tags
+            for (let tag of tags) tag.classList.remove('active');
+            event.target.classList.add('active');
+
+            for (let card of cards) {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = "flex";
+                } else {
+                    card.style.display = "none";
+                }
+            }
+        }
+    </script>
 </body>
 </html>
