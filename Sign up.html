@@ -1,165 +1,219 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script async custom-element="amp-auto-ads"
-        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
-</script>
-  <script async custom-element="amp-auto-ads"
-        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
-</script>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Sign Up / Sign In | Hadush Brhane</title>
-  <meta name="description" content="Sign up or sign in to enroll in digital marketing courses by Hadush Brhane">
-  <meta name="keywords" content="digital marketing, sign up, sign in, enroll, hadush brhane">
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/css/main.css" rel="stylesheet">
-  <style>
-    body { font-family: 'Roboto', sans-serif; background: #f8f9fa; }
-    .auth-card {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-      padding: 2rem;
-      margin: 2rem auto;
-      max-width: 400px;
-      transition: box-shadow 0.2s, transform 0.2s;
-    }
-    .auth-card:hover {
-      box-shadow: 0 8px 32px rgba(0,0,0,0.16);
-      transform: translateY(-4px) scale(1.02);
-    }
-    .auth-title { font-size: 1.5rem; font-weight: 700; color: #0d6efd; margin-bottom: 1rem; text-align: center; }
-    .form-label { font-weight: 500; }
-    .btn-primary { width: 100%; }
-    .toggle-link { color: #0d6efd; cursor: pointer; text-decoration: underline; display: block; text-align: center; margin-top: 1rem; }
-    .selected-course { font-size: 1.1rem; color: #198754; font-weight: 700; text-align: center; margin-bottom: 1rem; }
-    .back-btn { width: 100%; margin-top: 1.5rem; }
-    @media (max-width: 767px) {
-      .auth-card { padding: 1rem; }
-      .auth-title { font-size: 1.1rem; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobPortal | All-In-One</title>
+    <style>
+        /* --- 1. GLOBAL STYLES --- */
+        :root {
+            --primary: #2563eb;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --accent: #0f172a;
+            --junior: #10b981;
+            --senior: #f59e0b;
+            --lead: #ef4444;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: var(--light);
+            color: var(--dark);
+            display: flex;
+        }
+
+        /* --- 2. SIDE DRAWER HACK --- */
+        #drawer-toggle { display: none; }
+        
+        #drawer {
+            position: fixed;
+            left: -280px;
+            width: 280px;
+            height: 100vh;
+            background: var(--dark);
+            color: white;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        #drawer-toggle:checked ~ #drawer { left: 0; }
+        #drawer-toggle:checked ~ .overlay { display: block; }
+
+        .drawer-label {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 999;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            z-index: 998;
+        }
+
+        /* --- 3. CATEGORY SWITCHING LOGIC --- */
+        input[type="radio"] { display: none; }
+
+        /* Navigation Styling */
+        .category-tabs {
+            display: flex;
+            gap: 10px;
+            margin: 80px 0 20px 0;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            background: #e2e8f0;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        /* Logic: Show/Hide Sections based on Radio */
+        .job-container { display: none; animation: fadeIn 0.4s ease; }
+
+        #tab-all:checked ~ .category-tabs label[for="tab-all"],
+        #tab-tech:checked ~ .category-tabs label[for="tab-tech"],
+        #tab-design:checked ~ .category-tabs label[for="tab-design"] {
+            background: var(--primary);
+            color: white;
+        }
+
+        #tab-all:checked ~ #all-content,
+        #tab-tech:checked ~ #tech-content,
+        #tab-design:checked ~ #design-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        /* --- 4. JOB CARDS & LEVELS --- */
+        .job-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 5px solid var(--primary);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .level-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .lvl-junior { background: #d1fae5; color: var(--junior); }
+        .lvl-senior { background: #fef3c7; color: var(--senior); }
+        .lvl-lead { background: #fee2e2; color: var(--lead); }
+
+        .main-wrapper {
+            flex: 1;
+            padding: 0 40px 40px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 { border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; grid-column: 1 / -1; }
+    </style>
 </head>
 <body>
-  
- <amp-auto-ads type="adsense"
-        data-ad-client="ca-pub-3237559839274253">
-</amp-auto-ads>
-         <amp-auto-ads type="adsense"
-        data-ad-client="ca-pub-3237559839274253">
-</amp-auto-ads>
-    <amp-auto-ads type="adsense"
-        data-ad-client="ca-pub-1190706248323157">
-</amp-auto-ads>
-  <header class="bg-primary text-white py-4 mb-4">
-    <div class="container text-center">
-      <h1 class="mb-1">Enroll Now</h1>
-      <p class="lead mb-0">Sign up or sign in to enroll in your selected course.</p>
-    </div>
-  </header>
-  <main class="container">
-    <div class="auth-card" id="auth-card">
-      <div class="selected-course" id="selected-course"></div>
-      <div class="auth-title" id="auth-title">Sign Up</div>
-      <form id="signup-form">
-        <div class="mb-3">
-          <label for="signupName" class="form-label">Full Name</label>
-          <input type="text" class="form-control" id="signupName" required>
-        </div>
-        <div class="mb-3">
-          <label for="signupEmail" class="form-label">Email address</label>
-          <input type="email" class="form-control" id="signupEmail" required>
-        </div>
-        <div class="mb-3">
-          <label for="signupPassword" class="form-label">Password</label>
-          <input type="password" class="form-control" id="signupPassword" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Sign Up & Enroll</button>
-      </form>
-      <form id="signin-form" style="display:none;">
-        <div class="mb-3">
-          <label for="signinEmail" class="form-label">Email address</label>
-          <input type="email" class="form-control" id="signinEmail" required>
-        </div>
-        <div class="mb-3">
-          <label for="signinPassword" class="form-label">Password</label>
-          <input type="password" class="form-control" id="signinPassword" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Sign In & Enroll</button>
-      </form>
-      <span class="toggle-link" id="toggle-link">Already have an account? Sign In</span>
-      <a href="index.html" class="btn btn-outline-secondary back-btn">Back to Main Page</a>
-    </div>
-    <section class="my-5 text-center">
-      <h2>Contact & Support</h2>
-      <p>For questions or enrollment support, email <a href="mailto:hadushmobilesoftware@gmail.com">hadushmobilesoftware@gmail.com</a> or call +251714224955.</p>
-    </section>
-  </main>
-  <footer class="bg-light py-3 mt-5">
-    <div class="container text-center">
-      <p>© 2025 Hadush Brhane. All Rights Reserved.</p>
-    </div>
-  </footer>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script>
-    // Show selected course name
-    const courseNames = {
-      "intro-digital-marketing": "Introduction to Digital Marketing",
-      "social-media-fundamentals": "Social Media Fundamentals",
-      "content-creation-basics": "Content Creation Basics",
-      "social-media-marketing": "Social Media Marketing",
-      "seo": "Search Engine Optimization (SEO)",
-      "email-marketing": "Email Marketing Essentials",
-      "youtube-channel-management": "YouTube Channel Management",
-      "advanced-seo": "Advanced SEO Strategies",
-      "paid-advertising": "Paid Advertising & Google Ads",
-      "graphic-design": "Graphic Design for Marketers",
-      "analytics-conversion": "Analytics & Conversion Optimization",
-      "marketing-automation": "Marketing Automation & CRM"
-    };
-    function getCourseKey() {
-      const params = new URLSearchParams(window.location.search);
-      return params.get('course');
-    }
-    document.getElementById('selected-course').textContent =
-      getCourseKey() && courseNames[getCourseKey()] ?
-      "Selected Course: " + courseNames[getCourseKey()] : "";
 
-    // Toggle between signup and signin forms
-    const signupForm = document.getElementById('signup-form');
-    const signinForm = document.getElementById('signin-form');
-    const toggleLink = document.getElementById('toggle-link');
-    const authTitle = document.getElementById('auth-title');
+    <input type="checkbox" id="drawer-toggle">
+    <label for="drawer-toggle" class="drawer-label">☰ Menu</label>
+    <div class="overlay"></div>
 
-    toggleLink.addEventListener('click', function() {
-      if (signupForm.style.display !== 'none') {
-        signupForm.style.display = 'none';
-        signinForm.style.display = 'block';
-        authTitle.textContent = 'Sign In';
-        toggleLink.textContent = "Don't have an account? Sign Up";
-      } else {
-        signupForm.style.display = 'block';
-        signinForm.style.display = 'none';
-        authTitle.textContent = 'Sign Up';
-        toggleLink.textContent = "Already have an account? Sign In";
-      }
-    });
+    <nav id="drawer">
+        <h2>JobPortal</h2>
+        <p>Welcome, User</p>
+        <hr>
+        <ul style="list-style: none; padding: 0;">
+            <li style="margin: 20px 0;"><label for="tab-all" style="cursor:pointer">🏠 Dashboard</label></li>
+            <li style="margin: 20px 0;">👤 Profile Settings</li>
+            <li style="margin: 20px 0;">📄 My Applications</li>
+            <li style="margin: 20px 0;">⚙️ Preferences</li>
+        </ul>
+    </nav>
 
-    // Dummy submit handlers (replace with real backend logic)
-    signupForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      alert('Signed up and enrolled successfully!');
-      window.location.href = "index.html";
-    });
-    signinForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      alert('Signed in and enrolled successfully!');
-      window.location.href = "index.html";
-    });
-  </script>
+    <div class="main-wrapper">
+        <input type="radio" name="job-cat" id="tab-all" checked>
+        <input type="radio" name="job-cat" id="tab-tech">
+        <input type="radio" name="job-cat" id="tab-design">
+
+        <div class="category-tabs">
+            <label for="tab-all" class="tab-btn">All Jobs</label>
+            <label for="tab-tech" class="tab-btn">Technology</label>
+            <label for="tab-design" class="tab-btn">Design</label>
+        </div>
+
+        <section class="job-container" id="all-content">
+            <h2>Recent Postings</h2>
+            <div class="job-card">
+                <span class="level-badge lvl-junior">Junior</span>
+                <h3>Frontend Intern</h3>
+                <p>React, Tailwind CSS • Remote</p>
+                <strong>$2k - $4k</strong>
+            </div>
+            <div class="job-card">
+                <span class="level-badge lvl-senior">Senior</span>
+                <h3>Project Manager</h3>
+                <p>Agile, Scrum • London, UK</p>
+                <strong>$90k - $110k</strong>
+            </div>
+        </section>
+
+        <section class="job-container" id="tech-content">
+            <h2>Tech & Engineering</h2>
+            <div class="job-card">
+                <span class="level-badge lvl-lead">Lead</span>
+                <h3>System Architect</h3>
+                <p>AWS, Kubernetes, Go • Hybrid</p>
+                <strong>$150k+</strong>
+            </div>
+            <div class="job-card">
+                <span class="level-badge lvl-junior">Junior</span>
+                <h3>QA Tester</h3>
+                <p>Selenium, Python • Remote</p>
+                <strong>$50k - $65k</strong>
+            </div>
+        </section>
+
+        <section class="job-container" id="design-content">
+            <h2>Creative & Design</h2>
+            <div class="job-card">
+                <span class="level-badge lvl-senior">Senior</span>
+                <h3>Lead UI Designer</h3>
+                <p>Figma, Adobe XD • New York</p>
+                <strong>$110k - $130k</strong>
+            </div>
+        </section>
+    </div>
+
 </body>
 </html>
