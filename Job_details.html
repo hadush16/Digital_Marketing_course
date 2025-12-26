@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EthioJobs | Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #003366;
+            --accent: #facc15;
+            --bg: #f3f4f6;
+        }
+
+        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg); }
+
+        /* --- HEADER & NAV --- */
+        header { background: white; padding: 15px 5%; display: flex; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+        .search-bar { flex: 1; margin: 0 20px; }
+        .search-bar input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+        
+        /* --- SIDE DRAWER --- */
+        #sidebar { position: fixed; left: -280px; width: 280px; height: 100%; background: var(--primary); color: white; transition: 0.3s; z-index: 1001; padding: 20px; }
+        #sidebar.active { left: 0; }
+        #sidebar ul { list-style: none; padding: 0; margin-top: 40px; }
+        #sidebar li { padding: 15px; border-bottom: 1px solid #ffffff22; cursor: pointer; }
+
+        /* --- JOB CARDS --- */
+        .container { padding: 20px 5%; max-width: 900px; margin: 0 auto; }
+        .job-card { 
+            background: white; padding: 20px; border-radius: 10px; margin-bottom: 15px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-left: 5px solid var(--primary); cursor: pointer; transition: 0.2s;
+        }
+        .job-card:hover { transform: scale(1.01); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .level { font-size: 0.7rem; font-weight: bold; padding: 3px 8px; border-radius: 3px; background: #eee; }
+
+        /* --- JOB DETAIL MODAL --- */
+        #jobModal {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9);
+            width: 90%; max-width: 600px; background: white; padding: 30px;
+            border-radius: 15px; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            z-index: 2000; display: none; opacity: 0; transition: 0.3s;
+        }
+        #jobModal.active { display: block; opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; z-index: 1999; }
+        .close-modal { float: right; font-size: 1.5rem; cursor: pointer; color: #999; }
+        
+        .apply-now-btn { display: block; width: 100%; padding: 15px; background: var(--primary); color: white; text-align: center; text-decoration: none; border-radius: 8px; margin-top: 20px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div id="sidebar">
+        <h2>Menu</h2>
+        <ul>
+            <li><i class="fa fa-briefcase"></i> All Jobs</li>
+            <li><i class="fa fa-building"></i> Top Companies</li>
+            <li><i class="fa fa-envelope"></i> Contact Support</li>
+        </ul>
+    </div>
+    <div class="modal-overlay" id="overlay"></div>
+
+    <header>
+        <div onclick="toggleMenu()" style="cursor:pointer; font-size: 1.2rem;"><i class="fa fa-bars"></i></div>
+        <div class="search-bar"><input type="text" placeholder="Search for jobs..."></div>
+        <div style="font-weight: bold; color: var(--primary);">EthioJobs</div>
+    </header>
+
+    <div class="container">
+        <h2>Latest Postings (2025)</h2>
+
+        <div class="job-card" 
+             onclick="showDetails(this)"
+             data-title="Senior Software Engineer"
+             data-company="Commercial Bank of Ethiopia"
+             data-desc="We are looking for a Senior Developer to lead our mobile banking transformation. You will work with a team of 15 engineers."
+             data-req="8+ years experience, Expert in Java/Spring, Degree in Computer Science."
+             data-loc="Addis Ababa (Hybrid)">
+            <div>
+                <span class="level">SENIOR</span>
+                <h3>Senior Software Engineer</h3>
+                <p style="color: #666;">CBE • Addis Ababa</p>
+            </div>
+            <i class="fa fa-chevron-right" style="color: #ccc;"></i>
+        </div>
+
+        <div class="job-card" 
+             onclick="showDetails(this)"
+             data-title="Marketing Intern"
+             data-company="Ethio Telecom"
+             data-desc="Join our digital marketing team! You will assist in social media management and content creation."
+             data-req="Recently graduated, Creative mindset, Good English skills."
+             data-loc="Remote / Addis Ababa">
+            <div>
+                <span class="level">JUNIOR</span>
+                <h3>Marketing Intern</h3>
+                <p style="color: #666;">Ethio Telecom • Remote</p>
+            </div>
+            <i class="fa fa-chevron-right" style="color: #ccc;"></i>
+        </div>
+    </div>
+
+    <div id="jobModal">
+        <span class="close-modal" onclick="closeDetails()">&times;</span>
+        <h2 id="modalTitle" style="color: var(--primary);">Job Title</h2>
+        <p id="modalCompany" style="font-weight: bold; color: #555;">Company Name</p>
+        <hr>
+        <h4>Description</h4>
+        <p id="modalDesc">Job description goes here...</p>
+        <h4>Requirements</h4>
+        <p id="modalReq">Requirements go here...</p>
+        <p><strong>Location:</strong> <span id="modalLoc"></span></p>
+        
+        <a href="mailto:jobs@example.com" class="apply-now-btn">Apply for this Position</a>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('overlay').style.display = 
+                document.getElementById('sidebar').classList.contains('active') ? 'block' : 'none';
+        }
+
+        function showDetails(element) {
+            // Fill Modal with data from the clicked card
+            document.getElementById('modalTitle').innerText = element.getAttribute('data-title');
+            document.getElementById('modalCompany').innerText = element.getAttribute('data-company');
+            document.getElementById('modalDesc').innerText = element.getAttribute('data-desc');
+            document.getElementById('modalReq').innerText = element.getAttribute('data-req');
+            document.getElementById('modalLoc').innerText = element.getAttribute('data-loc');
+
+            // Show Modal
+            document.getElementById('jobModal').classList.add('active');
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function closeDetails() {
+            document.getElementById('jobModal').classList.remove('active');
+            document.getElementById('sidebar').classList.remove('active');
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        document.getElementById('overlay').onclick = closeDetails;
+    </script>
+</body>
+</html>
