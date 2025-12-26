@@ -3,123 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Details | Professional Portal</title>
+    <title>Details | Job Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --primary: #003366; --danger: #dc2626; --success: #16a34a; --bg: #f8fafc; --text: #334155; }
-        * { box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 15px; line-height: 1.6; }
-
-        .container { max-width: 850px; margin: 20px auto; }
+        :root { --primary: #003366; --bg: #f8fafc; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; padding: 20px; }
+        .card { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .meta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 20px 0; }
+        .meta-item { background: #f1f5f9; padding: 15px; border-radius: 8px; text-align: center; }
+        .meta-item strong { display: block; font-size: 0.7rem; color: var(--primary); text-transform: uppercase; }
         
-        .card { background: white; padding: 40px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
-
-        .back-link { text-decoration: none; color: var(--primary); font-weight: 600; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 30px; font-size: 0.95rem; }
-        .back-link:hover { text-decoration: underline; }
-
-        header h1 { margin: 0; color: var(--primary); font-size: 1.8rem; line-height: 1.2; }
-        .company-name { font-size: 1.2rem; color: #64748b; margin: 8px 0 0 0; font-weight: 500; }
-
-        /* Meta Information Grid */
-        .meta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin: 30px 0; }
-        .meta-item { background: #f1f5f9; padding: 15px; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .meta-item i { color: var(--primary); margin-bottom: 8px; font-size: 1.1rem; }
-        .meta-item strong { font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; }
-        .meta-item span { font-weight: 700; color: var(--primary); font-size: 0.95rem; text-align: center; }
-
-        /* Section Styling */
-        .section { margin-bottom: 30px; }
-        .section h3 { border-left: 4px solid var(--primary); padding-left: 12px; font-size: 1.1rem; margin-bottom: 15px; color: var(--primary); }
-        .content-box { color: #475569; font-size: 1rem; white-space: pre-line; }
-
-        /* Application Box */
-        .apply-box { background: #f8fafc; border: 2px dashed #e2e8f0; padding: 30px; border-radius: 12px; text-align: center; margin-top: 40px; }
-        .instr-text { margin-bottom: 20px; font-weight: 500; color: #1e293b; }
+        .section { margin-top: 25px; }
+        .section h3 { border-left: 4px solid var(--primary); padding-left: 10px; color: var(--primary); }
+        .apply-area { background: #f1f5f9; padding: 25px; border-radius: 12px; margin-top: 30px; text-align: center; }
         
-        .btn { display: inline-block; width: 100%; max-width: 400px; padding: 16px 24px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 1.1rem; transition: 0.3s; }
-        .btn-active { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(0, 51, 102, 0.2); }
-        .btn-active:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0, 51, 102, 0.3); }
-        .btn-disabled { background: #e2e8f0; color: #94a3b8; cursor: not-allowed; }
-        
-        .expired-msg { color: var(--danger); background: #fee2e2; padding: 12px; border-radius: 8px; font-weight: 600; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 8px; }
-
-        /* Ad Slots */
-        .ad-slot { margin: 20px 0; background: #eee; text-align: center; min-height: 100px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #999; overflow: hidden; }
-
-        @media (max-width: 600px) {
-            .card { padding: 25px 20px; }
-            header h1 { font-size: 1.5rem; }
-            .meta-grid { grid-template-columns: 1fr 1fr; }
-        }
+        .btn { display: inline-block; padding: 15px 30px; border-radius: 8px; text-decoration: none; font-weight: bold; margin-top: 15px; width: 100%; max-width: 300px; }
+        .btn-blue { background: var(--primary); color: white; }
+        .btn-expired { background: #cbd5e1; color: #64748b; cursor: not-allowed; }
+        .ad-space { margin: 20px 0; background: #eee; height: 100px; display: flex; align-items: center; justify-content: center; }
     </style>
-    
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1190706248323157" crossorigin="anonymous"></script>
 </head>
 <body>
 
-    <div class="container">
-        <a href="index.html" class="back-link"><i class="fa fa-arrow-left"></i> Back to All Jobs</a>
+    <div class="card">
+        <a href="index.html" style="text-decoration:none; color:var(--primary);">← Back</a>
+        <h1 id="title" style="margin:20px 0 5px;"></h1>
+        <p id="company" style="font-size:1.2rem; color:#64748b; margin:0;"></p>
 
-        <div class="card">
-            <header>
-                <h1 id="title"></h1>
-                <p id="company" class="company-name"></p>
-            </header>
+        <div class="meta-grid">
+            <div class="meta-item"><strong>Location</strong><span id="place"></span></div>
+            <div class="meta-item"><strong>Level</strong><span id="level"></span></div>
+            <div class="meta-item"><strong>Needed</strong><span id="needed"></span></div>
+            <div class="meta-item"><strong>Deadline</strong><span id="deadline"></span></div>
+        </div>
 
-            <div class="ad-slot">
-                <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1190706248323157" data-ad-slot="YOUR_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-            </div>
+        <div class="section">
+            <h3>Description</h3>
+            <p id="desc"></p>
+        </div>
 
-            <div class="meta-grid">
-                <div class="meta-item"><i class="fa fa-map-marker-alt"></i><strong>Location</strong><span id="place"></span></div>
-                <div class="meta-item"><i class="fa fa-layer-group"></i><strong>Level</strong><span id="level"></span></div>
-                <div class="meta-item"><i class="fa fa-users"></i><strong>Vacancies</strong><span id="needed"></span></div>
-                <div class="meta-item"><i class="fa fa-calendar-times"></i><strong>Deadline</strong><span id="deadline"></span></div>
-            </div>
+        <div class="section">
+            <h3>Requirements</h3>
+            <p id="req"></p>
+        </div>
 
-            <div class="section">
-                <h3>Job Description</h3>
-                <div id="desc" class="content-box"></div>
-            </div>
+        <div class="apply-area">
+            <h3>How to Apply</h3>
+            <p id="instr"></p>
+            <div id="action"></div>
+        </div>
 
-            <div class="section">
-                <h3>Requirements</h3>
-                <div id="req" class="content-box"></div>
-            </div>
-
-            <div class="apply-box">
-                <div id="statusArea"></div>
-                <h3>How to Apply</h3>
-                <p id="instr" class="instr-text"></p>
-                <div id="applyArea"></div>
-            </div>
-            
-            <div class="ad-slot" style="margin-top:40px;">
-                <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1190706248323157" data-ad-slot="YOUR_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-            </div>
+        <div class="ad-space">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1190706248323157" data-ad-slot="YOUR_AD_SLOT" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
     </div>
 
     <script>
-        // CENTRAL DATABASE (Ensure IDs match index.html)
         const fullData = {
-            "1": { 
-                title: "Senior Auditor", company: "Abyssinia Bank", place: "Addis Ababa", level: "Senior", needed: "3", deadline: "2025-12-30",
-                desc: "We are seeking a detail-oriented Senior Auditor to oversee financial operations and ensure compliance with regulatory standards.",
-                req: "• BA degree in Accounting or Finance\n• 5+ years of relevant experience\n• Professional certification (ACCA/CIA) is a plus.",
-                instr: "Please send your updated CV and cover letter via the email button below.",
-                type: "email", action: "hr@abyssinia.com"
-            },
-            "2": { 
-                title: "Software Engineer", company: "Safaricom", place: "Remote", level: "Mid-Level", needed: "1", deadline: "2025-12-20",
-                desc: "Join our agile engineering team to build scalable mobile solutions for the Ethiopian market.",
-                req: "• BSc in Computer Science\n• Strong knowledge of Node.js and React\n• Experience with AWS/Cloud infrastructure.",
-                instr: "Follow the link below to our official career portal to fill out the application form.",
-                type: "link", action: "https://safaricom.et/careers"
-            }
-            // Add more IDs (3, 4, 5...) here following the same structure
+            "1": { title: "Senior Auditor", company: "Abyssinia Bank", place: "Addis Ababa", level: "Senior", needed: "3", deadline: "2025-12-30", desc: "Description here...", req: "Requirements here...", instr: "Send email to address below.", type: "email", action: "hr@abyssinia.com" },
+            "2": { title: "Software Engineer", company: "Safaricom", place: "Remote", level: "Mid", needed: "1", deadline: "2025-12-20", desc: "Engineering description...", req: "Skills here...", instr: "Click the website link to apply.", type: "link", action: "https://safaricom.et" }
         };
 
         const id = new URLSearchParams(window.location.search).get('id');
@@ -130,27 +73,24 @@
             document.getElementById('company').innerText = job.company;
             document.getElementById('place').innerText = job.place;
             document.getElementById('level').innerText = job.level;
-            document.getElementById('needed').innerText = job.needed + " Positions";
+            document.getElementById('needed').innerText = job.needed;
             document.getElementById('deadline').innerText = job.deadline;
             document.getElementById('desc').innerText = job.desc;
-            document.getElementById('req').innerText = job.req || "See description for specific requirements.";
+            document.getElementById('req').innerText = job.req;
             document.getElementById('instr').innerText = job.instr;
 
             const isExpired = new Date(job.deadline) < new Date();
-            const applyArea = document.getElementById('applyArea');
-            const statusArea = document.getElementById('statusArea');
-
+            const btnArea = document.getElementById('action');
+            
             if(isExpired) {
-                statusArea.innerHTML = `<div class="expired-msg"><i class="fa fa-exclamation-circle"></i> Application Deadline has Passed</div>`;
-                applyArea.innerHTML = `<div class="btn btn-disabled">Applications Closed</div>`;
+                btnArea.innerHTML = `<div class="btn btn-expired">Application Closed</div>`;
             } else {
-                const link = job.type === 'email' ? `mailto:${job.action}` : job.action;
-                const label = job.type === 'email' ? "Apply via Email" : "Visit Company Website";
-                applyArea.innerHTML = `<a href="${link}" class="btn btn-active">${label}</a>`;
+                const url = job.type === 'email' ? `mailto:${job.action}` : job.action;
+                const label = job.type === 'email' ? 'Send Email Application' : 'Apply on Company Website';
+                btnArea.innerHTML = `<a href="${url}" class="btn btn-blue">${label}</a>`;
             }
-        } else {
-            document.querySelector('.card').innerHTML = `<h2>Job not found</h2><a href="index.html">Return to Home</a>`;
         }
     </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1190706248323157" crossorigin="anonymous"></script>
 </body>
 </html>
