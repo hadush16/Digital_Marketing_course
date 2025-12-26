@@ -3,192 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EthioJobs Clone | Ethiopia's Job Portal</title>
+    <title>EthioJobs Portal | Dec 2025</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root {
-            --primary-blue: #003366; /* Ethiojobs Style */
-            --accent-yellow: #facc15;
-            --bg-gray: #f3f4f6;
-            --text-dark: #1f2937;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg-gray); color: var(--text-dark); display: flex; flex-direction: column; min-height: 100vh; }
-
-        /* --- SIDE DRAWER --- */
-        #sidebar {
-            position: fixed; left: -280px; width: 280px; height: 100%;
-            background: var(--primary-blue); color: white;
-            transition: 0.3s; z-index: 1001; padding: 20px; box-shadow: 5px 0 15px rgba(0,0,0,0.2);
-        }
-        #sidebar.active { left: 0; }
-        #sidebar ul { list-style: none; padding: 0; margin-top: 50px; }
-        #sidebar li { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
-        #sidebar li:hover { background: rgba(255,255,255,0.1); }
-
-        /* --- HEADER & NAV --- */
-        header {
-            background: white; padding: 1rem 5%;
-            display: flex; justify-content: space-between; align-items: center;
-            box-shadow: var(--shadow); position: sticky; top: 0; z-index: 1000;
-        }
-        .menu-btn { font-size: 1.5rem; cursor: pointer; color: var(--primary-blue); }
-        .search-container { flex: 1; margin: 0 2rem; }
-        .search-container input {
-            width: 100%; padding: 10px 15px; border: 1px solid #ddd; border-radius: 8px;
-        }
-
-        /* --- JOB CATEGORY NAV --- */
-        .category-scroll {
-            display: flex; gap: 10px; overflow-x: auto; padding: 15px 5%;
-            background: white; border-bottom: 1px solid #ddd;
-        }
-        .cat-tag {
-            white-space: nowrap; padding: 8px 16px; background: #e5e7eb;
-            border-radius: 20px; font-weight: 600; cursor: pointer; transition: 0.2s;
-        }
-        .cat-tag:hover, .cat-tag.active { background: var(--primary-blue); color: white; }
-
-        /* --- JOB LISTINGS --- */
-        .main-content { padding: 20px 5%; max-width: 1000px; margin: 0 auto; width: 100%; }
-        .job-card {
-            background: white; margin-bottom: 15px; padding: 20px;
-            border-radius: 10px; box-shadow: var(--shadow);
-            display: flex; justify-content: space-between; align-items: center;
-            border-left: 6px solid var(--primary-blue);
-            transition: transform 0.2s;
-        }
-        .job-card:hover { transform: translateY(-3px); }
-        .job-info h3 { margin: 0 0 5px 0; color: var(--primary-blue); }
-        .job-details { font-size: 0.9rem; color: #6b7280; }
-        .level-badge {
-            padding: 4px 12px; border-radius: 4px; font-size: 0.75rem;
-            font-weight: bold; text-transform: uppercase;
-        }
-        .junior { background: #dcfce7; color: #166534; }
-        .senior { background: #fef9c3; color: #854d0e; }
-        .urgent { background: #fee2e2; color: #991b1b; }
-
-        .apply-btn {
-            background: var(--primary-blue); color: white;
-            padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600;
-        }
-
-        /* --- UTILITY --- */
-        .hidden { display: none; }
-        .overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); z-index: 1000; display: none;
-        }
-        .overlay.active { display: block; }
-    </style>
 </head>
 <body>
 
-    <div id="sidebar">
-        <h2>EthioJobs Menu</h2>
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h2>EthioJobs</h2>
+        </div>
         <ul>
-            <li onclick="filterJobs('all')"><i class="fa fa-home"></i> Dashboard</li>
-            <li><i class="fa fa-user"></i> Candidate Profile</li>
-            <li><i class="fa fa-briefcase"></i> My Applications</li>
-            <li><i class="fa fa-bell"></i> Job Alerts</li>
-            <li style="color: var(--accent-yellow)"><i class="fa fa-star"></i> Premium Jobs</li>
+            <li onclick="filterJobs('all')"><i class="fa fa-home"></i> Home</li>
+            <li onclick="filterJobs('banking')"><i class="fa fa-university"></i> Banking</li>
+            <li onclick="filterJobs('tech')"><i class="fa fa-laptop-code"></i> Technology</li>
+            <li onclick="filterJobs('health')"><i class="fa fa-stethoscope"></i> Healthcare</li>
         </ul>
-    </div>
-
-    <div class="overlay" id="overlay"></div>
+    </nav>
 
     <header>
-        <div class="menu-btn" onclick="toggleMenu()"><i class="fa fa-bars"></i></div>
-        <div class="search-container">
-            <input type="text" id="jobSearch" placeholder="Search jobs by title or company..." onkeyup="searchJobs()">
+        <button id="menuBtn"><i class="fa fa-bars"></i></button>
+        <div class="search-box">
+            <input type="text" id="jobSearch" placeholder="Search by job title or company...">
         </div>
-        <div style="font-weight: bold; color: var(--primary-blue);">EthioJobs</div>
     </header>
 
-    <div class="category-scroll">
-        <div class="cat-tag active" onclick="filterJobs('all')">All Jobs</div>
-        <div class="cat-tag" onclick="filterJobs('banking')">Banking</div>
-        <div class="cat-tag" onclick="filterJobs('tech')">IT & Telecoms</div>
-        <div class="cat-tag" onclick="filterJobs('health')">Healthcare</div>
-        <div class="cat-tag" onclick="filterJobs('ngo')">NGO / Social</div>
+    <div class="container">
+        <h2>Latest Job Vacancies</h2>
+        
+        <div id="jobList">
+            <div class="job-card" 
+                 data-category="banking" 
+                 data-title="Branch Manager"
+                 data-company="Commercial Bank of Ethiopia"
+                 data-desc="Manage daily branch operations and customer relations."
+                 data-req="BA in Management, 5+ years experience."
+                 data-loc="Addis Ababa">
+                <span class="badge senior">Senior</span>
+                <h3>Branch Manager</h3>
+                <p>CBE • Addis Ababa</p>
+                <button class="view-btn">View Details</button>
+            </div>
+
+            </div>
     </div>
 
-    <main class="main-content" id="jobList">
-        <h2 id="sectionTitle">Latest Jobs (Dec 2025)</h2>
-
-        <div class="job-card" data-category="banking" data-title="Branch Manager">
-            <div class="job-info">
-                <span class="level-badge senior">Senior Level</span>
-                <h3>Branch Manager</h3>
-                <div class="job-details">Commercial Bank of Ethiopia • Addis Ababa • Full-time</div>
-                <div style="margin-top: 10px; font-size: 0.8rem;">Posted: 2 hours ago</div>
-            </div>
-            <a href="#" class="apply-btn">Apply Now</a>
+    <div id="detailModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <p id="modalCompany" class="company-name"></p>
+            <hr>
+            <h4>Description</h4>
+            <p id="modalDesc"></p>
+            <h4>Requirements</h4>
+            <p id="modalReq"></p>
+            <p><strong>Location:</strong> <span id="modalLoc"></span></p>
+            <a href="mailto:apply@example.com" class="apply-btn">Apply Now</a>
         </div>
+    </div>
 
-        <div class="job-card" data-category="tech" data-title="Frontend Developer">
-            <div class="job-info">
-                <span class="level-badge junior">Junior Level</span>
-                <h3>Frontend Developer (React)</h3>
-                <div class="job-details">Ethio Telecom • Hybrid • Contract</div>
-                <div style="margin-top: 10px; font-size: 0.8rem;">Posted: Dec 24, 2025</div>
-            </div>
-            <a href="#" class="apply-btn">Apply Now</a>
-        </div>
+    <div id="overlay"></div>
 
-        <div class="job-card" data-category="ngo" data-title="Program Coordinator">
-            <div class="job-info">
-                <span class="level-badge urgent">Urgent</span>
-                <h3>Program Coordinator</h3>
-                <div class="job-details">UNICEF Ethiopia • Hawassa • Full-time</div>
-                <div style="margin-top: 10px; font-size: 0.8rem;">Posted: Dec 20, 2025</div>
-            </div>
-            <a href="#" class="apply-btn">Apply Now</a>
-        </div>
-    </main>
-
-    <script>
-        // 1. Sidebar Toggle
-        function toggleMenu() {
-            document.getElementById('sidebar').classList.toggle('active');
-            document.getElementById('overlay').classList.toggle('active');
-        }
-        document.getElementById('overlay').onclick = toggleMenu;
-
-        // 2. Search Functionality
-        function searchJobs() {
-            let input = document.getElementById('jobSearch').value.toLowerCase();
-            let cards = document.getElementsByClassName('job-card');
-            
-            for (let card of cards) {
-                let title = card.getAttribute('data-title').toLowerCase();
-                if (title.includes(input)) {
-                    card.style.display = "flex";
-                } else {
-                    card.style.display = "none";
-                }
-            }
-        }
-
-        // 3. Category Filter
-        function filterJobs(category) {
-            let cards = document.getElementsByClassName('job-card');
-            let tags = document.getElementsByClassName('cat-tag');
-
-            // Update UI tags
-            for (let tag of tags) tag.classList.remove('active');
-            event.target.classList.add('active');
-
-            for (let card of cards) {
-                if (category === 'all' || card.getAttribute('data-category') === category) {
-                    card.style.display = "flex";
-                } else {
-                    card.style.display = "none";
-                }
-            }
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
