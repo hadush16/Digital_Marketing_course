@@ -3,103 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jobs | Professional Portal 2025</title>
+    <title>Job Portal | 2025</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { --primary: #003366; --danger: #dc2626; --success: #16a34a; --bg: #f1f5f9; --white: #ffffff; }
         * { box-sizing: border-box; transition: 0.2s; }
         body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg); }
 
-        /* --- STICKY TOP SECTION --- */
-        .top-fixed-wrapper {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: var(--white);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
+        /* Sticky Header & Nav */
+        .header-stack { position: sticky; top: 0; z-index: 1000; background: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        header { padding: 15px 5%; display: flex; align-items: center; border-bottom: 1px solid #eee; }
+        .menu-btn { font-size: 1.5rem; cursor: pointer; border: none; background: none; color: var(--primary); }
+        .logo { margin-left: 15px; font-weight: 800; color: var(--primary); font-size: 1.3rem; }
 
-        header { 
-            padding: 12px 5%; 
-            display: flex; 
-            align-items: center; 
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .menu-btn { font-size: 1.4rem; cursor: pointer; border: none; background: none; color: var(--primary); padding: 5px; }
-        .logo-text { margin: 0 0 0 15px; color: var(--primary); font-size: 1.25rem; font-weight: 800; }
-
-        .cat-bar { 
-            display: flex; 
-            gap: 10px; 
-            overflow-x: auto; 
-            padding: 10px 5%; 
-            scrollbar-width: none; 
-        }
+        .cat-bar { display: flex; gap: 10px; overflow-x: auto; padding: 12px 5%; scrollbar-width: none; }
         .cat-bar::-webkit-scrollbar { display: none; }
-        
-        .pill { 
-            padding: 6px 18px; 
-            background: #e2e8f0; 
-            border-radius: 20px; 
-            cursor: pointer; 
-            white-space: nowrap; 
-            font-weight: 600; 
-            font-size: 0.85rem; 
-            color: #475569;
-        }
+        .pill { padding: 8px 20px; background: #e2e8f0; border-radius: 20px; cursor: pointer; white-space: nowrap; font-weight: 600; font-size: 0.9rem; color: #475569; }
         .pill.active { background: var(--primary); color: white; }
 
-        /* --- SIDEBAR --- */
-        #sidebar { 
-            width: 280px; height: 100vh; background: var(--primary); color: white; 
-            position: fixed; left: -280px; z-index: 2000; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-        }
+        /* Sidebar */
+        #sidebar { width: 280px; height: 100vh; background: var(--primary); color: white; position: fixed; left: -280px; z-index: 2000; }
         #sidebar.active { left: 0; }
         .sidebar-header { padding: 25px; background: rgba(0,0,0,0.2); font-weight: bold; }
         #sidebar ul { list-style: none; padding: 0; }
-        #sidebar li { padding: 15px 25px; border-bottom: 1px solid #ffffff11; cursor: pointer; font-size: 0.95rem; }
-        #sidebar li:hover { background: rgba(255,255,255,0.1); }
-
-        /* --- ADS SLOTS --- */
-        .ad-container { 
-            width: 100%; 
-            max-width: 1000px; 
-            margin: 15px auto; 
-            background: #e5e7eb; 
-            text-align: center; 
-            min-height: 90px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #9ca3af;
-            font-size: 0.7rem;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        /* --- MAIN CONTENT --- */
-        .container { padding: 15px 5% 50px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; }
-        
-        .job-card { 
-            background: white; padding: 18px; border-radius: 12px; text-decoration: none; color: inherit; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.03); border-top: 4px solid var(--primary); position: relative;
-        }
-        .job-card.expired { opacity: 0.6; grayscale: 1; border-top-color: #94a3b8; }
-        .job-card:hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0,0,0,0.08); }
-        
-        .status-badge { font-size: 0.65rem; font-weight: 800; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; margin-bottom: 8px; display: inline-block; }
-        .expired-label { background: #fee2e2; color: var(--danger); }
-        .active-label { background: #dcfce7; color: var(--success); }
-        
-        .meta-info { font-size: 0.8rem; color: #64748b; margin-top: 10px; display: flex; flex-direction: column; gap: 3px; }
+        #sidebar li { padding: 15px 25px; border-bottom: 1px solid #ffffff11; cursor: pointer; }
         .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; z-index: 1500; }
         .overlay.active { display: block; }
 
-        @media (max-width: 600px) {
-            .container { grid-template-columns: 1fr; }
-            .logo-text { font-size: 1.1rem; }
-        }
+        /* Grid and Cards */
+        .container { padding: 20px 5%; display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 20px; }
+        .job-card { background: white; padding: 20px; border-radius: 12px; text-decoration: none; color: inherit; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 4px solid var(--primary); }
+        .job-card.expired { opacity: 0.6; grayscale: 1; border-top-color: #94a3b8; }
+        .status-badge { font-size: 0.7rem; font-weight: 800; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; margin-bottom: 10px; display: inline-block; }
+        .active-label { background: #dcfce7; color: #166534; }
+        .expired-label { background: #fee2e2; color: #991b1b; }
+        .meta { font-size: 0.85rem; color: #64748b; display: flex; flex-direction: column; gap: 5px; margin-top: 10px; }
+
+        /* Ads */
+        .ad-row { grid-column: 1 / -1; background: #eee; min-height: 90px; display: flex; align-items: center; justify-content: center; border-radius: 8px; overflow: hidden; }
     </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1190706248323157" crossorigin="anonymous"></script>
 </head>
@@ -109,29 +50,24 @@
         <div class="sidebar-header">Job Categories</div>
         <ul id="sidebarList"></ul>
     </nav>
-    <div class="overlay" id="overlay"></div>
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-    <div class="top-fixed-wrapper">
+    <div class="header-stack">
         <header>
             <button class="menu-btn" onclick="toggleMenu()"><i class="fa fa-bars"></i></button>
-            <h2 class="logo-text">ETHIOJOBS PORTAL</h2>
+            <div class="logo">JOBPORTAL</div>
         </header>
         <div class="cat-bar" id="catBar"></div>
-    </div>
-
-    <div class="ad-container">
-        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1190706248323157" data-ad-slot="YOUR_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
 
     <div class="container" id="jobGrid"></div>
 
     <script>
+        // --- ADD YOUR JOBS HERE ---
         const jobs = [
             { id: 1, title: "Senior Auditor", company: "Abyssinia Bank", cat: "Banking", level: "Senior", workplace: "Addis Ababa", needed: 3, deadline: "2025-12-30" },
             { id: 2, title: "Software Engineer", company: "Safaricom", cat: "IT", level: "Mid-Level", workplace: "Remote", needed: 1, deadline: "2025-12-20" },
-            { id: 3, title: "Health Officer", company: "World Vision", cat: "NGO", level: "Junior", workplace: "Hawassa", needed: 5, deadline: "2026-01-15" },
-            { id: 4, title: "Educator", company: "Ministry of Ed", cat: "Education", level: "Junior", workplace: "Mekele", needed: 2, deadline: "2026-01-15" }
+            { id: 3, title: "Nurse", company: "St. Paul", cat: "Health", level: "Junior", workplace: "Addis", needed: 10, deadline: "2026-01-20" }
         ];
 
         const categories = ["Banking", "IT", "NGO", "Health", "Education"];
@@ -140,71 +76,58 @@
             document.getElementById('sidebar').classList.toggle('active');
             document.getElementById('overlay').classList.toggle('active');
         }
-        document.getElementById('overlay').onclick = toggleMenu;
 
         function init() {
             const sideList = document.getElementById('sidebarList');
             const catBar = document.getElementById('catBar');
             
-            let catHtml = `<div class="pill active" onclick="filterJobs('all', this)">All Jobs</div>`;
-            let sideHtml = `<li onclick="filterJobs('all', this)">All Jobs</li>`;
+            let html = `<div class="pill active" onclick="filterJobs('all', this)">All Jobs</div>`;
+            let sideHtml = `<li onclick="filterJobs('all')">All Jobs</li>`;
 
             categories.forEach(c => {
-                catHtml += `<div class="pill" onclick="filterJobs('${c}', this)">${c}</div>`;
-                sideHtml += `<li onclick="filterJobs('${c}', this)">${c}</li>`;
+                html += `<div class="pill" onclick="filterJobs('${c}', this)">${c}</div>`;
+                sideHtml += `<li onclick="filterJobs('${c}')">${c}</li>`;
             });
-
-            catBar.innerHTML = catHtml;
+            catBar.innerHTML = html;
             sideList.innerHTML = sideHtml;
             filterJobs('all');
         }
 
         function filterJobs(cat, element) {
+            const grid = document.getElementById('jobGrid');
+            const today = new Date();
+            grid.innerHTML = '';
+
             if(element) {
                 document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
                 element.classList.add('active');
             }
 
-            const grid = document.getElementById('jobGrid');
-            const today = new Date();
-            grid.innerHTML = '';
-            
             const filtered = cat === 'all' ? jobs : jobs.filter(j => j.cat === cat);
             
             filtered.forEach((job, index) => {
-                const jobDeadline = new Date(job.deadline);
-                const isExpired = jobDeadline < today;
-                
+                const isExpired = new Date(job.deadline) < today;
                 grid.innerHTML += `
                     <a href="job-details.html?id=${job.id}" class="job-card ${isExpired ? 'expired' : ''}">
-                        <span class="status-badge ${isExpired ? 'expired-label' : 'active-label'}">
-                            ${isExpired ? 'Expired' : 'Active'}
-                        </span>
-                        <h3 style="margin:5px 0; font-size:1.1rem;">${job.title}</h3>
-                        <p style="margin:0; font-weight:600; color:#475569; font-size:0.9rem;">${job.company}</p>
-                        <div class="meta-info">
+                        <span class="status-badge ${isExpired ? 'expired-label' : 'active-label'}">${isExpired ? 'Expired' : 'Active'}</span>
+                        <h3 style="margin:5px 0;">${job.title}</h3>
+                        <p style="margin:0; font-weight:600; color:#475569;">${job.company}</p>
+                        <div class="meta">
                             <span><i class="fa fa-map-marker-alt"></i> ${job.workplace}</span>
-                            <span><i class="fa fa-users"></i> ${job.needed} Positions</span>
-                            <span style="color:${isExpired ? 'red' : 'green'}">
-                                <i class="fa fa-calendar-times"></i> Deadline: ${job.deadline}
-                            </span>
+                            <span><i class="fa fa-users"></i> ${job.needed} Vacancies</span>
+                            <span style="color:${isExpired ? 'red' : 'green'}"><i class="fa fa-clock"></i> Deadline: ${job.deadline}</span>
                         </div>
                     </a>
                 `;
 
-                // INSERT AD AFTER 4th CARD
-                if(index === 3) {
-                    grid.innerHTML += `
-                    <div class="ad-container" style="grid-column: 1 / -1;">
-                        <ins class="adsbygoogle" style="display:block" data-ad-format="fluid" data-ad-layout-key="-fb+5w+4e-db+86" data-ad-client="ca-pub-1190706248323157" data-ad-slot="YOUR_SLOT_ID"></ins>
-                        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-                    </div>`;
+                // Add Ad Slot after 2nd job
+                if(index === 1) {
+                    grid.innerHTML += `<div class="ad-row"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1190706248323157" data-ad-slot="YOUR_AD_SLOT" data-ad-format="auto" data-full-width-responsive="true"></ins></div>`;
+                    (adsbygoogle = window.adsbygoogle || []).push({});
                 }
             });
-
             if(document.getElementById('sidebar').classList.contains('active')) toggleMenu();
         }
-
         init();
     </script>
 </body>
