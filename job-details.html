@@ -3,102 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Details | EthioJobs</title>
+    <title>Job Details</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --primary: #003366; --bg: #f4f7fa; }
-        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg); line-height: 1.6; }
-        .container { max-width: 800px; margin: 40px auto; padding: 20px; }
-        .back-btn { text-decoration: none; color: var(--primary); font-weight: bold; display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+        :root { --primary: #003366; --bg: #f1f5f9; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding-bottom: 50px; }
+        .header { background: var(--primary); color: white; padding: 40px 5%; text-align: center; }
+        .container { max-width: 900px; margin: -30px auto 0; padding: 0 20px; }
+        .card { background: white; border-radius: 16px; padding: 40px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .back-link { color: white; text-decoration: none; display: inline-block; margin-bottom: 20px; }
         
-        .details-card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .header-section { border-bottom: 2px solid #eee; padding-bottom: 20px; margin-bottom: 20px; }
-        h1 { color: var(--primary); margin: 0; }
-        .company { font-size: 1.2rem; color: #555; font-weight: 600; }
-        
-        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
-        .info-item { background: #f9f9f9; padding: 15px; border-radius: 10px; }
-        .info-item strong { display: block; color: var(--primary); font-size: 0.8rem; text-transform: uppercase; }
-
-        .apply-now { display: block; width: 100%; padding: 18px; background: var(--primary); color: white; text-align: center; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 1.1rem; margin-top: 30px; }
-        .apply-now:hover { background: #002244; }
-
-        @media (max-width: 600px) { .info-grid { grid-template-columns: 1fr; } }
+        h2 { color: var(--primary); border-left: 4px solid var(--primary); padding-left: 15px; margin-top: 30px; }
+        .apply-box { background: #fffbeb; border: 2px dashed #f59e0b; padding: 25px; border-radius: 12px; margin-top: 40px; }
+        .apply-box h3 { color: #92400e; margin-top: 0; }
+        .btn-apply { display: block; width: 100%; background: var(--primary); color: white; text-align: center; padding: 18px; border-radius: 8px; text-decoration: none; font-weight: bold; margin-top: 20px; font-size: 1.1rem; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <a href="index.html" class="back-btn"><i class="fa fa-arrow-left"></i> Back to Jobs</a>
+    <div class="header">
+        <a href="index.html" class="back-link">← Back to Portal</a>
+        <h1 id="jTitle">Job Loading...</h1>
+        <p id="jCompany"></p>
+    </div>
 
-        <div class="details-card" id="job-content">
-            <p>Loading job details...</p>
+    <div class="container">
+        <div class="card">
+            <div id="jDetails">
+                </div>
+
+            <div class="apply-box">
+                <h3><i class="fa fa-paper-plane"></i> How to Apply</h3>
+                <p id="jApply"></p>
+                <a href="#" id="jEmail" class="btn-apply">Send Application Email</a>
+            </div>
         </div>
     </div>
 
     <script>
-        // Database of jobs (In a real app, this comes from a file or server)
-        const jobData = {
-            "1": {
-                title: "Project Manager",
-                company: "Safaricom Ethiopia",
-                location: "Addis Ababa",
-                salary: "Negotiable",
-                type: "Full-Time",
-                desc: "We are looking for a dynamic Project Manager to oversee our network expansion in the Amhara region. You will be responsible for budgeting, scheduling, and site coordination.",
-                req: "PMP Certification, 5+ years in Telecom, fluency in English and Amharic."
+        const fullData = {
+            "1": { 
+                title: "Corporate Branch Manager", 
+                company: "Abyssinia Bank", 
+                desc: "Lead the branch operations and financial growth targets for our central district.",
+                req: "Master's in Finance, 8+ years experience in banking operations.",
+                apply: "Interested candidates should submit their CV and a cover letter to the HR department via the email link below. Mention 'Branch Manager Application' in the subject line.",
+                email: "hr@abyssiniabank.com"
             },
-            "2": {
-                title: "Senior Auditor",
-                company: "Awash Bank",
-                location: "Adama",
-                salary: "ETB 25,000 - 35,000",
-                type: "Permanent",
-                desc: "Awash Bank is seeking a Senior Auditor to maintain our high standards of financial integrity. This role involves internal auditing of various regional branches.",
-                req: "Degree in Accounting, ACCA preferred, 4+ years in banking audit."
-            },
-            "3": {
-                title: "Health Coordinator",
-                company: "World Vision",
-                location: "Bahir Dar",
-                salary: "Per NGO Scale",
-                type: "Contract",
-                desc: "The Health Coordinator will lead our community health initiatives. You will work closely with local government offices to implement maternal health programs.",
-                req: "Master's in Public Health, Experience in NGO settings, strong reporting skills."
+            "2": { 
+                title: "Fullstack Developer", 
+                company: "E-Tech Ethiopia", 
+                desc: "Develop and maintain robust web applications using Node.js and React.",
+                req: "BSc in Computer Science, Portfolio of at least 3 active projects.",
+                apply: "Send your GitHub profile and resume. Shortlisted candidates will be contacted for a technical interview.",
+                email: "tech@etech.et"
             }
+            // Add more IDs for 3, 4, 5, 6...
         };
 
-        // Get the ID from the URL (e.g., ?id=1)
-        const urlParams = new URLSearchParams(window.location.search);
-        const jobId = urlParams.get('id');
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+        const job = fullData[id];
 
-        const contentDiv = document.getElementById('job-content');
-
-        if (jobData[jobId]) {
-            const job = jobData[jobId];
-            contentDiv.innerHTML = `
-                <div class="header-section">
-                    <h1>${job.title}</h1>
-                    <div class="company">${job.company}</div>
-                </div>
-
-                <div class="info-grid">
-                    <div class="info-item"><strong>Location</strong>${job.location}</div>
-                    <div class="info-item"><strong>Job Type</strong>${job.type}</div>
-                    <div class="info-item"><strong>Salary</strong>${job.salary}</div>
-                    <div class="info-item"><strong>Posted</strong>Dec 26, 2025</div>
-                </div>
-
-                <h3>Job Description</h3>
-                <p>${job.desc}</p>
-
-                <h3>Requirements</h3>
-                <p>${job.req}</p>
-
-                <a href="mailto:careers@${job.company.toLowerCase().replace(' ', '')}.com" class="apply-now">Apply for this Job</a>
+        if(job) {
+            document.getElementById('jTitle').innerText = job.title;
+            document.getElementById('jCompany').innerText = job.company;
+            document.getElementById('jDetails').innerHTML = `
+                <h2>Description</h2><p>${job.desc}</p>
+                <h2>Requirements</h2><p>${job.req}</p>
             `;
-        } else {
-            contentDiv.innerHTML = "<h2>Job not found!</h2><a href='index.html'>Go back</a>";
+            document.getElementById('jApply').innerText = job.apply;
+            document.getElementById('jEmail').href = `mailto:${job.email}?subject=Application for ${job.title}`;
         }
     </script>
 </body>
