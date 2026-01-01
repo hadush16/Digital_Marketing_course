@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+    .container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); width: 380px; text-align: center; }
+    h2 { color: #1a73e8; margin-bottom: 20px; }
+    .file-area { border: 2px dashed #dadce0; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+    button { background-color: #1a73e8; color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; width: 100%; font-size: 16px; transition: 0.3s; }
+    button:hover { background-color: #1557b0; }
+    button:disabled { background-color: #ccc; cursor: not-allowed; }
+    #status { margin-top: 15px; font-size: 14px; line-height: 1.4; }
+    .error { color: #d93025; font-weight: bold; }
+    .success { color: #188038; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Project Editor</h2>
+  <div class="file-area">
+    <input type="file" id="fileInput">
+  </div>
+  <button id="uploadBtn" onclick="uploadFile()">Upload Assignment</button>
+  <div id="status"></div>
+</div>
+
+<script>
+  function uploadFile() {
+    const fileInput = document.getElementById('fileInput');
+    const status = document.getElementById('status');
+    const btn = document.getElementById('uploadBtn');
+    
+    if (fileInput.files.length === 0) {
+      status.innerHTML = "<span class='error'>Please select a file first.</span>";
+      return;
+    }
+
+    const file = fileInput.files[0];
+    status.innerHTML = "Checking for duplicates and uploading...";
+    btn.disabled = true;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const base64Data = e.target.result;
+      
+      google.script.run
+        .withSuccessHandler((msg) => {
+          btn.disabled = false;
+          if (msg.includes("Error")) {
+            status.innerHTML = `<span class='error'>${msg}</span>`;
+          } else {
+            status.innerHTML = `<span class='success'>${msg}</span>`;
+            fileInput.value = ""; // Clear the input on success
+          }
+        })
+        .uploadFileToDrive(base64Data, file.name);
+    };
+    
+    reader.readAsDataURL(file);
+  }
+</script>
+
+</body>
+</html>
