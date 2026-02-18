@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Course Details | Hadush Brhane</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/css/main.css" rel="stylesheet">
+  <style>
+    body { font-family: 'Roboto', sans-serif; background: #f8f9fa; }
+    .page-title {
+      background: #0d6efd;
+      color: #fff;
+      padding: 2rem 0 1rem 0;
+      margin-bottom: 2rem;
+      border-radius: 0 0 16px 16px;
+    }
+    .page-title h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .page-title p { font-size: 1.1rem; }
+    .course-detail-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .course-detail-card:hover {
+      box-shadow: 0 8px 32px rgba(0,0,0,0.16);
+      transform: translateY(-4px) scale(1.02);
+    }
+    .course-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    .course-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: #0d6efd; }
+    .course-desc { font-size: 1rem; color: #555; }
+    .course-info { font-size: 0.98rem; color: #555; margin-top: 1rem; }
+    .course-price { font-size: 1.1rem; color: #198754; font-weight: 700; margin: 1rem 0 0.5rem 0; }
+    .discount-counter { font-size: 1rem; color: #dc3545; font-weight: 700; margin-bottom: 1rem; }
+    .btn-primary, .btn-success { width: 100%; }
+    .media-section {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .media-title { font-size: 1.2rem; font-weight: 700; color: #0d6efd; margin-bottom: 1rem; }
+    .media-links-list { list-style: none; padding-left: 0; }
+    .media-links-list li { margin-bottom: 0.7rem; }
+    .media-links-list a { color: #0d6efd; word-break: break-all; }
+    .responsive-video {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    .responsive-video iframe, .responsive-video video {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+    }
+    @media (max-width: 767px) {
+      .page-title { padding: 1.2rem 0 0.5rem 0; }
+      .course-img { height: 100px; }
+      .course-title { font-size: 1.05rem; }
+      .media-section { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header & Navigation -->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html">
+          <img src="assets/img/favicon.png" alt="Logo" style="height:32px;vertical-align:middle;margin-right:8px;">
+          Hadush Brhane
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="service-details.html">Service</a></li>
+            <li class="nav-item"><a class="nav-link" href="dv_2027.html">DV-2027</a></li>
+            <li class="nav-item"><a class="nav-link" href="starter-page.html">Payment</a></li>
+            <li class="nav-item"><a class="nav-link" href="portfolio-details.html">Sign Up / Sign In</a></li>
+            <li class="nav-item"><a class="nav-link" href="starter-page.html">Contact</a></li>
+            <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <!-- End Header -->
+
+  <header class="page-title text-center">
+    <div class="container">
+      <h1 class="mb-1">Course Details</h1>
+      <p class="lead mb-0">More information about your selected course and related media.</p>
+    </div>
+  </header>
+  <main class="container">
+    <div id="course-details"></div>
+
+    <!-- Media Section: Add your own links and videos here -->
+    <section class="media-section">
+      <div class="media-title">Related Videos & Links</div>
+      <!-- Example YouTube Video Embed -->
+      <div class="responsive-video">
+  <iframe 
+    src="https://www.youtube.com/embed/uMjn5nTdYdY" 
+    title="How to login and apply for Ethiopian passport online" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+  </iframe>
+</div>
+      <!-- Example Facebook Video Embed -->
+      <!--
+      <div class="responsive-video">
+        <iframe src="https://www.facebook.com/plugins/video.php?href=YOUR_FACEBOOK_VIDEO_LINK" frameborder="0" allowfullscreen></iframe>
+      </div>
+      -->
+      <!-- Example Uploaded Video -->
+      <!--
+      <div class="responsive-video">
+        <video controls>
+          <source src="assets/videos/your-uploaded-video.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      -->
+      <ul class="media-links-list">
+        <li>
+          <a href="https://www.youtube.com/@HadushBrhane" target="_blank">
+            <i class="bi bi-youtube"></i> My YouTube Channel
+          </a>
+        </li>
+        <li>
+          <a href="https://www.facebook.com/new.light.14224094" target="_blank">
+            <i class="bi bi-facebook"></i> My Facebook Page
+          </a>
+        </li>
+        <li>
+          <a href="https://www.instagram.com/hadush130?igsh=bDVybjVtb3o1aTk1" target="_blank">
+            <i class="bi bi-instagram"></i> My Instagram
+          </a>
+        </li>
+        <li>
+          <a href="https://www.linkedin.com/in/hadushmobile" target="_blank">
+            <i class="bi bi-linkedin"></i> My LinkedIn
+          </a>
+        </li>
+        <!-- Add more links as needed -->
+      </ul>
+    </section>
+
+    <section class="my-5">
+      <h2>Contact & Support</h2>
+      <p>For questions or enrollment support, email <a href="mailto:hadushmobilesoftware@gmail.com">hadushmobilesoftware@gmail.com</a> or call +251714224955.</p>
+    </section>
+  </main>
+  <footer class="bg-light py-3 mt-5">
+    <div class="container text-center">
+      <p>© 2025 Hadush Brhane. All Rights Reserved.</p>
+      <div class="d-flex justify-content-center gap-3 mb-2">
+        <a href="https://x.com/belay341035"><i class="bi bi-twitter-x"></i></a>
+        <a href="https://web.facebook.com/new.light.14224094"><i class="bi bi-facebook"></i></a>
+        <a href="https://www.instagram.com/hadush130?igsh=bDVybjVtb3o1aTk1"><i class="bi bi-instagram"></i></a>
+        <a href="https://www.linkedin.com/in/hadushmobile"><i class="bi bi-linkedin"></i></a>
+      </div>
+      <div class="credits">
+        Designed by <a href="https://t.me/HadushB12">Hadush Brhane</a>
+      </div>
+    </div>
+  </footer>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Course data with price and discount
+    const courses = {
+      "intro-digital-marketing": {
+        title: "Introduction to Digital Marketing",
+        image: "assets/img/portfolio/Digital Sunrise ADS.png",
+        level: "Beginner",
+        duration: "2 Weeks",
+        price: 2500,
+        discount: 20,
+        overview: "Learn the basics of digital marketing, including key concepts, channels, and strategies for online success.",
+        topics: [
+          "What is Digital Marketing?",
+          "Digital Channels: Social Media, SEO, Email, Content",
+          "Setting Up Your First Campaign",
+          "Basic Analytics & Reporting"
+        ]
+      },
+      "social-media-fundamentals": {
+        title: "Social Media Fundamentals",
+        image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80",
+        level: "Beginner",
+        duration: "1 Week",
+        price: 2000,
+        discount: 15,
+        overview: "Understand the basics of Facebook, Instagram, and Twitter for business promotion.",
+        topics: [
+          "Setting Up Social Media Accounts",
+          "Content Planning & Scheduling",
+          "Basic Engagement Strategies"
+        ]
+      },
+      "content-creation-basics": {
+        title: "Content Creation Basics",
+        image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
+        level: "Beginner",
+        duration: "1 Week",
+        price: 2200,
+        discount: 10,
+        overview: "Learn how to create engaging posts, images, and videos for your brand.",
+        topics: [
+          "Graphic Design Essentials",
+          "Video Editing Basics",
+          "Writing for Social Media"
+        ]
+      },
+      "social-media-marketing": {
+        title: "Social Media Marketing",
+        image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=80",
+        level: "Intermediate",
+        duration: "2 Weeks",
+        price: 2700,
+        discount: 10,
+        overview: "Master Facebook, Instagram, YouTube, and TikTok marketing to grow your brand and engage your audience.",
+        topics: [
+          "Advanced Social Media Strategies",
+          "Paid Advertising",
+          "Influencer Marketing"
+        ]
+      },
+      "seo": {
+        title: "Search Engine Optimization (SEO)",
+        image: "https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=400&q=80",
+        level: "Intermediate",
+        duration: "2 Weeks",
+        price: 3000,
+        discount: 15,
+        overview: "Boost your website’s visibility on Google and other search engines with proven SEO techniques.",
+        topics: [
+          "Keyword Research",
+          "On-page & Off-page SEO",
+          "SEO Tools & Analytics"
+        ]
+      },
+      "email-marketing": {
+        title: "Email Marketing Essentials",
+        image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80",
+        level: "Intermediate",
+        duration: "1 Week",
+        price: 2100,
+        discount: 5,
+        overview: "Learn how to build email lists, create campaigns, and analyze results for better engagement.",
+        topics: [
+          "Building Email Lists",
+          "Creating Campaigns",
+          "Analyzing Results"
+        ]
+      },
+      "youtube-channel-management": {
+        title: "YouTube Channel Management",
+        image: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80",
+        level: "Advanced",
+        duration: "2 Weeks",
+        price: 3200,
+        discount: 20,
+        overview: "Learn how to optimize, grow, and monetize your YouTube channel for maximum impact.",
+        topics: [
+          "Channel Optimization",
+          "Content Strategy",
+          "Monetization Techniques"
+        ]
+      },
+      "advanced-seo": {
+        title: "Advanced SEO Strategies",
+        image: "https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=400&q=80",
+        level: "Advanced",
+        duration: "2 Weeks",
+        price: 3500,
+        discount: 15,
+        overview: "Explore technical SEO, link building, and analytics for higher search rankings.",
+        topics: [
+          "Technical SEO",
+          "Link Building",
+          "SEO Analytics"
+        ]
+      },
+      "paid-advertising": {
+        title: "Paid Advertising & Google Ads",
+        image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80",
+        level: "Advanced",
+        duration: "2 Weeks",
+        price: 3300,
+        discount: 10,
+        overview: "Master Google Ads, Facebook Ads, and retargeting for effective paid campaigns.",
+        topics: [
+          "Google Ads Setup",
+          "Facebook Ads Management",
+          "Retargeting Strategies"
+        ]
+      },
+      "graphic-design": {
+        title: "Graphic Design for Marketers",
+        image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
+        level: "Advanced",
+        duration: "1 Week",
+        price: 2500,
+        discount: 10,
+        overview: "Create compelling visuals using Photoshop and Illustrator to enhance your marketing campaigns.",
+        topics: [
+          "Photoshop Basics",
+          "Illustrator Essentials",
+          "Design for Social Media"
+        ]
+      },
+      "analytics-conversion": {
+        title: "Analytics & Conversion Optimization",
+        image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80",
+        level: "Advanced",
+        duration: "1 Week",
+        price: 2600,
+        discount: 10,
+        overview: "Use Google Analytics and other tools to track, analyze, and improve your marketing results.",
+        topics: [
+          "Google Analytics Setup",
+          "Conversion Tracking",
+          "Improvement Strategies"
+        ]
+      },
+      "marketing-automation": {
+        title: "Marketing Automation & CRM",
+        image: "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=400&q=80",
+        level: "Advanced",
+        duration: "1 Week",
+        price: 2800,
+        discount: 10,
+        overview: "Automate your marketing processes and manage customer relationships with advanced tools.",
+        topics: [
+          "Automation Tools",
+          "CRM Integration",
+          "Workflow Optimization"
+        ]
+      }
+    };
+
+    function getCourseKey() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('course');
+    }
+
+    function renderCourseDetails() {
+      const key = getCourseKey();
+      const course = courses[key];
+      const container = document.getElementById('course-details');
+      if (!course) {
+        container.innerHTML = `<div class="alert alert-warning">Course not found. <a href="index.html#courses">Back to Course List</a></div>`;
+        return;
+      }
+      const discountedPrice = course.price - (course.price * course.discount / 100);
+      container.innerHTML = `
+        <div class="course-detail-card">
+          <img src="${course.image}" alt="${course.title}" class="course-img">
+          <div class="course-title">${course.title}</div>
+          <div class="course-desc">
+            <strong>Level:</strong> ${course.level}<br>
+            <strong>Duration:</strong> ${course.duration}<br>
+            <strong>Overview:</strong> ${course.overview}
+          </div>
+          <ul class="mt-3">
+            ${course.topics.map(topic => `<li>${topic}</li>`).join('')}
+          </ul>
+          <div class="course-price">Course Fee: ₦${course.price} <span style="color:#dc3545;">(Discounted: ₦${discountedPrice})</span></div>
+          <div class="discount-counter">Limited Time Discount: ${course.discount}% OFF!</div>
+          <div class="course-info">
+            <strong>Instructor:</strong> Hadush Brhane<br>
+            <strong>Contact:</strong> hadushmobilesoftware@gmail.com<br>
+            <strong>Phone:</strong> +251714224955<br>
+            <strong>Location:</strong> Online & In-person
+          </div>
+          <a href="starter-page.html?course=${key}" class="btn btn-success mt-3">Enroll Now</a>
+          <a href="index.html#courses" class="btn btn-primary mt-2">Back to Course List</a>
+        </div>
+      `;
+    }
+
+    document.addEventListener('DOMContentLoaded', renderCourseDetails);
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3237559839274253"
+     crossorigin="anonymous"></script>
+</body>

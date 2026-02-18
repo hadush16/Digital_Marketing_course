@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curriculum Details | Digital Sunrise</title>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3237559839274253" crossorigin="anonymous"></script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <style>
+        body { background: #05060a; color: #fff; font-family: 'Inter', sans-serif; }
+        .detail-hero { background: linear-gradient(to bottom, #001f3f, #05060a); padding: 100px 0 50px; border-bottom: 2px solid #00d2ff; }
+        .info-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 2rem; margin-bottom: 2rem; }
+        .topic-point { border-left: 3px solid #00d2ff; padding-left: 15px; margin-bottom: 20px; }
+        .sticky-enroll { position: sticky; top: 100px; background: rgba(0,0,0,0.5); backdrop-filter: blur(20px); border: 1px solid #00d2ff; padding: 30px; border-radius: 30px; }
+        /* Style for response alerts */
+        #response-message .alert { margin-top: 15px; border-radius: 15px; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <amp-auto-ads type="adsense" data-ad-client="ca-pub-3237559839274253"></amp-auto-ads>
+
+    <nav class="navbar navbar-dark fixed-top bg-dark border-bottom border-secondary">
+        <div class="container">
+            <a href="Special courses.html
+" class="btn btn-outline-info btn-sm"><i class="bi bi-arrow-left"></i> All Courses</a>
+            <span class="navbar-brand fw-bold text-info">Curriculum Explorer</span>
+        </div>
+    </nav>
+
+    <header class="detail-hero text-center">
+        <div class="container">
+            <h1 id="mTitle" class="display-3 fw-bold">...</h1>
+            <p id="mSub" class="fs-4 text-info"></p>
+        </div>
+    </header>
+
+    <main class="container py-5">
+        <div class="row g-5">
+            <div class="col-lg-8">
+                <h2 class="fw-bold mb-4">Module Breakdown</h2>
+                <div id="mContent"></div>
+
+                <div class="info-card mt-5">
+                    <h3 class="fw-bold text-info"><i class="bi bi-tools"></i> Practical Exercise</h3>
+                    <p id="mProject" class="fs-5 mt-3"></p>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="sticky-enroll text-center shadow-lg">
+                    <h4 class="fw-bold">Course Access</h4>
+                    <h1 id="mPrice" class="display-4 fw-bold text-info">--</h1>
+                    <p class="small text-secondary mb-4">Full lifetime access & practical support.</p>
+                    
+                    <form id="enrollForm">
+                        <input type="hidden" name="subject" id="courseSubject">
+                        
+                        <input type="text" name="name" class="form-control mb-3 py-3" placeholder="Full Name" required>
+                        <input type="email" name="email" class="form-control mb-3 py-3" placeholder="Email Address" required>
+                        <input type="tel" name="message" class="form-control mb-3 py-3" placeholder="WhatsApp Phone" required>
+                        
+                        <button type="submit" id="submitBtn" class="btn btn-info w-100 py-3 fw-bold text-white fs-5 rounded-pill">
+                            ENROLL NOW
+                        </button>
+                    </form>
+                    <div id="response-message"></div>
+                    <p class="mt-3 small"><i class="bi bi-shield-check"></i> 100% Professional Training</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const mod = urlParams.get('mod');
+
+        const courses = {
+            '4': {
+                title: "Social Media Advertising mastery",
+                sub: "FB, Instagram, X, TikTok",
+                price: "ETB 3,500",
+                topics: [
+                    "Creating Sample Social Media Ads that STOP the scroll.",
+                    "Detailed Engagement Plans: From organic to paid reach.",
+                    "Platform-Specific Algorithms: How TikTok differs from Meta.",
+                    "Ad Copywriting: Psychological triggers for Ethiopian buyers."
+                ],
+                project: "Develop a complete ad set and engagement calendar for a launch campaign."
+            },
+            '5': {
+                title: "Content Marketing & Storytelling",
+                sub: "Psychology-Based Branding",
+                price: "ETB 2,800",
+                topics: [
+                    "Develop a branded content plan for a local business.",
+                    "Storytelling Strategies: Turning 'Features' into 'Benefits'.",
+                    "Visual Identity: Choosing colors and themes that build trust.",
+                    "Viral Hooks: The first 3 seconds of video content."
+                ],
+                project: "Create a 30-day storytelling plan for a local shop to increase engagement by 50%."
+            },
+            '6': {
+                title: "Search Engine Marketing (SEO & SEM)",
+                sub: "Google Ranking Power",
+                price: "ETB 4,200",
+                topics: [
+                    "Keyword Research: Finding high-intent search terms.",
+                    "On-Page Optimization: Meta tags, H1s, and alt text.",
+                    "Google Ads (SEM): Setting up Search and Display campaigns.",
+                    "Backlinking & Authority: Why other sites should link to you."
+                ],
+                project: "Practical exercise: Complete keyword research and optimize a landing page live."
+            },
+            '7': {
+                title: "Email, Influencer & Mobile Marketing",
+                sub: "Direct Communication & Authority",
+                price: "ETB 3,200",
+                topics: [
+                    "Influencer Outreach: Finding the right faces for your brand.",
+                    "Email Funnels: Sending the right message at the right time.",
+                    "WhatsApp Business: Using mobile marketing for direct sales.",
+                    "Influencer Outreach Plan: Negotiation and ROI tracking."
+                ],
+                project: "Mini-project: Develop a full influencer outreach script and campaign plan."
+            },
+            '9': {
+                title: "Data Analytics & Digital Metrics",
+                sub: "Google Analytics & Meta Manager",
+                price: "ETB 4,500",
+                topics: [
+                    "Measuring Engagement & ROI: The Math of Marketing.",
+                    "Meta Ads Manager: Reading heatmaps and conversion rates.",
+                    "Google Analytics 4 (GA4): Tracking user behavior.",
+                    "A/B Testing: How to double results without doubling the budget."
+                ],
+                project: "Practical session: Analyze a real ad report and provide 3 data-backed improvements."
+            }
+        };
+
+        const d = courses[mod];
+        if(d) {
+            document.getElementById('mTitle').innerText = d.title;
+            document.getElementById('mSub').innerText = d.sub;
+            document.getElementById('mPrice').innerText = d.price;
+            document.getElementById('mProject').innerText = d.project;
+            document.getElementById('courseSubject').value = "Enrollment: " + d.title; // Set hidden subject field
+            
+            let html = '';
+            d.topics.forEach(t => html += `<div class="topic-point"><h4>${t}</h4><p class="text-secondary small">Industry standard best-practice implementation.</p></div>`);
+            document.getElementById('mContent').innerHTML = html;
+        }
+// --- UPDATED SUBMISSION LOGIC ---
+        document.getElementById('enrollForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const responseMsg = document.getElementById('response-message');
+            // Ensure this URL is your LATEST deployment URL
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbzNPK5n_DuS3Y-jIuEmhs3Hk4pyJ67NDnUaZ2ypxRkhySWLhcFWR54u1HC31tG81D_YjA/exec';
+
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Processing...";
+            responseMsg.innerHTML = '<div class="alert alert-info">Checking registration status...</div>';
+
+            const formData = new FormData(this);
+            
+            // We use 'fetch' without 'no-cors' to actually read the response
+            fetch(scriptURL, {
+                method: 'POST',
+                body: formData // Send as FormData
+            })
+            .then(res => res.json()) // Parse the JSON from your Apps Script
+            .then(data => {
+                if (data.status === 'Duplicate') {
+                    responseMsg.innerHTML = `<div class="alert alert-warning">⚠️ ${data.message}</div>`;
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = "ENROLL NOW";
+                } else {
+                    responseMsg.innerHTML = '<div class="alert alert-success">Enrollment Saved! Opening WhatsApp...</div>';
+                    setTimeout(() => {
+                        const waText = `Hello, I just registered for the ${d.title} course.`;
+                        window.location.href = "https://wa.me/message/CMIS3ANMGVB7C1?text=" + encodeURIComponent(waText);
+                    }, 1500);
+                }
+            })
+            .catch(error => {
+                submitBtn.disabled = false;
+                submitBtn.innerText = "ENROLL NOW";
+                responseMsg.innerHTML = '<div class="alert alert-danger">Connection Error. Please try again.</div>';
+            });
+        });
+        
+    </script>
+</body>
+</html>

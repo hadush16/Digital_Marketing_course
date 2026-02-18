@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details | Job Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --primary: #003366; --bg: #f8fafc; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; padding: 20px; }
+        .card { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .meta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 20px 0; }
+        .meta-item { background: #f1f5f9; padding: 15px; border-radius: 8px; text-align: center; }
+        .meta-item strong { display: block; font-size: 0.7rem; color: var(--primary); text-transform: uppercase; }
+        
+        .section { margin-top: 25px; }
+        .section h3 { border-left: 4px solid var(--primary); padding-left: 10px; color: var(--primary); }
+        .apply-area { background: #f1f5f9; padding: 25px; border-radius: 12px; margin-top: 30px; text-align: center; }
+        
+        .btn { display: inline-block; padding: 15px 30px; border-radius: 8px; text-decoration: none; font-weight: bold; margin-top: 15px; width: 100%; max-width: 300px; }
+        .btn-blue { background: var(--primary); color: white; }
+        .btn-expired { background: #cbd5e1; color: #64748b; cursor: not-allowed; }
+        .ad-space { margin: 20px 0; background: #eee; height: 100px; display: flex; align-items: center; justify-content: center; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <a href="index.html" style="text-decoration:none; color:var(--primary);">← Back</a>
+        <h1 id="title" style="margin:20px 0 5px;"></h1>
+        <p id="company" style="font-size:1.2rem; color:#64748b; margin:0;"></p>
+
+        <div class="meta-grid">
+            <div class="meta-item"><strong>Location</strong><span id="place"></span></div>
+            <div class="meta-item"><strong>Level</strong><span id="level"></span></div>
+            <div class="meta-item"><strong>Needed</strong><span id="needed"></span></div>
+            <div class="meta-item"><strong>Deadline</strong><span id="deadline"></span></div>
+        </div>
+
+        <div class="section">
+            <h3>Description</h3>
+            <p id="desc"></p>
+        </div>
+
+        <div class="section">
+            <h3>Requirements</h3>
+            <p id="req"></p>
+        </div>
+
+        <div class="apply-area">
+            <h3>How to Apply</h3>
+            <p id="instr"></p>
+            <div id="action"></div>
+        </div>
+
+        <div class="ad-space">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1190706248323157" data-ad-slot="YOUR_AD_SLOT" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+    </div>
+
+    <script>
+        const fullData = {
+            "1": { title: "Senior Auditor", company: "Abyssinia Bank", place: "Addis Ababa", level: "Senior", needed: "3", deadline: "2025-12-30", desc: "Description here...", req: "Requirements here...", instr: "Send email to address below.", type: "email", action: "hr@abyssinia.com" },
+            "2": { title: "Software Engineer", company: "Safaricom", place: "Remote", level: "Mid", needed: "1", deadline: "2025-12-20", desc: "Engineering description...", req: "Skills here...", instr: "Click the website link to apply.", type: "link", action: "https://safaricom.et" }
+        };
+
+        const id = new URLSearchParams(window.location.search).get('id');
+        const job = fullData[id];
+
+        if(job) {
+            document.getElementById('title').innerText = job.title;
+            document.getElementById('company').innerText = job.company;
+            document.getElementById('place').innerText = job.place;
+            document.getElementById('level').innerText = job.level;
+            document.getElementById('needed').innerText = job.needed;
+            document.getElementById('deadline').innerText = job.deadline;
+            document.getElementById('desc').innerText = job.desc;
+            document.getElementById('req').innerText = job.req;
+            document.getElementById('instr').innerText = job.instr;
+
+            const isExpired = new Date(job.deadline) < new Date();
+            const btnArea = document.getElementById('action');
+            
+            if(isExpired) {
+                btnArea.innerHTML = `<div class="btn btn-expired">Application Closed</div>`;
+            } else {
+                const url = job.type === 'email' ? `mailto:${job.action}` : job.action;
+                const label = job.type === 'email' ? 'Send Email Application' : 'Apply on Company Website';
+                btnArea.innerHTML = `<a href="${url}" class="btn btn-blue">${label}</a>`;
+            }
+        }
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1190706248323157" crossorigin="anonymous"></script>
+</body>
+</html>
