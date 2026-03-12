@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Channel Details</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3237559839274253"
+crossorigin="anonymous"></script>
+
+<style>
+
+body{
+font-family:Inter;
+margin:0;
+background:#0f172a;
+color:white;
+padding:30px;
+}
+
+.card{
+max-width:900px;
+margin:auto;
+backdrop-filter:blur(20px);
+background:rgba(255,255,255,0.08);
+border-radius:16px;
+padding:30px;
+}
+
+iframe{
+width:100%;
+height:350px;
+border-radius:12px;
+border:none;
+}
+
+.meta{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+gap:15px;
+margin:20px 0;
+}
+
+.meta div{
+background:rgba(255,255,255,.08);
+padding:15px;
+border-radius:10px;
+text-align:center;
+}
+
+.btn{
+display:inline-block;
+margin-top:15px;
+padding:12px 25px;
+border-radius:30px;
+text-decoration:none;
+font-weight:bold;
+}
+
+.buy{background:#25D366;color:white;}
+
+.watch{background:#2563eb;color:white;}
+
+.back{
+color:white;
+text-decoration:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<a class="back" href="index.html">
+← Back
+</a>
+
+<h1 id="title"></h1>
+
+<iframe id="video"></iframe>
+
+<div class="meta">
+
+<div>
+<strong>Subscribers</strong>
+<span id="subs">10K+</span>
+</div>
+
+<div>
+<strong>Total Views</strong>
+<span id="views">500K+</span>
+</div>
+
+<div>
+<strong>Videos</strong>
+<span id="videos">120+</span>
+</div>
+
+</div>
+
+<p id="desc"></p>
+
+<a class="btn watch"
+id="visit">
+Visit Channel
+</a>
+
+<a class="btn buy"
+href="https://wa.me/251961224955">
+Buy This Channel
+</a>
+
+</div>
+
+
+<script>
+
+const data={
+1:{
+title:"Hadush React",
+video:"qe3A-w1PyJI",
+desc:"Programming tutorials including Flutter, React, and software engineering content.",
+url:"https://www.youtube.com/@hadushreact"
+},
+2:{
+title:"AGA Music",
+video:"DEy4Dmv8ZsY",
+desc:"Music entertainment and viral songs.",
+url:"https://www.youtube.com/@agamusic09"
+},
+3:{
+title:"Worlds Music",
+video:"_cWvKvR5Lc8",
+desc:"Global music channel.",
+url:"https://www.youtube.com/@worldsmusic09"
+},
+4:{
+title:"Qnit Films",
+video:"8Zm_SNikBUo",
+desc:"Creative film storytelling.",
+url:"https://www.youtube.com/@QnitFilms"
+},
+5:{
+title:"AGAAGA Channel",
+video:"aURwYK4lLn4",
+desc:"Music entertainment videos.",
+url:"https://www.youtube.com/@AGAAGA09"
+}
+}
+
+const id=new URLSearchParams(location.search).get("id")
+const ch=data[id]
+
+document.getElementById("title").innerText=ch.title
+document.getElementById("video").src=`https://www.youtube.com/embed/${ch.video}`
+document.getElementById("desc").innerText=ch.desc
+document.getElementById("visit").href=ch.url
+
+</script>
+
+</body>
+</html>
