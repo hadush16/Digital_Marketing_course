@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>YouTube Channel Marketplace</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3237559839274253"
+crossorigin="anonymous"></script>
+
+<style>
+
+body{
+margin:0;
+font-family:Inter,Arial;
+background:linear-gradient(135deg,#0f172a,#1e293b);
+color:white;
+}
+
+/* HERO */
+
+.hero{
+text-align:center;
+padding:90px 5%;
+}
+
+.hero h1{
+font-size:3rem;
+margin-bottom:10px;
+}
+
+.hero p{
+opacity:.8;
+}
+
+.cta{
+margin-top:25px;
+}
+
+.cta a{
+background:#25D366;
+padding:14px 28px;
+border-radius:40px;
+color:white;
+text-decoration:none;
+font-weight:bold;
+}
+
+/* GLASS CARD */
+
+.container{
+padding:50px 5%;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:30px;
+}
+
+.card{
+backdrop-filter:blur(15px);
+background:rgba(255,255,255,0.08);
+border:1px solid rgba(255,255,255,0.15);
+border-radius:16px;
+overflow:hidden;
+box-shadow:0 8px 25px rgba(0,0,0,.3);
+transition:.4s;
+}
+
+.card:hover{
+transform:translateY(-8px);
+}
+
+.thumb{
+width:100%;
+height:200px;
+object-fit:cover;
+}
+
+.card-body{
+padding:20px;
+}
+
+.card-body h3{
+margin-top:0;
+}
+
+.video{
+width:100%;
+height:200px;
+border:none;
+border-radius:10px;
+}
+
+.actions{
+display:flex;
+justify-content:space-between;
+margin-top:15px;
+}
+
+.btn{
+padding:8px 15px;
+border-radius:20px;
+text-decoration:none;
+font-size:.85rem;
+font-weight:bold;
+}
+
+.watch{background:#2563eb;color:white;}
+.buy{background:#25D366;color:white;}
+
+footer{
+text-align:center;
+padding:30px;
+opacity:.7;
+}
+
+</style>
+</head>
+
+<body>
+
+<section class="hero" data-aos="fade-up">
+
+<h1>YouTube Channel Marketplace</h1>
+<p>Buy ready YouTube channels with audience & content</p>
+
+<div class="cta">
+<a href="https://wa.me/251961224955">
+<i class="fab fa-whatsapp"></i> Contact WhatsApp
+</a>
+</div>
+
+</section>
+
+
+<div class="container" id="channelGrid"></div>
+
+<footer>
+© 2026 YouTube Channel Marketplace | Contact +251961224955
+</footer>
+
+
+<script>
+
+AOS.init();
+
+const channels=[
+{
+id:1,
+title:"Hadush React",
+desc:"Programming tutorials and Flutter development channel.",
+video:"qe3A-w1PyJI"
+},
+{
+id:2,
+title:"AGA Music",
+desc:"Music entertainment and trending videos.",
+video:"DEy4Dmv8ZsY"
+},
+{
+id:3,
+title:"Worlds Music",
+desc:"International music and trending songs.",
+video:"_cWvKvR5Lc8"
+},
+{
+id:4,
+title:"Qnit Films",
+desc:"Creative cinematic storytelling.",
+video:"8Zm_SNikBUo"
+},
+{
+id:5,
+title:"AGAAGA Channel",
+desc:"Entertainment music videos.",
+video:"aURwYK4lLn4"
+}
+]
+
+const grid=document.getElementById("channelGrid")
+
+channels.forEach(ch=>{
+
+grid.innerHTML+=`
+
+<div class="card" data-aos="zoom-in">
+
+<iframe class="video"
+src="https://www.youtube.com/embed/${ch.video}"
+allowfullscreen></iframe>
+
+<div class="card-body">
+
+<h3>${ch.title}</h3>
+
+<p>${ch.desc}</p>
+
+<div class="actions">
+
+<a class="btn watch"
+href="channel-details.html?id=${ch.id}">
+Details
+</a>
+
+<a class="btn buy"
+href="https://wa.me/251961224955">
+Buy
+</a>
+
+</div>
+
+</div>
+</div>
+
+`
+
+})
+
+</script>
+
+</body>
+</html>
