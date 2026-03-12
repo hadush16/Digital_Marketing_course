@@ -1,181 +1,346 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube Channels for Sale | Contact WhatsApp +251961224955</title>
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- AdSense Script -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3237559839274253"
-     crossorigin="anonymous"></script>
-    <!-- AMP Auto Ads (no visible UI impact if not AMP page) -->
-    <script async custom-element="amp-auto-ads"
-        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
-    </script>
-    <style>
-        :root {
-            --primary: #d90429;
-            --secondary: #212529;
-            --bg: #f8f9fa;
-            --white: #fff;
-            --accent: #168f5e;
-        }
-        body {
-            font-family: 'Inter', Arial, sans-serif;
-            margin: 0;
-            background: var(--bg);
-            color: var(--secondary);
-        }
-        .header {
-            background: var(--primary);
-            color: var(--white);
-            padding: 32px 0 20px 0;
-            text-align: center;
-            position: relative;
-        }
-        .header h1 {
-            margin: 0 0 10px 0;
-            font-size: 2.2rem;
-            letter-spacing: 2px;
-            font-weight: 800;
-        }
-        .header .whatsapp {
-            font-size: 1.13rem;
-            margin-top: 8px;
-            display: inline-block;
-            background: var(--accent);
-            padding: 8px 18px;
-            border-radius: 20px;
-            color: #fff;
-            font-weight: 600;
-            text-decoration: none;
-        }
-        .main {
-            max-width: 700px;
-            margin: 40px auto 24px auto;
-            background: var(--white);
-            border-radius: 18px;
-            box-shadow: 0 6px 24px rgba(0,0,0,0.06);
-            padding: 28px 6% 36px 6%;
-        }
-        .channels-list {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
-        .channel-item {
-            padding: 24px 0 18px;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            align-items: center;
-            gap: 1.2rem;
-        }
-        .channel-item:last-child { border-bottom: none; }
-        .yt-logo {
-            color: #FF0000;
-            font-size: 2.1rem;
-            min-width: 40px;
-        }
-        .channel-info a {
-            font-size: 1.12rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: underline;
-            word-break: break-all;
-        }
-        .channel-info span {
-            display: block;
-            font-size: 0.98rem;
-            color: #555;
-            margin: 6px 0 0 0;
-        }
-        .contact-note {
-            background: #fceabb;
-            border-radius: 10px;
-            padding: 6px 16px;
-            margin: 18px 0 0 0;
-            font-size: 1.01rem;
-            color: #b47d07;
-        }
-        /* Ad slot styling */
-        .ads-row {
-            margin: 34px 0;
-            text-align: center;
-        }
-        @media (max-width: 660px) {
-            .main { padding: 14px 1.5em 28px 1.5em; }
-            .channels-list { font-size: 0.97em; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YouTube Channels Marketplace</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3237559839274253"
+crossorigin="anonymous"></script>
+
+<style>
+
+body{
+margin:0;
+font-family:Inter,Arial;
+background:#f8fafc;
+color:#1e293b;
+}
+
+/* HERO */
+
+.hero{
+background:linear-gradient(120deg,#0f172a,#1e40af);
+color:white;
+padding:80px 5%;
+text-align:center;
+}
+
+.hero h1{
+font-size:3rem;
+margin-bottom:10px;
+}
+
+.hero p{
+opacity:0.9;
+font-size:1.1rem;
+}
+
+.cta{
+margin-top:25px;
+}
+
+.cta a{
+background:#25D366;
+color:white;
+padding:14px 28px;
+border-radius:40px;
+text-decoration:none;
+font-weight:700;
+}
+
+/* FEATURED CHANNEL */
+
+.featured{
+padding:60px 5%;
+background:white;
+}
+
+.featured-card{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:40px;
+align-items:center;
+}
+
+.featured iframe{
+width:100%;
+height:320px;
+border-radius:12px;
+}
+
+.stats{
+display:flex;
+gap:20px;
+margin-top:20px;
+}
+
+.stat{
+background:#f1f5f9;
+padding:15px 25px;
+border-radius:10px;
+text-align:center;
+}
+
+/* CHANNEL GRID */
+
+.channels{
+padding:60px 5%;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:30px;
+}
+
+.card{
+background:white;
+border-radius:14px;
+overflow:hidden;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-8px);
+}
+
+.thumb{
+width:100%;
+height:200px;
+object-fit:cover;
+}
+
+.card-body{
+padding:20px;
+}
+
+.actions{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-top:15px;
+}
+
+.btn{
+padding:8px 16px;
+border-radius:20px;
+font-size:0.85rem;
+text-decoration:none;
+color:white;
+}
+
+.watch{background:#1e40af;}
+.buy{background:#25D366;}
+
+/* VIDEO SECTION */
+
+.samples{
+padding:60px 5%;
+background:#f1f5f9;
+}
+
+.video-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:25px;
+}
+
+.video-grid iframe{
+width:100%;
+height:200px;
+border-radius:10px;
+}
+
+footer{
+text-align:center;
+padding:30px;
+font-size:0.9rem;
+color:#64748b;
+}
+
+</style>
 </head>
+
 <body>
-    <!-- AMP Auto Ads for AdSense (silent if not supported) -->
-    <amp-auto-ads type="adsense" data-ad-client="ca-pub-3237559839274253"></amp-auto-ads>
 
-    <div class="header">
-        <h1>YouTube Channels For Sale</h1>
-        <a class="whatsapp" href="https://wa.me/251961224955" target="_blank"><i class="fab fa-whatsapp"></i> Message or Call: +251961224955</a>
-        <div style="font-size:1.03rem; margin-top: 10px;">Serious buyers: Price by inquiry. Contact on WhatsApp or Call!</div>
-    </div>
+<!-- HERO -->
 
-    <div class="main">
-        <h2 style="margin-top:0; color:var(--secondary); font-size:1.15em;">Available Channels:</h2>
-        <ul class="channels-list">
-            <li class="channel-item">
-                <span class="yt-logo"><i class="fab fa-youtube"></i></span>
-                <span class="channel-info">
-                    <a href="https://www.youtube.com/@hadushreact" target="_blank">@hadushreact</a>
-                    <span>Active & Monetized (React Content)</span>
-                </span>
-            </li>
-            <li class="channel-item">
-                <span class="yt-logo"><i class="fab fa-youtube"></i></span>
-                <span class="channel-info">
-                    <a href="https://www.youtube.com/@agamusic09" target="_blank">@agamusic09</a>
-                    <span>Music & Entertainment</span>
-                </span>
-            </li>
-            <li class="channel-item">
-                <span class="yt-logo"><i class="fab fa-youtube"></i></span>
-                <span class="channel-info">
-                    <a href="https://www.youtube.com/@worldsmusic09" target="_blank">@worldsmusic09</a>
-                    <span>Global Music Channel</span>
-                </span>
-            </li>
-            <li class="channel-item">
-                <span class="yt-logo"><i class="fab fa-youtube"></i></span>
-                <span class="channel-info">
-                    <a href="https://www.youtube.com/@QnitFilms/shorts" target="_blank">@QnitFilms/shorts</a>
-                    <span>Short Films & Shorts</span>
-                </span>
-            </li>
-            <li class="channel-item">
-                <span class="yt-logo"><i class="fab fa-youtube"></i></span>
-                <span class="channel-info">
-                    <a href="https://www.youtube.com/@AGAAGA09" target="_blank">@AGAAGA09</a>
-                    <span>Music/Arts Channel</span>
-                </span>
-            </li>
-        </ul>
+<section class="hero">
 
-        <div class="contact-note">
-            <strong>To buy:</strong> Please call or send a WhatsApp message to <b>+251961224955</b> for prices and full details! <br>
-            <span style="color:#444;">Serious buyers only.</span>
-        </div>
+<h1>YouTube Channels For Sale</h1>
 
-        <!-- AdSense Ad Slot (replace data-ad-slot with your slot number, keep ca-pub as yours) -->
-        <div class="ads-row">
-            <ins class="adsbygoogle"
-                style="display:block"
-                data-ad-client="ca-pub-3237559839274253"
-                data-ad-slot="YOUR_AD_SLOT"
-                data-ad-format="auto"
-                data-full-width-responsive="true"></ins>
-        </div>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
+<p>Buy ready YouTube channels with audience and content</p>
+
+<div class="cta">
+<a href="https://wa.me/251961224955">
+<i class="fab fa-whatsapp"></i> Contact WhatsApp
+</a>
+</div>
+
+</section>
+
+<!-- FEATURED CHANNEL -->
+
+<section class="featured">
+
+<h2>Featured Channel</h2>
+
+<div class="featured-card">
+
+<iframe src="https://www.youtube.com/embed/qe3A-w1PyJI"
+allowfullscreen></iframe>
+
+<div>
+
+<h3>Hadush React</h3>
+
+<p>Programming tutorials including Flutter, React, and software development content.</p>
+
+<div class="stats">
+
+<div class="stat">
+<h3>10K+</h3>
+<p>Subscribers</p>
+</div>
+
+<div class="stat">
+<h3>500K+</h3>
+<p>Total Views</p>
+</div>
+
+<div class="stat">
+<h3>120+</h3>
+<p>Videos</p>
+</div>
+
+</div>
+
+<br>
+
+<a class="btn buy"
+href="https://wa.me/251961224955">
+Buy Channel
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- CHANNELS -->
+
+<section class="channels">
+
+<div class="card">
+
+<img class="thumb"
+src="https://img.youtube.com/vi/DEy4Dmv8ZsY/maxresdefault.jpg">
+
+<div class="card-body">
+
+<h3>AGA Music</h3>
+
+<p>Music entertainment content with global audience.</p>
+
+<div class="actions">
+
+<a class="btn watch"
+href="https://www.youtube.com/@agamusic09">View</a>
+
+<a class="btn buy"
+href="https://wa.me/251961224955">Buy</a>
+
+</div>
+
+</div>
+</div>
+
+
+<div class="card">
+
+<img class="thumb"
+src="https://img.youtube.com/vi/_cWvKvR5Lc8/maxresdefault.jpg">
+
+<div class="card-body">
+
+<h3>Worlds Music</h3>
+
+<p>Trending music videos and entertainment.</p>
+
+<div class="actions">
+
+<a class="btn watch"
+href="https://www.youtube.com/@worldsmusic09">View</a>
+
+<a class="btn buy"
+href="https://wa.me/251961224955">Buy</a>
+
+</div>
+
+</div>
+</div>
+
+
+<div class="card">
+
+<img class="thumb"
+src="https://img.youtube.com/vi/8Zm_SNikBUo/maxresdefault.jpg">
+
+<div class="card-body">
+
+<h3>Qnit Films</h3>
+
+<p>Creative short films and cinematic storytelling.</p>
+
+<div class="actions">
+
+<a class="btn watch"
+href="https://www.youtube.com/@QnitFilms">View</a>
+
+<a class="btn buy"
+href="https://wa.me/251961224955">Buy</a>
+
+</div>
+
+</div>
+</div>
+
+
+</section>
+
+
+<!-- SAMPLE VIDEOS -->
+
+<section class="samples">
+
+<h2>Sample Videos</h2>
+
+<div class="video-grid">
+
+<iframe src="https://www.youtube.com/embed/qe3A-w1PyJI"></iframe>
+
+<iframe src="https://www.youtube.com/embed/DEy4Dmv8ZsY"></iframe>
+
+<iframe src="https://www.youtube.com/embed/_cWvKvR5Lc8"></iframe>
+
+<iframe src="https://www.youtube.com/embed/8Zm_SNikBUo"></iframe>
+
+<iframe src="https://www.youtube.com/embed/aURwYK4lLn4"></iframe>
+
+</div>
+
+</section>
+
+
+<footer>
+
+© 2026 YouTube Channel Marketplace  
+Contact WhatsApp: +251961224955
+
+</footer>
+
 </body>
 </html>
