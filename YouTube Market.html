@@ -24,6 +24,50 @@ font-family:Inter,Arial;
 background:linear-gradient(135deg,#0f172a,#1e293b);
 color:white;
 }
+  .thumb-container {
+        position: relative;
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .thumb-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .card:hover .thumb-container img {
+        transform: scale(1.1);
+    }
+
+    .badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #ef4444;
+        color: white;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.7rem;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .stats {
+        display: flex;
+        gap: 15px;
+        margin: 10px 0;
+        font-size: 0.85rem;
+        color: #94a3b8;
+    }
+
+    .stats i { color: #25D366; }
+</style>
+
+<script>
+AOS.init();
 
 /* HERO */
 
@@ -156,12 +200,18 @@ const channels=[
 id:1,
 title:"Worlds Music",
 desc:"Wellcome to worlds music እንኳዕ ናብ worlds music ብዳሓን መፃኹም",
+image: "assets/worlds-music.jpg", // Ensure these files exist in your folder
+subs: "7,150 subscribers ",
+monetized: "Yes and active ",
 video:"https://www.youtube.com/watch?v=qe3A-w1PyJI"
 },
 {
 id:2,
 title:"AGA BEST ETHIOPIAN MUSIC",
 desc:"wellcome to AGA best Ethiopian music|እንዃዕ ናብ ቻነልኩም  AGA best Ethiopian music  ብድሓን መፃኹም!",
+image: "assets/aga-ent.jpg",
+subs: "1260",
+monetized: "yes",
 video:"https://www.youtube.com/watch?v=_cWvKvR5Lc8"
 },
  ,
@@ -169,12 +219,21 @@ video:"https://www.youtube.com/watch?v=_cWvKvR5Lc8"
 id:3,
 title:"AGA ENTERTAINMENT",
 desc:"Ai Music entertainment and trending videos.",
+image: "assets/aga-ent.jpg",
+subs: "7,230",
+monetized: "yes ",
 video:"https://www.youtube.com/watch?v=DEy4Dmv8ZsY"
 },
    {
 id:4,
-title:"ቅኒት ፊልምስ QNIT films",
-desc:"Well come to Qnit films official youtube channel እንካዕ ናብ ቅኒት ፊልምስ ብድሓን መፃኩም። ",
+title:"Senay Show ሰናይ ሸዉ",
+desc:"Your go-to for Tigrigna entertainment! We bring you:
+
+ Traditional & modern Tigray wedding music 
+Hilarious Tigrigna dramas 
+Trending news & reactions 
+Fun pranks & challenges
+Subscribe for daily doses of Tigrigna laughter and culture! ",
 video:"https://www.youtube.com/watch?v=aURwYK4lLn4&t=8s"
 },
   {
@@ -200,6 +259,10 @@ channels.forEach(ch=>{
 grid.innerHTML+=`
 
 <div class="card" data-aos="zoom-in">
+<div class="thumb-container">
+<img src="${ch.image}" alt="${ch.title}" onerror="this.src='https://via.placeholder.com/400x225?text=Channel+Preview'">
+    <span class="badge">${ch.monetized === 'Yes' ? 'Monetized' : 'Ready'}</span>
+</div>
 
 <iframe class="video"
 src="https://www.youtube.com/embed/${ch.video}"
@@ -208,8 +271,11 @@ allowfullscreen></iframe>
 <div class="card-body">
 
 <h3>${ch.title}</h3>
-
-<p>${ch.desc}</p>
+<div class="stats">
+<span><i class="fas fa-users"></i> ${ch.subs} Subs</span>
+<span><i class="fas fa-check-circle"></i> Verified</span>
+</div>
+ <p>${ch.desc}</p>
 
 <div class="actions">
 
