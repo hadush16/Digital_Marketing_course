@@ -1,307 +1,339 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Channel Marketplace | Premium Assets</title>
 
-<title>YouTube Channel Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #25D366;
+            --dark-bg: #0f172a;
+            --glass: rgba(255, 255, 255, 0.08);
+        }
 
-<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at top, #1e293b 0%, #0f172a 100%);
+            color: white;
+            min-height: 100vh;
+        }
 
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+        /* HERO SECTION */
+        .hero {
+            text-align: center;
+            padding: 100px 5% 60px;
+            background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+        }
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3237559839274253"
-crossorigin="anonymous"></script>
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-<style>
+        .hero p {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
 
-body{
-margin:0;
-font-family:Inter,Arial;
-background:linear-gradient(135deg,#0f172a,#1e293b);
-color:white;
-}
-  .thumb-container {
-        position: relative;
-        width: 100%;
-        height: 200px;
-        overflow: hidden;
-    }
+        .cta a {
+            background: var(--secondary);
+            padding: 16px 32px;
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
+        }
 
-    .thumb-container img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.5s ease;
-    }
+        .cta a:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(37, 211, 102, 0.4);
+        }
 
-    .card:hover .thumb-container img {
-        transform: scale(1.1);
-    }
+        /* GRID SYSTEM */
+        .container {
+            padding: 20px 5% 100px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
 
-    .badge {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background: #ef4444;
-        color: white;
-        padding: 5px 12px;
-        border-radius: 20px;
-        font-size: 0.7rem;
-        font-weight: bold;
-        text-transform: uppercase;
-    }
+        /* EYE-CATCHING CARDS */
+        .card {
+            backdrop-filter: blur(20px);
+            background: var(--glass);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+        }
 
-    .stats {
-        display: flex;
-        gap: 15px;
-        margin: 10px 0;
-        font-size: 0.85rem;
-        color: #94a3b8;
-    }
+        .card:hover {
+            transform: translateY(-12px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
 
-    .stats i { color: #25D366; }
-</style>
+        /* MEDIA AREA (IMAGE + OVERLAYS) */
+        .media-container {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            background: #000;
+        }
 
-<script>
-AOS.init();
+        .thumb-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
 
-/* HERO */
+        .card:hover .thumb-img {
+            opacity: 0.4;
+            transform: scale(1.1);
+        }
 
-.hero{
-text-align:center;
-padding:90px 5%;
-}
+        .badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary);
+            padding: 6px 14px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            z-index: 2;
+        }
 
-.hero h1{
-font-size:3rem;
-margin-bottom:10px;
-}
+        .monetized { background: #ef4444; }
 
-.hero p{
-opacity:.8;
-}
+        /* PLAY OVERLAY */
+        .play-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: 0.3s;
+            pointer-events: none;
+            z-index: 3;
+        }
 
-.cta{
-margin-top:25px;
-}
+        .card:hover .play-overlay { opacity: 1; }
 
-.cta a{
-background:#25D366;
-padding:14px 28px;
-border-radius:40px;
-color:white;
-text-decoration:none;
-font-weight:bold;
-}
+        /* CARD BODY */
+        .card-body {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
 
-/* GLASS CARD */
+        .card-body h3 {
+            margin: 0 0 10px;
+            font-size: 1.4rem;
+        }
 
-.container{
-padding:50px 5%;
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-gap:30px;
-}
+        .stats {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: #25D366;
+            font-weight: 600;
+        }
 
-.card{
-backdrop-filter:blur(15px);
-background:rgba(255,255,255,0.08);
-border:1px solid rgba(255,255,255,0.15);
-border-radius:16px;
-overflow:hidden;
-box-shadow:0 8px 25px rgba(0,0,0,.3);
-transition:.4s;
-}
+        .desc {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
 
-.card:hover{
-transform:translateY(-8px);
-}
+        .actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: auto;
+        }
 
-.thumb{
-width:100%;
-height:200px;
-object-fit:cover;
-}
+        .btn {
+            padding: 12px;
+            border-radius: 12px;
+            text-decoration: none;
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
 
-.card-body{
-padding:20px;
-}
+        .btn-details { background: rgba(255,255,255,0.1); color: white; }
+        .btn-buy { background: var(--secondary); color: white; }
 
-.card-body h3{
-margin-top:0;
-}
+        .btn:hover { filter: brightness(1.2); }
 
-.video{
-width:100%;
-height:200px;
-border:none;
-border-radius:10px;
-}
+        footer {
+            text-align: center;
+            padding: 50px;
+            border-top: 1px solid var(--glass);
+            color: #64748b;
+        }
 
-.actions{
-display:flex;
-justify-content:space-between;
-margin-top:15px;
-}
-
-.btn{
-padding:8px 15px;
-border-radius:20px;
-text-decoration:none;
-font-size:.85rem;
-font-weight:bold;
-}
-
-.watch{background:#2563eb;color:white;}
-.buy{background:#25D366;color:white;}
-
-footer{
-text-align:center;
-padding:30px;
-opacity:.7;
-}
-
-</style>
+        /* CUSTOM ANIMATION FOR WHITE SCREEN FIX */
+        #channelGrid { min-height: 400px; }
+    </style>
 </head>
-
 <body>
 
-<section class="hero" data-aos="fade-up">
-
-<h1>YouTube Channel Marketplace</h1>
-<p>Buy Monetized and ready YouTube channels with audience & content</p>
-
-<div class="cta">
-<a href="https://wa.me/251961224955">
-<i class="fab fa-whatsapp"></i> Contact WhatsApp
-</a>
-</div>
-
+<section class="hero" data-aos="zoom-out">
+    <h1>YouTube Channel Marketplace</h1>
+    <p>Premium, monetized, and aged YouTube channels ready for your next big project. High growth potential with established audiences.</p>
+    <div class="cta">
+        <a href="https://wa.me/251961224955">
+            <i class="fab fa-whatsapp"></i> Chat with an Agent
+        </a>
+    </div>
 </section>
 
-
-<div class="container" id="channelGrid"></div>
+<div class="container" id="channelGrid">
+    </div>
 
 <footer>
-© 2026 YouTube Channel Marketplace | Contact +251961224955
+    <p>© 2026 YouTube Channel Marketplace | Secure Digital Asset Transfers</p>
+    <p><i class="fas fa-phone"></i> +251 961 224 955</p>
 </footer>
 
-
 <script>
+    // YouTube URL helper to extract ID
+    function getID(url) {
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+        const match = url.match(regExp);
+        return (match && match[2].length === 11) ? match[2] : null;
+    }
 
-AOS.init();
+    const channels = [
+        {
+            id: 1,
+            title: "Worlds Music",
+            desc: "Premium global music channel. High engagement rate with a focus on world hits and local cultural melodies.",
+            image: "assets/img/senay.png",
+            subs: "7,150",
+            status: "Monetized",
+            video: "https://www.youtube.com/watch?v=qe3A-w1PyJI"
+        },
+        {
+            id: 2,
+            title: "AGA BEST ETHIOPIAN MUSIC",
+            desc: "The ultimate hub for Ethiopian music lovers. Perfect for promoters or artists looking for an established base.",
+            image: "assets/img/agabest.jpg",
+            subs: "1,260",
+            status: "Active",
+            video: "https://www.youtube.com/watch?v=_cWvKvR5Lc8"
+        },
+        {
+            id: 3,
+            title: "AGA ENTERTAINMENT",
+            desc: "AI-driven music entertainment and viral trending content. High automation potential for passive income.",
+            image: "assets/aga-ent.jpg",
+            subs: "7,230",
+            status: "Monetized",
+            video: "https://www.youtube.com/watch?v=DEy4Dmv8ZsY"
+        },
+        {
+            id: 4,
+            title: "Senay Show ሰናይ ሸዉ",
+            desc: "Top-tier Tigrigna entertainment! Featuring weddings, drama, and trending news with a loyal fan base.",
+            image: "assets/img/senay.png",
+            subs: "16,600",
+            status: "Monetized",
+            video: "https://www.youtube.com/watch?v=aURwYK4lLn4"
+        },
+        {
+            id: 5,
+            title: "Nota ኖታ ENT",
+            desc: "A rising star in the entertainment niche. Great SEO and search traffic performance over the last 90 days.",
+            image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=400", 
+            subs: "5,400",
+            status: "Ready",
+            video: "https://www.youtube.com/watch?v=8Zm_SNikBUo"
+        }
+    ];
 
-const channels=[
-  {
-id:1,
-title:"Worlds Music",
-desc:"Wellcome to worlds music እንኳዕ ናብ worlds music ብዳሓን መፃኹም",
-image: "assets/img/senay.png", // Ensure these files exist in your folder
-subs: "7,150 subscribers ",
-monetized: "Yes and active ",
-video:"https://www.youtube.com/watch?v=qe3A-w1PyJI"
-},
-{
-id:2,
-title:"AGA BEST ETHIOPIAN MUSIC",
-desc:"wellcome to AGA best Ethiopian music|እንዃዕ ናብ ቻነልኩም  AGA best Ethiopian music  ብድሓን መፃኹም!",
-image: "assets/aga-ent.jpg",
-subs: "1260",
-monetized: "yes",
-video:"https://www.youtube.com/watch?v=_cWvKvR5Lc8"
-},
- ,
-{
-id:3,
-title:"AGA ENTERTAINMENT",
-desc:"Ai Music entertainment and trending videos.",
-image: "assets/aga-ent.jpg",
-subs: "7,230",
-monetized: "yes ",
-video:"https://www.youtube.com/watch?v=DEy4Dmv8ZsY"
-},
-   {
-id:4,
-title:"Senay Show ሰናይ ሸዉ",
-image: "assets/img/senay.png", // Ensure these files exist in your folder
-subs: "16,600 subscribers ",
-monetized: "Yes and active ",
-desc:"Your go-to for Tigrigna entertainment! We bring you:
-  
+    const grid = document.getElementById("channelGrid");
 
- Traditional & modern Tigray wedding music 
-Hilarious Tigrigna dramas 
-Trending news & reactions 
-Fun pranks & challenges
-Subscribe for daily doses of Tigrigna laughter and culture! ",
-video:"https://www.youtube.com/watch?v=aURwYK4lLn4&t=8s"
-},
-  {
-id:5,
-title:"Nota  ኖታ ENT",
-desc:"Wellcome to nota mole intertainnment እንኳዕ ናብ Nota  ኖታ ENT ብዳሓን መፃኹም",
-video:"https://www.youtube.com/watch?v=8Zm_SNikBUo"
-},
-  {
-id:6,
-title:"Worlds Music",
-desc:"Wellcome to worlds music እንኳዕ ናብ worlds music ብዳሓን መፃኹም",
-video:"https://www.youtube.com/watch?v=qe3A-w1PyJI"
-},
+    function renderChannels() {
+        grid.innerHTML = '';
+        channels.forEach(ch => {
+            const vId = getID(ch.video);
+            // Dynamic fallback to YouTube Thumbnail if your local image isn't found
+            const previewImg = ch.image; 
+            const youtubeThumb = `https://img.youtube.com/vi/${vId}/maxresdefault.jpg`;
 
+            grid.innerHTML += `
+            <div class="card" data-aos="fade-up">
+                <div class="media-container">
+                    <div class="badge ${ch.status === 'Monetized' ? 'monetized' : ''}">
+                        ${ch.status}
+                    </div>
+                    <img src="${previewImg}" 
+                         class="thumb-img" 
+                         onerror="this.src='${youtubeThumb}'"
+                         alt="${ch.title}">
+                    <div class="play-overlay">
+                        <i class="fas fa-play-circle fa-4x text-white"></i>
+                    </div>
+                </div>
 
-]
+                <div class="card-body">
+                    <h3>${ch.title}</h3>
+                    <div class="stats">
+                        <span><i class="fas fa-users"></i> ${ch.subs} Subscribers</span>
+                    </div>
+                    <p class="desc">${ch.desc}</p>
+                    <div class="actions">
+                        <a class="btn btn-details" href="channel-details.html?id=${ch.id}">
+                            View Proofs
+                        </a>
+                        <a class="btn btn-buy" href="https://wa.me/251961224955?text=Hello, I want to buy ${ch.title}">
+                            Get Price
+                        </a>
+                    </div>
+                </div>
+            </div>
+            `;
+        });
+    }
 
-const grid=document.getElementById("channelGrid")
-
-channels.forEach(ch=>{
-
-grid.innerHTML+=`
-
-<div class="card" data-aos="zoom-in">
-<div class="thumb-container">
-<img src="${ch.image}" alt="${ch.title}" onerror="this.src='https://via.placeholder.com/400x225?text=Channel+Preview'">
-    <span class="badge">${ch.monetized === 'Yes' ? 'Monetized' : 'Ready'}</span>
-</div>
-
-<iframe class="video"
-src="https://www.youtube.com/embed/${ch.video}"
-allowfullscreen></iframe>
-
-<div class="card-body">
-
-<h3>${ch.title}</h3>
-<div class="stats">
-<span><i class="fas fa-users"></i> ${ch.subs} Subs</span>
-<span><i class="fas fa-check-circle"></i> Verified</span>
-</div>
- <p>${ch.desc}</p>
-
-<div class="actions">
-
-<a class="btn watch"
-href="channel-details.html?id=${ch.id}">
-Details
-</a>
-
-<a class="btn buy"
-href="https://wa.me/251961224955">
-Buy
-</a>
-
-</div>
-
-</div>
-</div>
-
-`
-
-})
-
+    // Initialize
+    window.onload = () => {
+        AOS.init({ duration: 800, once: true });
+        renderChannels();
+    };
 </script>
 
 </body>
