@@ -7,47 +7,74 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <style>
         :root {
+            /* Light Mode Variables (Default) */
+            --bg: #f8fafc;
+            --text-main: #0f172a;
+            --text-dim: #475569;
             --primary: #2563eb;
             --secondary: #25D366;
-            --dark-bg: #0f172a;
+            --card-bg: #ffffff;
+            --glass: rgba(0, 0, 0, 0.03);
+            --border: #e2e8f0;
+        }
+
+        /* Dark Mode Variables */
+        [data-theme="dark"] {
+            --bg: #0f172a;
+            --text-main: #ffffff;
+            --text-dim: #94a3b8;
+            --card-bg: rgba(255, 255, 255, 0.05);
             --glass: rgba(255, 255, 255, 0.06);
-            --card-radius: 20px;
+            --border: rgba(255, 255, 255, 0.1);
         }
 
         body {
             margin: 0;
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background: #0f172a;
-            background-attachment: fixed;
-            color: white;
+            background: var(--bg);
+            color: var(--text-main);
+            transition: background 0.3s, color 0.3s;
             overflow-x: hidden;
         }
 
-        /* RESPONSIVE HERO SECTION */
+        /* Theme Toggle Button */
+        .theme-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
         .hero {
             text-align: center;
             padding: 120px 20px 60px;
-            background: linear-gradient(0deg, #0f172a 0%, rgba(15, 23, 42, 0) 100%),
-                        url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+            background: linear-gradient(0deg, var(--bg) 0%, rgba(15, 23, 42, 0) 100%);
         }
 
         .hero h1 {
             font-size: clamp(2.2rem, 8vw, 4rem);
-            line-height: 1.1;
             margin-bottom: 20px;
             font-weight: 900;
-            background: linear-gradient(to bottom, #fff 30%, #64748b 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--text-main);
         }
 
         .hero .amharic-text {
             font-size: 1.2rem;
-            color: #25D366;
+            color: var(--secondary);
             max-width: 700px;
             margin: 0 auto 30px;
             line-height: 1.8;
@@ -56,58 +83,45 @@
             text-align: left;
         }
 
-        /* GRID RESPONSIVENESS */
         .container {
             padding: 20px 5% 80px;
             display: grid;
-            /* Adaptive grid: 1 col on mobile, 2 on tablet, 3 on desktop */
             grid-template-columns: repeat(auto-fill, minmax(min(100%, 350px), 1fr));
             gap: 25px;
             max-width: 1400px;
             margin: 0 auto;
         }
 
-        /* SLIDING DESCRIPTION CARD */
         .card {
-            background: var(--glass);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: var(--card-radius);
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
             overflow: hidden;
             position: relative;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            height: 480px; /* Fixed height for consistency */
+            transition: transform 0.4s ease;
+            height: 480px;
             display: flex;
             flex-direction: column;
         }
 
-        .card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-        }
+        .card:hover { transform: translateY(-10px); }
 
         .media-container {
             position: relative;
             height: 200px;
-            width: 100%;
             overflow: hidden;
         }
 
-        .thumb-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: 0.6s;
-        }
+        .thumb-img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* SLIDING OVERLAY FEATURE */
         .sliding-desc {
             position: absolute;
-            bottom: -100%; /* Hidden by default */
+            bottom: -100%;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(10px);
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
             padding: 30px;
             box-sizing: border-box;
             transition: 0.5s ease-in-out;
@@ -115,11 +129,10 @@
             flex-direction: column;
             justify-content: center;
             z-index: 5;
+            color: var(--text-main);
         }
 
-        .card:hover .sliding-desc {
-            bottom: 0; /* Slides up on hover */
-        }
+        .card:hover .sliding-desc { bottom: 0; }
 
         .card-body {
             padding: 20px;
@@ -129,31 +142,25 @@
             justify-content: space-between;
         }
 
-        .stats-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
         .sub-count {
             background: rgba(37, 211, 102, 0.1);
             color: var(--secondary);
             padding: 5px 12px;
             border-radius: 8px;
             font-weight: bold;
-            font-size: 0.9rem;
         }
 
         .badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
             padding: 5px 10px;
             border-radius: 6px;
             font-size: 0.7rem;
-            text-transform: uppercase;
             font-weight: 800;
+            color: white;
+            z-index: 2;
         }
-
-        .monetized { background: #ef4444; }
 
         .actions {
             display: grid;
@@ -168,157 +175,95 @@
             font-weight: bold;
             font-size: 0.85rem;
             text-align: center;
-            transition: 0.3s;
         }
 
-        .btn-details { background: white; color: black; }
+        .btn-details { background: var(--primary); color: white; }
         .btn-buy { background: var(--secondary); color: white; }
-
-        /* MOBILE OPTIMIZATIONS */
-        @media (max-width: 600px) {
-            .hero { padding-top: 80px; }
-            .hero h1 { font-size: 2.5rem; }
-            .container { padding: 10px 15px 60px; }
-            .card { height: 450px; }
-            /* On mobile, make the slide partially visible or triggered by tap */
-            .sliding-desc { padding: 20px; }
-        }
 
         footer {
             text-align: center;
             padding: 40px 20px;
-            border-top: 1px solid var(--glass);
-            font-size: 0.9rem;
-            color: #64748b;
+            border-top: 1px solid var(--border);
+            color: var(--text-dim);
         }
     </style>
 </head>
 <body>
 
+<button class="theme-switch" onclick="toggleTheme()">
+    <i class="fas fa-moon" id="theme-icon"></i>
+</button>
+
 <section class="hero" data-aos="fade-down">
-    <div class="badge monetized" style="position: static; display: inline-block; margin-bottom: 10px;">Hot Deals</div>
     <h1>Premium YouTube Assets</h1>
-    
     <div class="amharic-text">
         ብ ዶላር ($) ዝኸፍል YouTube ቻነል ክህልዎም ይደልዩ ዶ?<br>
         ብዝሓሰረ ዋጋ ወናኒ ይኹኑ። ቀዲሙ ዝመፀ ወሰደ!
     </div>
-
-    <div class="cta">
-        <a href="https://wa.me/251961224955" style="background:var(--secondary); color:white; padding:15px 30px; border-radius:50px; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:10px;">
-            <i class="fab fa-whatsapp fa-lg"></i> Contact 0961224955
-        </a>
-    </div>
+    <a href="https://wa.me/251961224955" style="background:var(--secondary); color:white; padding:15px 30px; border-radius:50px; text-decoration:none; font-weight:bold;">
+        <i class="fab fa-whatsapp"></i> Contact Us
+    </a>
 </section>
 
 <div class="container" id="channelGrid"></div>
 
 <footer>
-    <p>© 2026 YouTube Marketplace | Safe & Secure Transfers</p>
-    <div style="margin-top:10px;">
-        <i class="fas fa-phone"></i> +251 961 224 955 &nbsp; | &nbsp; <i class="fas fa-phone"></i> +251 914 308 623
-    </div>
+    <p>© 2026 YouTube Marketplace | Safe Transfers</p>
 </footer>
 
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script>
     const channels = [
-        {
-            id: 1,
-            title: "Worlds Music",
-            desc: "This channel focuses on Ethiopian and global cultural hits. It has a high organic reach and is ready to generate revenue immediately.",
-            image: "assets/img/world.png",
-            subs: "7,260",
-            status: "Monetized",
-            video: "qe3A-w1PyJI"
-        },
-        {
-            id: 2,
-            title: "AGA BEST MUSIC",
-            desc: "The ultimate hub for Ethiopian music lovers. Features a loyal audience and high watch time metrics.",
-            image: "assets/img/agabest.jpg",
-            subs: "1,270",
-            status: "Active",
-            video: "_cWvKvR5Lc8"
-        },
-        {
-            id: 3,
-            title: "AGA ENTERTAINMENT",
-            desc: "AI-driven content and trending entertainment videos. Optimized for high CPM and active income.",
-            image: "assets/aga.jpg",
-            subs: "7,230",
-            status: "Monetized",
-            video: "DEy4Dmv8ZsY"
-        },
-        {
-            id: 4,
-            title: "Senay Show ሰናይ ሸዉ",
-            desc: "Top Tigrigna entertainment! Including weddings, drama, and news. A highly active community.",
-            image: "assets/img/senay.png",
-            subs: "16,600",
-            status: "Monetized",
-            video: "aURwYK4lLn4"
-        },
-        {
-            id: 5,
-            title: "Nota ኖታ ENT",
-            desc: "Growing entertainment niche. Excellent search traffic performance and clean copyright history.",
-            image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400", 
-            subs: "5,400",
-            status: "Ready",
-            video: "8Zm_SNikBUo"
-        }
+        { id: 1, title: "Worlds Music", desc: "Focuses on Ethiopian and global cultural hits.", image: "assets/img/world.png", subs: "7,260", status: "Monetized", video: "qe3A-w1PyJI" },
+        { id: 2, title: "AGA BEST MUSIC", desc: "The ultimate hub for Ethiopian music lovers.", image: "assets/img/agabest.jpg", subs: "1,270", status: "Monetized", video: "_cWvKvR5Lc8" },
+        { id: 3, title: "AGA ENTERTAINMENT", desc: "AI-driven content and trending entertainment.", image: "assets/aga.jpg", subs: "7,230", status: "Monetized", video: "DEy4Dmv8ZsY" },
+        { id: 4, title: "Senay Show ሰናይ ሸዉ", desc: "Top Tigrigna entertainment and weddings.", image: "assets/img/senay.png", subs: "16,600", status: "Monetized", video: "aURwYK4lLn4" },
+        { id: 5, title: "Nota ኖታ ENT", desc: "Growing entertainment niche. Clean history.", image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400", subs: "5,400", status: "Ready", video: "8Zm_SNikBUo" }
     ];
 
-    const grid = document.getElementById("channelGrid");
-
     function renderChannels() {
+        const grid = document.getElementById("channelGrid");
         channels.forEach(ch => {
-            const youtubeThumb = `https://img.youtube.com/vi/${ch.video}/maxresdefault.jpg`;
-
+            const ytThumb = `https://img.youtube.com/vi/${ch.video}/maxresdefault.jpg`;
             grid.innerHTML += `
-            <div class="card" data-aos="fade-up">
-                <div class="sliding-desc">
-                    <h4 style="margin:0 0 10px 0; color:var(--secondary)">Channel Overview</h4>
-                    <p style="font-size:0.95rem; line-height:1.6; color:#cbd5e1">${ch.desc}</p>
-                    <div style="margin-top:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
-                        <small style="color:var(--primary)">Click details to see analytics</small>
+                <div class="card" data-aos="fade-up">
+                    <div class="badge" style="background:${ch.status === 'Monetized' ? '#ef4444' : '#2563eb'}">${ch.status}</div>
+                    <div class="sliding-desc">
+                        <h4>Overview</h4>
+                        <p>${ch.desc}</p>
                     </div>
-                </div>
-
-                <div class="media-container">
-                    <img src="${ch.image}" onerror="this.src='${youtubeThumb}'" class="thumb-img">
-                    <div style="position:absolute; top:10px; right:10px;">
-                        <span class="badge ${ch.status === 'Monetized' ? 'monetized' : ''}" style="background: ${ch.status === 'Monetized' ? '#ef4444' : '#2563eb'}">
-                            ${ch.status}
-                        </span>
+                    <div class="media-container">
+                        <img src="${ch.image}" onerror="this.src='${ytThumb}'" class="thumb-img">
                     </div>
-                </div>
-
-                <div class="card-body">
-                    <div>
-                        <h3 style="margin:0 0 15px 0; font-size:1.2rem;">${ch.title}</h3>
-                        <div class="stats-row">
-                            <span class="sub-count"><i class="fas fa-users"></i> ${ch.subs}</span>
-                            <span style="font-size:0.8rem; color:#94a3b8"><i class="fas fa-check-circle"></i> Verified</span>
+                    <div class="card-body">
+                        <h3>${ch.title}</h3>
+                        <div class="stats-row"><span class="sub-count">${ch.subs} Subs</span></div>
+                        <div class="actions">
+                            <a href="channel-details.html?id=${ch.id}" class="btn btn-details">View Details</a>
+                            <a href="https://wa.me/251961224955?text=Buy ${ch.title}" class="btn btn-buy">Buy Now</a>
                         </div>
                     </div>
-                    
-                    <div class="actions">
-                        <a href="channel-details.html?id=${ch.id}" class="btn btn-details">View Details</a>
-                        <a href="https://wa.me/251961224955?text=I want to buy ${ch.title}" class="btn btn-buy">Buy Now</a>
-                    </div>
-                </div>
-            </div>
-            `;
+                </div>`;
         });
     }
 
+    // Theme Toggle Function
+    function toggleTheme() {
+        const currentTheme = document.documentElement.getAttribute("data-theme");
+        const targetTheme = currentTheme === "dark" ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", targetTheme);
+        document.getElementById("theme-icon").className = targetTheme === "dark" ? "fas fa-sun" : "fas fa-moon";
+        localStorage.setItem("theme", targetTheme);
+    }
+
+    // Load Theme Preference
     window.onload = () => {
-        AOS.init({ duration: 1000, once: true });
+        const savedTheme = localStorage.getItem("theme") || "light";
+        document.documentElement.setAttribute("data-theme", savedTheme);
+        document.getElementById("theme-icon").className = savedTheme === "dark" ? "fas fa-sun" : "fas fa-moon";
+        AOS.init();
         renderChannels();
     };
 </script>
-
 </body>
 </html>
