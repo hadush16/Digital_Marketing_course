@@ -2,334 +2,311 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube Channel Marketplace | Premium Assets</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Premium YouTube Marketplace</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <style>
         :root {
             --primary: #2563eb;
             --secondary: #25D366;
             --dark-bg: #0f172a;
-            --glass: rgba(255, 255, 255, 0.08);
+            --glass: rgba(255, 255, 255, 0.06);
+            --card-radius: 20px;
         }
 
         body {
             margin: 0;
-            font-family: 'Inter', sans-serif;
-            background: radial-gradient(circle at top, #1e293b 0%, #0f172a 100%);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: #0f172a;
+            background-attachment: fixed;
             color: white;
-            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* HERO SECTION */
+        /* RESPONSIVE HERO SECTION */
         .hero {
             text-align: center;
-            padding: 100px 5% 60px;
-            background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+            padding: 120px 20px 60px;
+            background: linear-gradient(0deg, #0f172a 0%, rgba(15, 23, 42, 0) 100%),
+                        url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
         }
 
         .hero h1 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            margin-bottom: 15px;
-            background: linear-gradient(to right, #fff, #94a3b8);
+            font-size: clamp(2.2rem, 8vw, 4rem);
+            line-height: 1.1;
+            margin-bottom: 20px;
+            font-weight: 900;
+            background: linear-gradient(to bottom, #fff 30%, #64748b 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .hero p {
-            font-size: 1.1rem;
-            color: #94a3b8;
-            max-width: 600px;
+        .hero .amharic-text {
+            font-size: 1.2rem;
+            color: #25D366;
+            max-width: 700px;
             margin: 0 auto 30px;
+            line-height: 1.8;
+            border-left: 4px solid var(--secondary);
+            padding-left: 20px;
+            text-align: left;
         }
 
-        .cta a {
-            background: var(--secondary);
-            padding: 16px 32px;
-            border-radius: 50px;
-            color: white;
-            text-decoration: none;
-            font-weight: 800;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: 0.3s;
-            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
-        }
-
-        .cta a:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 30px rgba(37, 211, 102, 0.4);
-        }
-
-        /* GRID SYSTEM */
+        /* GRID RESPONSIVENESS */
         .container {
-            padding: 20px 5% 100px;
+            padding: 20px 5% 80px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 30px;
+            /* Adaptive grid: 1 col on mobile, 2 on tablet, 3 on desktop */
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 350px), 1fr));
+            gap: 25px;
             max-width: 1400px;
             margin: 0 auto;
         }
 
-        /* EYE-CATCHING CARDS */
+        /* SLIDING DESCRIPTION CARD */
         .card {
-            backdrop-filter: blur(20px);
             background: var(--glass);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
+            border-radius: var(--card-radius);
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 480px; /* Fixed height for consistency */
             display: flex;
             flex-direction: column;
         }
 
         .card:hover {
-            transform: translateY(-12px);
+            transform: translateY(-10px);
             border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
-        /* MEDIA AREA (IMAGE + OVERLAYS) */
         .media-container {
             position: relative;
+            height: 200px;
             width: 100%;
-            height: 220px;
-            background: #000;
+            overflow: hidden;
         }
 
         .thumb-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: 0.5s;
+            transition: 0.6s;
         }
 
-        .card:hover .thumb-img {
-            opacity: 0.4;
-            transform: scale(1.1);
+        /* SLIDING OVERLAY FEATURE */
+        .sliding-desc {
+            position: absolute;
+            bottom: -100%; /* Hidden by default */
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            box-sizing: border-box;
+            transition: 0.5s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            z-index: 5;
+        }
+
+        .card:hover .sliding-desc {
+            bottom: 0; /* Slides up on hover */
+        }
+
+        .card-body {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .sub-count {
+            background: rgba(37, 211, 102, 0.1);
+            color: var(--secondary);
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 0.9rem;
         }
 
         .badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--primary);
-            padding: 6px 14px;
-            border-radius: 10px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            z-index: 2;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            font-weight: 800;
         }
 
         .monetized { background: #ef4444; }
 
-        /* PLAY OVERLAY */
-        .play-overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            opacity: 0;
-            transition: 0.3s;
-            pointer-events: none;
-            z-index: 3;
-        }
-
-        .card:hover .play-overlay { opacity: 1; }
-
-        /* CARD BODY */
-        .card-body {
-            padding: 25px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .card-body h3 {
-            margin: 0 0 10px;
-            font-size: 1.4rem;
-        }
-
-        .stats {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-            color: #25D366;
-            font-weight: 600;
-        }
-
-        .desc {
-            color: #94a3b8;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
         .actions {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: auto;
+            gap: 10px;
         }
 
         .btn {
-            padding: 12px;
+            padding: 12px 5px;
             border-radius: 12px;
             text-decoration: none;
-            text-align: center;
             font-weight: bold;
-            font-size: 0.9rem;
-            transition: 0.2s;
+            font-size: 0.85rem;
+            text-align: center;
+            transition: 0.3s;
         }
 
-        .btn-details { background: rgba(255,255,255,0.1); color: white; }
+        .btn-details { background: white; color: black; }
         .btn-buy { background: var(--secondary); color: white; }
 
-        .btn:hover { filter: brightness(1.2); }
+        /* MOBILE OPTIMIZATIONS */
+        @media (max-width: 600px) {
+            .hero { padding-top: 80px; }
+            .hero h1 { font-size: 2.5rem; }
+            .container { padding: 10px 15px 60px; }
+            .card { height: 450px; }
+            /* On mobile, make the slide partially visible or triggered by tap */
+            .sliding-desc { padding: 20px; }
+        }
 
         footer {
             text-align: center;
-            padding: 50px;
+            padding: 40px 20px;
             border-top: 1px solid var(--glass);
+            font-size: 0.9rem;
             color: #64748b;
         }
-
-        /* CUSTOM ANIMATION FOR WHITE SCREEN FIX */
-        #channelGrid { min-height: 400px; }
     </style>
 </head>
 <body>
 
-<section class="hero" data-aos="zoom-out">
-    <h1>YouTube Channel Marketplace</h1>
+<section class="hero" data-aos="fade-down">
+    <div class="badge monetized" style="position: static; display: inline-block; margin-bottom: 10px;">Hot Deals</div>
+    <h1>Premium YouTube Assets</h1>
     
-    <p> Premium, monetized, and aged YouTube channels ready for your next big project. High growth potential with established audiences.</p>
-    <h2> ብ ዶላር ($) ዝኸፍል you tube ቻነል ክህልዎም ይደልዩ ዶ ?</h2>
-    <p> እወ ይደልዩ መን ኣሎ ዶላር ዘይደሊ እምባኣርከስ ናብ  ስልኪ ቁፅሪ
-        <li>0961224955</li>ወይ 
-        <li>0914308623</li>
-ብምድዋል ብዝሓሰረ ዋጋ ወናኒ ይኹኑ።
-ቀዲሙ ዝመፀ ወሰደ! ንተወሳኺ ሓበሬታ እተን ቻነላት ናብቲ ሊንክ ኣቲኹም ብምርኣይ ቃሕ ዝበለኩም ክትመርፁ ትኽእሉ።
-</p>
+    <div class="amharic-text">
+        ብ ዶላር ($) ዝኸፍል YouTube ቻነል ክህልዎም ይደልዩ ዶ?<br>
+        ብዝሓሰረ ዋጋ ወናኒ ይኹኑ። ቀዲሙ ዝመፀ ወሰደ!
+    </div>
+
     <div class="cta">
-        <a href="https://wa.me/251961224955">
-            <i class="fab fa-whatsapp"></i> Chat with an Agent
+        <a href="https://wa.me/251961224955" style="background:var(--secondary); color:white; padding:15px 30px; border-radius:50px; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:10px;">
+            <i class="fab fa-whatsapp fa-lg"></i> Contact 0961224955
         </a>
     </div>
 </section>
 
-<div class="container" id="channelGrid">
-    </div>
+<div class="container" id="channelGrid"></div>
 
 <footer>
-    <p>© 2026 YouTube Channel Marketplace | Secure Digital Asset Transfers</p>
-    <p><i class="fas fa-phone"></i> +251 961 224 955</p>
+    <p>© 2026 YouTube Marketplace | Safe & Secure Transfers</p>
+    <div style="margin-top:10px;">
+        <i class="fas fa-phone"></i> +251 961 224 955 &nbsp; | &nbsp; <i class="fas fa-phone"></i> +251 914 308 623
+    </div>
 </footer>
 
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script>
-    // YouTube URL helper to extract ID
-    function getID(url) {
-        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-        const match = url.match(regExp);
-        return (match && match[2].length === 11) ? match[2] : null;
-    }
-
     const channels = [
         {
             id: 1,
             title: "Worlds Music",
-            desc: "Ethiopian music channel. High engagement rate with a focus on world hits and local cultural melodies.",
+            desc: "This channel focuses on Ethiopian and global cultural hits. It has a high organic reach and is ready to generate revenue immediately.",
             image: "assets/img/world.png",
             subs: "7,260",
             status: "Monetized",
-            video: "https://www.youtube.com/watch?v=qe3A-w1PyJI"
+            video: "qe3A-w1PyJI"
         },
         {
             id: 2,
-            title: "AGA BEST ETHIOPIAN MUSIC",
-            desc: "The ultimate hub for Ethiopian music lovers. Perfect for promoters or artists looking for an established base.",
+            title: "AGA BEST MUSIC",
+            desc: "The ultimate hub for Ethiopian music lovers. Features a loyal audience and high watch time metrics.",
             image: "assets/img/agabest.jpg",
             subs: "1,270",
             status: "Active",
-            video: "https://www.youtube.com/watch?v=_cWvKvR5Lc8"
+            video: "_cWvKvR5Lc8"
         },
         {
             id: 3,
             title: "AGA ENTERTAINMENT",
-            desc: "AI-driven music entertainment and viral trending content. High automation potential for active income.እንኳዕ ናብ ቻናልኩም AGA Entertainment ብድሓን መፃእኩም ኩቡራት ቤተሰብ።",
+            desc: "AI-driven content and trending entertainment videos. Optimized for high CPM and active income.",
             image: "assets/aga.jpg",
             subs: "7,230",
             status: "Monetized",
-            video: "https://www.youtube.com/watch?v=DEy4Dmv8ZsY"
+            video: "DEy4Dmv8ZsY"
         },
         {
             id: 4,
             title: "Senay Show ሰናይ ሸዉ",
-            desc: "Top-tier Tigrigna entertainment! Featuring weddings, drama, and trending news with a loyal fan base.",
+            desc: "Top Tigrigna entertainment! Including weddings, drama, and news. A highly active community.",
             image: "assets/img/senay.png",
             subs: "16,600",
             status: "Monetized",
-            video: "https://www.youtube.com/watch?v=aURwYK4lLn4"
+            video: "aURwYK4lLn4"
         },
         {
             id: 5,
             title: "Nota ኖታ ENT",
-            desc: "A rising star in the entertainment niche. Great SEO and search traffic performance over the last 90 days.",
-            image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=400", 
+            desc: "Growing entertainment niche. Excellent search traffic performance and clean copyright history.",
+            image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400", 
             subs: "5,400",
             status: "Ready",
-            video: "https://www.youtube.com/watch?v=8Zm_SNikBUo"
+            video: "8Zm_SNikBUo"
         }
     ];
 
     const grid = document.getElementById("channelGrid");
 
     function renderChannels() {
-        grid.innerHTML = '';
         channels.forEach(ch => {
-            const vId = getID(ch.video);
-            // Dynamic fallback to YouTube Thumbnail if your local image isn't found
-            const previewImg = ch.image; 
-            const youtubeThumb = `https://img.youtube.com/vi/${vId}/maxresdefault.jpg`;
+            const youtubeThumb = `https://img.youtube.com/vi/${ch.video}/maxresdefault.jpg`;
 
             grid.innerHTML += `
             <div class="card" data-aos="fade-up">
-                <div class="media-container">
-                    <div class="badge ${ch.status === 'Monetized' ? 'monetized' : ''}">
-                        ${ch.status}
+                <div class="sliding-desc">
+                    <h4 style="margin:0 0 10px 0; color:var(--secondary)">Channel Overview</h4>
+                    <p style="font-size:0.95rem; line-height:1.6; color:#cbd5e1">${ch.desc}</p>
+                    <div style="margin-top:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
+                        <small style="color:var(--primary)">Click details to see analytics</small>
                     </div>
-                    <img src="${previewImg}" 
-                         class="thumb-img" 
-                         onerror="this.src='${youtubeThumb}'"
-                         alt="${ch.title}">
-                    <div class="play-overlay">
-                        <i class="fas fa-play-circle fa-4x text-white"></i>
+                </div>
+
+                <div class="media-container">
+                    <img src="${ch.image}" onerror="this.src='${youtubeThumb}'" class="thumb-img">
+                    <div style="position:absolute; top:10px; right:10px;">
+                        <span class="badge ${ch.status === 'Monetized' ? 'monetized' : ''}" style="background: ${ch.status === 'Monetized' ? '#ef4444' : '#2563eb'}">
+                            ${ch.status}
+                        </span>
                     </div>
                 </div>
 
                 <div class="card-body">
-                    <h3>${ch.title}</h3>
-                    <div class="stats">
-                        <span><i class="fas fa-users"></i> ${ch.subs} Subscribers</span>
+                    <div>
+                        <h3 style="margin:0 0 15px 0; font-size:1.2rem;">${ch.title}</h3>
+                        <div class="stats-row">
+                            <span class="sub-count"><i class="fas fa-users"></i> ${ch.subs}</span>
+                            <span style="font-size:0.8rem; color:#94a3b8"><i class="fas fa-check-circle"></i> Verified</span>
+                        </div>
                     </div>
-                    <p class="desc">${ch.desc}</p>
+                    
                     <div class="actions">
-                        <a class="btn btn-details" href="channel-details.html?id=${ch.id}">
-                            View Proofs
-                        </a>
-                        <a class="btn btn-buy" href="https://wa.me/251961224955?text=Hello, I want to buy ${ch.title}">
-                            Get Price
-                        </a>
+                        <a href="channel-details.html?id=${ch.id}" class="btn btn-details">View Details</a>
+                        <a href="https://wa.me/251961224955?text=I want to buy ${ch.title}" class="btn btn-buy">Buy Now</a>
                     </div>
                 </div>
             </div>
@@ -337,9 +314,8 @@
         });
     }
 
-    // Initialize
     window.onload = () => {
-        AOS.init({ duration: 800, once: true });
+        AOS.init({ duration: 1000, once: true });
         renderChannels();
     };
 </script>
