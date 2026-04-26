@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -10,37 +10,37 @@
 
     <style>
         :root {
-            /* Light Mode Variables (Default) */
-            --bg: #f8fafc;
+            /* Light Mode (Default) */
+            --bg: #f1f5f9;
             --text-main: #0f172a;
-            --text-dim: #475569;
-            --primary: #2563eb;
-            --secondary: #25D366;
+            --text-dim: #64748b;
             --card-bg: #ffffff;
-            --glass: rgba(0, 0, 0, 0.03);
+            --primary: #2563eb;
+            --secondary: #22c55e;
             --border: #e2e8f0;
+            --overlay: rgba(255, 255, 255, 0.95);
         }
 
-        /* Dark Mode Variables */
         [data-theme="dark"] {
             --bg: #0f172a;
-            --text-main: #ffffff;
+            --text-main: #f8fafc;
             --text-dim: #94a3b8;
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --glass: rgba(255, 255, 255, 0.06);
-            --border: rgba(255, 255, 255, 0.1);
+            --card-bg: #1e293b;
+            --primary: #3b82f6;
+            --secondary: #25D366;
+            --border: #334155;
+            --overlay: rgba(15, 23, 42, 0.95);
         }
 
         body {
             margin: 0;
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background: var(--bg);
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
             color: var(--text-main);
-            transition: background 0.3s, color 0.3s;
-            overflow-x: hidden;
+            transition: all 0.3s ease;
         }
 
-        /* Theme Toggle Button */
+        /* Fixed Theme Toggle */
         .theme-switch {
             position: fixed;
             top: 20px;
@@ -48,91 +48,91 @@
             background: var(--primary);
             color: white;
             border: none;
-            width: 45px;
-            height: 45px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             cursor: pointer;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            z-index: 2000;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            font-size: 1.2rem;
         }
 
         .hero {
             text-align: center;
-            padding: 120px 20px 60px;
-            background: linear-gradient(0deg, var(--bg) 0%, rgba(15, 23, 42, 0) 100%);
+            padding: 100px 20px 40px;
         }
 
-        .hero h1 {
-            font-size: clamp(2.2rem, 8vw, 4rem);
-            margin-bottom: 20px;
-            font-weight: 900;
-            color: var(--text-main);
-        }
+        .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 10px; }
 
-        .hero .amharic-text {
-            font-size: 1.2rem;
+        .amharic-text {
             color: var(--secondary);
-            max-width: 700px;
-            margin: 0 auto 30px;
-            line-height: 1.8;
+            font-weight: 600;
+            margin-bottom: 30px;
             border-left: 4px solid var(--secondary);
-            padding-left: 20px;
+            padding-left: 15px;
+            display: inline-block;
             text-align: left;
         }
 
         .container {
-            padding: 20px 5% 80px;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(min(100%, 350px), 1fr));
-            gap: 25px;
-            max-width: 1400px;
+            padding: 20px;
+            max-width: 1200px;
             margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
         }
 
+        /* ADVANCED CLICKABLE CARD */
         .card {
             background: var(--card-bg);
             border: 1px solid var(--border);
-            border-radius: 20px;
+            border-radius: 24px;
             overflow: hidden;
             position: relative;
-            transition: transform 0.4s ease;
-            height: 480px;
+            cursor: pointer; /* Makes user know it's clickable */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: flex;
             flex-direction: column;
+            height: 480px;
         }
 
-        .card:hover { transform: translateY(-10px); }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
 
         .media-container {
-            position: relative;
             height: 200px;
-            overflow: hidden;
+            width: 100%;
+            position: relative;
         }
 
-        .thumb-img { width: 100%; height: 100%; object-fit: cover; }
-
-        .sliding-desc {
-            position: absolute;
-            bottom: -100%;
-            left: 0;
+        .media-container img {
             width: 100%;
             height: 100%;
-            background: var(--card-bg);
-            backdrop-filter: blur(15px);
-            padding: 30px;
-            box-sizing: border-box;
-            transition: 0.5s ease-in-out;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            z-index: 5;
-            color: var(--text-main);
+            object-fit: cover;
         }
 
-        .card:hover .sliding-desc { bottom: 0; }
+        /* Sliding Overlay - Ignore Pointer Events so we can click buttons through it if needed, 
+           but here we put buttons ABOVE it */
+        .sliding-desc {
+            position: absolute;
+            top: 200px; /* Start below image */
+            left: 0;
+            width: 100%;
+            height: calc(100% - 200px);
+            background: var(--overlay);
+            padding: 25px;
+            box-sizing: border-box;
+            transform: translateY(100%); /* Hidden */
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 10;
+        }
+
+        .card:hover .sliding-desc {
+            transform: translateY(0); /* Slide up */
+        }
 
         .card-body {
             padding: 20px;
@@ -140,130 +140,144 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-        }
-
-        .sub-count {
-            background: rgba(37, 211, 102, 0.1);
-            color: var(--secondary);
-            padding: 5px 12px;
-            border-radius: 8px;
-            font-weight: bold;
+            z-index: 5;
         }
 
         .badge {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            padding: 5px 10px;
-            border-radius: 6px;
-            font-size: 0.7rem;
-            font-weight: 800;
+            top: 15px;
+            right: 15px;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
             color: white;
-            z-index: 2;
+            z-index: 20;
         }
 
+        .monetized { background: #ef4444; }
+        .active { background: #3b82f6; }
+
+        /* BUTTONS STAY ON TOP */
         .actions {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            gap: 12px;
+            margin-top: 15px;
+            position: relative;
+            z-index: 30; /* Higher than sliding overlay */
         }
 
         .btn {
-            padding: 12px 5px;
+            padding: 14px;
             border-radius: 12px;
             text-decoration: none;
-            font-weight: bold;
-            font-size: 0.85rem;
+            font-weight: 700;
+            font-size: 0.9rem;
             text-align: center;
+            transition: filter 0.2s;
         }
 
-        .btn-details { background: var(--primary); color: white; }
+        .btn-details { background: var(--text-main); color: var(--card-bg); }
         .btn-buy { background: var(--secondary); color: white; }
+        
+        .btn:hover { filter: brightness(1.2); }
 
         footer {
             text-align: center;
-            padding: 40px 20px;
-            border-top: 1px solid var(--border);
+            padding: 50px 20px;
             color: var(--text-dim);
+            border-top: 1px solid var(--border);
         }
     </style>
 </head>
 <body>
 
-<button class="theme-switch" onclick="toggleTheme()">
-    <i class="fas fa-moon" id="theme-icon"></i>
-</button>
+    <button class="theme-switch" onclick="toggleTheme()" id="themeBtn">
+        <i class="fas fa-moon"></i>
+    </button>
 
-<section class="hero" data-aos="fade-down">
-    <h1>Premium YouTube Assets</h1>
-    <div class="amharic-text">
-        ብ ዶላር ($) ዝኸፍል YouTube ቻነል ክህልዎም ይደልዩ ዶ?<br>
-        ብዝሓሰረ ዋጋ ወናኒ ይኹኑ። ቀዲሙ ዝመፀ ወሰደ!
-    </div>
-    <a href="https://wa.me/251961224955" style="background:var(--secondary); color:white; padding:15px 30px; border-radius:50px; text-decoration:none; font-weight:bold;">
-        <i class="fab fa-whatsapp"></i> Contact Us
-    </a>
-</section>
+    <section class="hero">
+        <h1 data-aos="fade-up">YouTube Channel Market</h1>
+        <div class="amharic-text" data-aos="fade-up">
+            ዝተረጋገጹን ብዶላር ዝኸፍሉን ቻነላት ብዝሓሰረ ዋጋ!
+        </div>
+    </section>
 
-<div class="container" id="channelGrid"></div>
+    <div class="container" id="channelGrid"></div>
 
-<footer>
-    <p>© 2026 YouTube Marketplace | Safe Transfers</p>
-</footer>
+    <footer>
+        <p>© 2026 Premium Assets | WhatsApp: +251 961 224 955</p>
+    </footer>
 
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-<script>
-    const channels = [
-        { id: 1, title: "Worlds Music", desc: "Focuses on Ethiopian and global cultural hits.", image: "assets/img/world.png", subs: "7,260", status: "Monetized", video: "qe3A-w1PyJI" },
-        { id: 2, title: "AGA BEST MUSIC", desc: "The ultimate hub for Ethiopian music lovers.", image: "assets/img/agabest.jpg", subs: "1,270", status: "Monetized", video: "_cWvKvR5Lc8" },
-        { id: 3, title: "AGA ENTERTAINMENT", desc: "AI-driven content and trending entertainment.", image: "assets/aga.jpg", subs: "7,230", status: "Monetized", video: "DEy4Dmv8ZsY" },
-        { id: 4, title: "Senay Show ሰናይ ሸዉ", desc: "Top Tigrigna entertainment and weddings.", image: "assets/img/senay.png", subs: "16,600", status: "Monetized", video: "aURwYK4lLn4" },
-        { id: 5, title: "Nota ኖታ ENT", desc: "Growing entertainment niche. Clean history.", image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400", subs: "5,400", status: "Ready", video: "8Zm_SNikBUo" }
-    ];
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        const channels = [
+            { id: 1, title: "Worlds Music", subs: "7,260", status: "Monetized", video: "qe3A-w1PyJI", desc: "Global reach with automated AI content." },
+            { id: 2, title: "AGA Best Music", subs: "1,270", status: "Active", video: "_cWvKvR5Lc8", desc: "Top trending Ethiopian melodies hub." },
+            { id: 3, title: "AGA Entertainment", subs: "7,230", status: "Monetized", video: "DEy4Dmv8ZsY", desc: "Verified monetization and high CPM." },
+            { id: 4, title: "Senay Show ሰናይ ሸዉ", subs: "16,600", status: "Monetized", video: "aURwYK4lLn4", desc: "Massive community and high engagement." },
+            { id: 5, title: "Nota ኖታ ENT", subs: "5,400", status: "Active", video: "8Zm_SNikBUo", desc: "Clean history and ready for growth." }
+        ];
 
-    function renderChannels() {
-        const grid = document.getElementById("channelGrid");
-        channels.forEach(ch => {
-            const ytThumb = `https://img.youtube.com/vi/${ch.video}/maxresdefault.jpg`;
-            grid.innerHTML += `
-                <div class="card" data-aos="fade-up">
-                    <div class="badge" style="background:${ch.status === 'Monetized' ? '#ef4444' : '#2563eb'}">${ch.status}</div>
-                    <div class="sliding-desc">
-                        <h4>Overview</h4>
-                        <p>${ch.desc}</p>
-                    </div>
+        function renderChannels() {
+            const grid = document.getElementById("channelGrid");
+            channels.forEach(ch => {
+                const thumb = `https://img.youtube.com/vi/${ch.video}/maxresdefault.jpg`;
+                
+                grid.innerHTML += `
+                <div class="card" onclick="location.href='channel-details.html?id=${ch.id}'" data-aos="zoom-in">
+                    <div class="badge ${ch.status.toLowerCase()}">${ch.status}</div>
+                    
                     <div class="media-container">
-                        <img src="${ch.image}" onerror="this.src='${ytThumb}'" class="thumb-img">
+                        <img src="${thumb}" alt="YouTube">
                     </div>
+
+                    <div class="sliding-desc">
+                        <h4 style="margin:0 0 10px 0;">Description</h4>
+                        <p style="font-size:0.9rem; line-height:1.5;">${ch.desc}</p>
+                    </div>
+
                     <div class="card-body">
-                        <h3>${ch.title}</h3>
-                        <div class="stats-row"><span class="sub-count">${ch.subs} Subs</span></div>
+                        <div style="z-index:11">
+                            <h3 style="margin:0 0 5px 0;">${ch.title}</h3>
+                            <span style="color:var(--secondary); font-weight:bold;">
+                                <i class="fas fa-users"></i> ${ch.subs} Subscribers
+                            </span>
+                        </div>
+                        
                         <div class="actions">
-                            <a href="channel-details.html?id=${ch.id}" class="btn btn-details">View Details</a>
-                            <a href="https://wa.me/251961224955?text=Buy ${ch.title}" class="btn btn-buy">Buy Now</a>
+                            <a href="channel-details.html?id=${ch.id}" class="btn btn-details" onclick="event.stopPropagation()">Details</a>
+                            <a href="https://wa.me/251961224955?text=Buy ${ch.title}" class="btn btn-buy" onclick="event.stopPropagation()">Buy Now</a>
                         </div>
                     </div>
                 </div>`;
-        });
-    }
+            });
+        }
 
-    // Theme Toggle Function
-    function toggleTheme() {
-        const currentTheme = document.documentElement.getAttribute("data-theme");
-        const targetTheme = currentTheme === "dark" ? "light" : "dark";
-        document.documentElement.setAttribute("data-theme", targetTheme);
-        document.getElementById("theme-icon").className = targetTheme === "dark" ? "fas fa-sun" : "fas fa-moon";
-        localStorage.setItem("theme", targetTheme);
-    }
+        // Theme Toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const btn = document.getElementById("themeBtn");
+            if (html.getAttribute("data-theme") === "light") {
+                html.setAttribute("data-theme", "dark");
+                btn.innerHTML = '<i class="fas fa-sun"></i>';
+                localStorage.setItem("theme", "dark");
+            } else {
+                html.setAttribute("data-theme", "light");
+                btn.innerHTML = '<i class="fas fa-moon"></i>';
+                localStorage.setItem("theme", "light");
+            }
+        }
 
-    // Load Theme Preference
-    window.onload = () => {
-        const savedTheme = localStorage.getItem("theme") || "light";
-        document.documentElement.setAttribute("data-theme", savedTheme);
-        document.getElementById("theme-icon").className = savedTheme === "dark" ? "fas fa-sun" : "fas fa-moon";
-        AOS.init();
-        renderChannels();
-    };
-</script>
+        // Apply Preference
+        window.onload = () => {
+            const saved = localStorage.getItem("theme") || "light";
+            document.documentElement.setAttribute("data-theme", saved);
+            document.getElementById("themeBtn").innerHTML = saved === "dark" ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            AOS.init();
+            renderChannels();
+        };
+    </script>
 </body>
 </html>
