@@ -10,8 +10,8 @@
 
     <style>
         :root {
-            /* Light Mode */
-            --bg: #f8fafc;
+            /* Light Mode (Default) */
+            --bg: #f1f5f9;
             --header-bg: #ffffff;
             --text-main: #0f172a;
             --text-dim: #64748b;
@@ -19,7 +19,7 @@
             --primary: #2563eb;
             --secondary: #22c55e;
             --border: #e2e8f0;
-            --glass-bg: rgba(255, 255, 255, 0.8);
+            --overlay: rgba(255, 255, 255, 0.9);
         }
 
         [data-theme="dark"] {
@@ -31,7 +31,7 @@
             --primary: #3b82f6;
             --secondary: #25D366;
             --border: #334155;
-            --glass-bg: rgba(15, 23, 42, 0.8);
+            --overlay: rgba(15, 23, 42, 0.9);
         }
 
         body {
@@ -39,13 +39,13 @@
             font-family: 'Inter', sans-serif;
             background-color: var(--bg);
             color: var(--text-main);
-            transition: 0.3s ease;
+            transition: background 0.3s ease;
         }
 
-        /* --- PREMIUM HEADER --- */
+        /* --- STICKY HEADER --- */
         header {
             background: var(--header-bg);
-            padding: 15px 5%;
+            padding: 12px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -53,33 +53,26 @@
             top: 0;
             z-index: 1000;
             border-bottom: 1px solid var(--border);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            backdrop-filter: blur(10px);
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: var(--primary);
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-main);
             text-decoration: none;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        /* --- THEME TOGGLE --- */
-        .theme-btn {
-            background: var(--glass-bg);
-            border: 1px solid var(--border);
-            color: var(--text-main);
+        .theme-toggle {
+            background: var(--primary);
+            color: white;
+            border: none;
             width: 40px;
             height: 40px;
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -87,28 +80,28 @@
             transition: 0.3s;
         }
 
-        /* --- HERO SECTION --- */
+        /* --- HERO --- */
         .hero {
             text-align: center;
-            padding: 80px 20px;
+            padding: 60px 20px;
             background: linear-gradient(135deg, var(--primary) 0%, #1e40af 100%);
             color: white;
-            margin-bottom: 40px;
+            clip-path: ellipse(150% 100% at 50% 0%);
         }
 
-        .hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); margin: 0; font-weight: 800; }
-        .hero p { opacity: 0.9; font-size: 1.2rem; margin-top: 10px; }
+        .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin: 0; }
+        .hero p { opacity: 0.9; margin-top: 10px; font-weight: 500; }
 
         .container {
-            padding: 0 5% 80px;
-            max-width: 1300px;
+            padding: 40px 5%;
+            max-width: 1400px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 30px;
         }
 
-        /* --- ENHANCED CARDS --- */
+        /* --- PREMIUM CARDS --- */
         .card {
             background: var(--card-bg);
             border-radius: 24px;
@@ -116,32 +109,32 @@
             overflow: hidden;
             position: relative;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.4s ease;
             display: flex;
             flex-direction: column;
-            height: 520px;
+            height: 500px;
         }
 
         .card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 30px 60px -12px rgba(0,0,0,0.15);
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15);
             border-color: var(--primary);
         }
 
-        .media-container {
+        .image-container {
             height: 220px;
             position: relative;
             overflow: hidden;
         }
 
-        .media-container img {
+        .image-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s;
+            transition: transform 0.5s ease;
         }
 
-        .card:hover .media-container img { transform: scale(1.1); }
+        .card:hover .image-container img { transform: scale(1.1); }
 
         .badge {
             position: absolute;
@@ -149,97 +142,87 @@
             left: 15px;
             padding: 6px 14px;
             border-radius: 50px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 800;
             color: white;
             z-index: 10;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            text-transform: uppercase;
         }
 
-        /* --- SLIDING GLASS OVERLAY --- */
-        .sliding-desc {
+        /* --- INFO OVERLAY --- */
+        .description-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 220px; /* Same as image */
-            background: rgba(0, 0, 0, 0.7);
+            height: 220px;
+            background: var(--overlay);
             backdrop-filter: blur(8px);
-            color: white;
-            padding: 30px;
+            padding: 25px;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
             justify-content: center;
             opacity: 0;
-            transition: 0.4s;
+            transition: 0.3s ease;
             z-index: 5;
+            color: var(--text-main);
         }
 
-        .card:hover .sliding-desc { opacity: 1; }
+        .card:hover .description-overlay { opacity: 1; }
 
-        .card-body {
-            padding: 25px;
+        .card-content {
+            padding: 20px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
 
-        .card-title {
-            font-size: 1.4rem;
-            margin: 0 0 10px 0;
-            font-weight: 700;
-        }
+        .card-title { font-size: 1.3rem; margin: 0 0 10px 0; font-weight: 700; }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+        .tag-row {
+            display: flex;
             gap: 10px;
             margin-bottom: 20px;
         }
 
-        .stat-tag {
+        .tag {
             background: var(--bg);
-            padding: 8px;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            text-align: center;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
             border: 1px solid var(--border);
         }
 
-        /* --- ACTIONS --- */
+        /* --- BUTTONS --- */
         .actions {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
-            position: relative;
             z-index: 20;
         }
 
         .btn {
-            padding: 14px;
-            border-radius: 14px;
+            padding: 12px;
+            border-radius: 12px;
             text-decoration: none;
-            font-weight: 800;
-            font-size: 0.9rem;
+            font-weight: 700;
+            font-size: 0.85rem;
             text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: 0.3s;
+            transition: 0.2s;
         }
 
         .btn-details { background: var(--primary); color: white; }
         .btn-buy { background: var(--secondary); color: white; }
-        .btn:hover { filter: brightness(1.1); transform: scale(1.02); }
+        .btn:hover { filter: brightness(1.1); transform: translateY(-2px); }
 
         footer {
             text-align: center;
-            padding: 60px 20px;
-            background: var(--header-bg);
+            padding: 40px 20px;
             border-top: 1px solid var(--border);
+            color: var(--text-dim);
         }
     </style>
 </head>
@@ -247,72 +230,64 @@
 
     <header>
         <a href="#" class="logo">
-            <i class="fab fa-youtube" style="color: #ff0000; font-size: 2rem;"></i>
-            <span>YT Market</span>
+            <i class="fab fa-youtube" style="color: #ff0000;"></i>
+            Marketplace
         </a>
-        <div class="header-actions">
-            <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">
-                <i class="fas fa-moon"></i>
-            </button>
-            <a href="https://wa.me/251961224955" class="btn btn-buy" style="padding: 10px 20px;">
-                <i class="fab fa-whatsapp"></i> Support
-            </a>
-        </div>
+        <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">
+            <i class="fas fa-moon"></i>
+        </button>
     </header>
 
     <section class="hero">
         <h1 data-aos="fade-down">Premium YouTube Assets</h1>
-        <p data-aos="fade-up">ዝተረጋገጹን ብዶላር ($) ዝኸፍሉን ቻነላት ብዝሓሰረ ዋጋ!</p>
+        <p data-aos="fade-up">ዝተረጋገጹን ብዶላር ዝኸፍሉን ቻነላት ብዝሓሰረ ዋጋ!</p>
     </section>
 
     <div class="container" id="channelGrid"></div>
 
     <footer>
-        <p>© 2026 YouTube Premium Assets Marketplace</p>
-        <p style="font-size: 0.8rem; color: var(--text-dim);">Safe & Secure Channel Transfers Globally</p>
+        <p>© 2026 Premium YouTube Marketplace | Ethiopia</p>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script>
         const channels = [
-            { id: 1, title: "Worlds Music", subs: "7,260", status: "Monetized", video: "qe3A-w1PyJI", desc: "Top-tier AI music channel. High organic traffic and zero strikes.", img: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=500" },
-            { id: 2, title: "AGA Best Music", subs: "1,270", status: "Active", video: "_cWvKvR5Lc8", desc: "The ultimate hub for Ethiopian music lovers. High watch time.", img: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=500" },
-            { id: 3, title: "AGA Entertainment", subs: "7,230", status: "Monetized", video: "DEy4Dmv8ZsY", desc: "Focuses on viral entertainment news. Revenue generating daily.", img: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=500" },
-            { id: 4, title: "Senay Show ሰናይ ሸዉ", subs: "16,600", status: "Monetized", video: "aURwYK4lLn4", desc: "Premier cultural show. Massive loyal community and engagement.", img: "http://youtube.com/post/UgkxhSTudiYlXr7jNBXuLXoOwVmQH_lAIkh7?si=Bfl-GrqcpPyoZ7KF" },
-            { id: 5, title: "Nota ኖታ ENT", subs: "5,400", status: "Active", video: "8Zm_SNikBUo", desc: "Great starter channel for reaction content. Clean copyright.", img: "https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=500" }
+            { id: 1, title: "Worlds Music", subs: "7,260", status: "Monetized", video: "qe3A-w1PyJI", desc: "Global AI-driven music hub. Ready for immediate revenue.", img: "assets/img/world.png" },
+            { id: 2, title: "AGA Best Music", subs: "1,270", status: "Active", video: "_cWvKvR5Lc8", desc: "Top trending hub for Ethiopian traditional hits.", img: "assets/img/agabest.jpg" },
+            { id: 3, title: "AGA Entertainment", subs: "7,230", status: "Monetized", video: "DEy4Dmv8ZsY", desc: "Verified entertainment news and viral content.", img: "assets/aga.jpg" },
+            { id: 4, title: "Senay Show ሰናይ ሸዉ", subs: "16,600", status: "Monetized", video: "aURwYK4lLn4", desc: "Cultural weddings and dramas. High community loyalty.", img: "assets/img/senay.png" },
+            { id: 5, title: "Nota ኖታ ENT", subs: "5,400", status: "Active", video: "8Zm_SNikBUo", desc: "Fast-growing reaction channel with clean dashboard.", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400" }
         ];
 
         function renderChannels() {
             const grid = document.getElementById("channelGrid");
             channels.forEach(ch => {
+                const ytThumb = `https://img.youtube.com/vi/${ch.video}/maxresdefault.jpg`;
+                
                 grid.innerHTML += `
                 <div class="card" onclick="location.href='channel-details.html?id=${ch.id}'" data-aos="fade-up">
                     <div class="badge" style="background: ${ch.status === 'Monetized' ? '#ef4444' : '#2563eb'}">${ch.status}</div>
                     
-                    <div class="media-container">
-                        <img src="${ch.img}" alt="${ch.title}">
-                        <div class="sliding-desc">
-                            <strong>Detailed Insight:</strong>
-                            <p>${ch.desc}</p>
+                    <div class="image-container">
+                        <img src="${ch.img}" onerror="this.src='${ytThumb}'" alt="${ch.title}">
+                        <div class="description-overlay">
+                            <h4 style="margin:0 0 10px 0;">Channel Summary</h4>
+                            <p style="font-size:0.9rem; line-height:1.4;">${ch.desc}</p>
                         </div>
                     </div>
 
-                    <div class="card-body">
+                    <div class="card-content">
                         <div>
                             <h3 class="card-title">${ch.title}</h3>
-                            <div class="stats-grid">
-                                <div class="stat-tag"><i class="fas fa-users"></i> ${ch.subs}</div>
-                                <div class="stat-tag"><i class="fas fa-dollar-sign"></i> High CPM</div>
+                            <div class="tag-row">
+                                <div class="tag"><i class="fas fa-users"></i> ${ch.subs}</div>
+                                <div class="tag"><i class="fas fa-chart-line"></i> Active</div>
                             </div>
                         </div>
                         
                         <div class="actions">
-                            <a href="channel-details.html?id=${ch.id}" class="btn btn-details" onclick="event.stopPropagation()">
-                                <i class="fas fa-info-circle"></i> Details
-                            </a>
-                            <a href="https://wa.me/251961224955?text=Buy ${ch.title}" class="btn btn-buy" onclick="event.stopPropagation()">
-                                <i class="fab fa-whatsapp"></i> Buy
-                            </a>
+                            <a href="channel-details.html?id=${ch.id}" class="btn btn-details" onclick="event.stopPropagation()">Details</a>
+                            <a href="https://wa.me/251961224955?text=Buy ${ch.title}" class="btn btn-buy" onclick="event.stopPropagation()">Buy Now</a>
                         </div>
                     </div>
                 </div>`;
