@@ -1,0 +1,333 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   RYOIT PLATFORM — GLOBAL STYLES
+   ============================================ */
+
+@layer base {
+  :root {
+    --color-primary:   0 102 255;
+    --color-secondary: 124 58 237;
+    --color-accent:    0 212 170;
+  }
+
+  * {
+    @apply box-border;
+  }
+
+  html {
+    @apply scroll-smooth;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans antialiased;
+    @apply bg-light-bg text-light-text;
+    @apply dark:bg-dark-bg dark:text-dark-text;
+    @apply transition-colors duration-300;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-bold tracking-tight;
+  }
+
+  a {
+    @apply transition-colors duration-200;
+  }
+
+  img {
+    @apply max-w-full;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary-500/40 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary-500/70;
+  }
+
+  /* Selection */
+  ::selection {
+    @apply bg-primary-500/30 text-primary-900 dark:text-white;
+  }
+}
+
+/* ============================================
+   COMPONENT LAYER
+   ============================================ */
+
+@layer components {
+
+  /* ---- Glass Card ---- */
+  .glass-card {
+    @apply backdrop-blur-md border;
+    @apply bg-white/80 border-white/20 dark:bg-dark-card/80 dark:border-dark-border;
+    @apply shadow-card dark:shadow-dark;
+  }
+
+  .glass-card-dark {
+    @apply backdrop-blur-xl border;
+    @apply bg-dark-surface/90 border-dark-border;
+    @apply shadow-dark;
+  }
+
+  /* ---- Gradient Text ---- */
+  .gradient-text {
+    @apply bg-gradient-primary bg-clip-text text-transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .gradient-text-accent {
+    @apply bg-gradient-accent bg-clip-text text-transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* ---- Buttons ---- */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2;
+    @apply font-semibold rounded-xl transition-all duration-200;
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+    @apply disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-sm   { @apply btn px-4 py-2 text-sm; }
+  .btn-md   { @apply btn px-6 py-3 text-base; }
+  .btn-lg   { @apply btn px-8 py-4 text-lg; }
+  .btn-xl   { @apply btn px-10 py-5 text-xl; }
+
+  .btn-primary {
+    @apply bg-primary-500 text-white hover:bg-primary-600;
+    @apply shadow-glow-sm hover:shadow-glow;
+    @apply focus:ring-primary-500;
+    @apply active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary-500 text-white hover:bg-secondary-600;
+    @apply focus:ring-secondary-500;
+    @apply active:scale-95;
+  }
+
+  .btn-accent {
+    @apply bg-accent-500 text-dark-bg hover:bg-accent-600;
+    @apply focus:ring-accent-500;
+    @apply active:scale-95;
+  }
+
+  .btn-outline {
+    @apply border-2 border-primary-500 text-primary-500;
+    @apply hover:bg-primary-500 hover:text-white;
+    @apply dark:border-primary-400 dark:text-primary-400;
+    @apply focus:ring-primary-500;
+    @apply active:scale-95;
+  }
+
+  .btn-ghost {
+    @apply text-light-text dark:text-dark-text;
+    @apply hover:bg-light-border/50 dark:hover:bg-dark-border/50;
+    @apply focus:ring-primary-500;
+    @apply active:scale-95;
+  }
+
+  .btn-danger {
+    @apply bg-red-500 text-white hover:bg-red-600;
+    @apply focus:ring-red-500;
+    @apply active:scale-95;
+  }
+
+  /* ---- Cards ---- */
+  .card {
+    @apply rounded-2xl overflow-hidden;
+    @apply bg-light-card dark:bg-dark-card;
+    @apply border border-light-border dark:border-dark-border;
+    @apply shadow-card dark:shadow-dark;
+    @apply transition-all duration-300;
+  }
+
+  .card-hover {
+    @apply card hover:-translate-y-1 hover:shadow-card-lg;
+    @apply dark:hover:shadow-dark-lg;
+    @apply hover:border-primary-500/30;
+  }
+
+  /* ---- Badges ---- */
+  .badge {
+    @apply inline-flex items-center gap-1;
+    @apply px-2.5 py-1 rounded-lg text-xs font-semibold;
+  }
+
+  .badge-primary  { @apply badge bg-primary-500/10 text-primary-500 dark:text-primary-400; }
+  .badge-secondary{ @apply badge bg-secondary-500/10 text-secondary-500 dark:text-secondary-400; }
+  .badge-accent   { @apply badge bg-accent-500/10 text-accent-600 dark:text-accent-400; }
+  .badge-success  { @apply badge bg-green-500/10 text-green-600 dark:text-green-400; }
+  .badge-warning  { @apply badge bg-yellow-500/10 text-yellow-600 dark:text-yellow-400; }
+  .badge-danger   { @apply badge bg-red-500/10 text-red-600 dark:text-red-400; }
+  .badge-muted    { @apply badge bg-light-border dark:bg-dark-border text-light-muted dark:text-dark-muted; }
+
+  /* ---- Section ---- */
+  .section {
+    @apply py-20 lg:py-28;
+  }
+
+  .section-sm {
+    @apply py-12 lg:py-16;
+  }
+
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-title {
+    @apply font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl;
+    @apply text-light-text dark:text-dark-text;
+    @apply leading-tight;
+  }
+
+  .section-subtitle {
+    @apply text-base sm:text-lg text-light-muted dark:text-dark-muted;
+    @apply max-w-2xl leading-relaxed;
+  }
+
+  /* ---- Input ---- */
+  .input {
+    @apply w-full rounded-xl px-4 py-3;
+    @apply border border-light-border dark:border-dark-border;
+    @apply bg-light-surface dark:bg-dark-surface;
+    @apply text-light-text dark:text-dark-text;
+    @apply placeholder:text-light-muted dark:placeholder:text-dark-muted;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent;
+    @apply transition-all duration-200;
+    @apply text-sm;
+  }
+
+  .input-error {
+    @apply border-red-500 focus:ring-red-500;
+  }
+
+  /* ---- Skeleton Loader ---- */
+  .skeleton {
+    @apply rounded-lg bg-gradient-to-r from-light-border via-light-bg to-light-border;
+    @apply dark:from-dark-border dark:via-dark-surface dark:to-dark-border;
+    background-size: 1000px 100%;
+    @apply animate-shimmer;
+  }
+
+  /* ---- Divider ---- */
+  .divider {
+    @apply border-t border-light-border dark:border-dark-border;
+  }
+
+  /* ---- Nav Link ---- */
+  .nav-link {
+    @apply relative font-medium text-sm;
+    @apply text-light-muted dark:text-dark-muted;
+    @apply hover:text-primary-500 dark:hover:text-primary-400;
+    @apply transition-colors duration-200;
+  }
+
+  .nav-link-active {
+    @apply text-primary-500 dark:text-primary-400;
+  }
+
+  .nav-link::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-0.5;
+    @apply bg-primary-500;
+    @apply transition-all duration-300;
+  }
+
+  .nav-link:hover::after,
+  .nav-link-active::after {
+    @apply w-full;
+  }
+
+  /* ---- Gradient Border ---- */
+  .gradient-border {
+    position: relative;
+  }
+  .gradient-border::before {
+    content: '';
+    @apply absolute inset-0 rounded-2xl p-px;
+    background: linear-gradient(135deg, #0066FF, #7C3AED);
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* ---- Prose ---- */
+  .prose-ryoit {
+    @apply text-light-text dark:text-dark-text leading-relaxed;
+    @apply max-w-none;
+  }
+  .prose-ryoit h2 {
+    @apply text-2xl font-bold mt-8 mb-4;
+  }
+  .prose-ryoit h3 {
+    @apply text-xl font-semibold mt-6 mb-3;
+  }
+  .prose-ryoit p {
+    @apply mb-4 text-light-muted dark:text-dark-muted;
+  }
+  .prose-ryoit ul, .prose-ryoit ol {
+    @apply ml-6 mb-4 space-y-2;
+  }
+  .prose-ryoit li {
+    @apply text-light-muted dark:text-dark-muted;
+  }
+  .prose-ryoit a {
+    @apply text-primary-500 hover:underline;
+  }
+}
+
+/* ============================================
+   UTILITY LAYER
+   ============================================ */
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .animation-delay-200 { animation-delay: 0.2s; }
+  .animation-delay-400 { animation-delay: 0.4s; }
+  .animation-delay-600 { animation-delay: 0.6s; }
+  .animation-delay-800 { animation-delay: 0.8s; }
+
+  /* Mesh gradient overlay */
+  .mesh-bg {
+    background-image:
+      radial-gradient(at 40% 20%, rgba(0,102,255,0.15) 0px, transparent 50%),
+      radial-gradient(at 80% 0%, rgba(124,58,237,0.1) 0px, transparent 50%),
+      radial-gradient(at 0% 50%, rgba(0,212,170,0.05) 0px, transparent 50%),
+      radial-gradient(at 80% 100%, rgba(0,102,255,0.08) 0px, transparent 50%);
+  }
+
+  /* Noise texture */
+  .noise-bg::after {
+    content: '';
+    @apply absolute inset-0 opacity-[0.015];
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  /* Truncate lines */
+  .line-clamp-1 { -webkit-line-clamp: 1; }
+  .line-clamp-2 { -webkit-line-clamp: 2; }
+  .line-clamp-3 { -webkit-line-clamp: 3; }
+}

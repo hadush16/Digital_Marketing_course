@@ -1,0 +1,22 @@
+[build]
+  publish = "dist"
+  command = "npm run build"
+
+# Required: tell Vite where your deployed backend is
+# Set VITE_GOOGLE_CLIENT_ID in Netlify dashboard → Site Settings → Environment Variables
+[build.environment]
+  VITE_API_URL = "https://ryoit-api.onrender.com"
+
+# SPA catch-all: send all routes to index.html so React Router works on refresh
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-XSS-Protection = "1; mode=block"
