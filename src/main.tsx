@@ -1,13 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
+import GoogleOAuthWrapper from './components/auth/GoogleOAuthWrapper'
+import { auditGoogleOAuth } from './utils/googleAuth'
 
-import { GoogleOAuthProvider } from '@react-oauth/google'
+// Perform immediate Google OAuth diagnostic audit
+auditGoogleOAuth()
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID || 'placeholder_client_id'}>
+    <GoogleOAuthWrapper>
       <App />
-    </GoogleOAuthProvider>
+    </GoogleOAuthWrapper>
   </React.StrictMode>
 )

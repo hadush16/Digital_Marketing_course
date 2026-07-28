@@ -12,7 +12,7 @@ export interface User {
   createdAt: string
 }
 
-export type UserRole = 'admin' | 'instructor' | 'user' | 'ADMIN' | 'INSTRUCTOR' | 'USER'
+export type UserRole = 'admin' | 'instructor' | 'user' | 'seller' | 'ADMIN' | 'INSTRUCTOR' | 'USER' | 'SELLER'
 
 export interface AuthState {
   user: User | null
@@ -135,24 +135,27 @@ export interface MarketplaceListing {
   title: string
   description: string
   thumbnail?: string
-  images: string[]
+  images?: string[]
   category: MarketplaceCategory
   price: number
   currency: string
-  priceType: 'fixed' | 'negotiable' | 'contact'
+  priceType?: 'fixed' | 'negotiable' | 'contact'
   seller: Seller
-  tags: string[]
+  tags?: string[]
+  features?: string[]
+  deliveryTime?: string
   rating: number
-  totalRatings: number
+  totalRatings?: number
   views: number
   likes: number
   isBookmarked?: boolean
-  status: ContentStatus
-  isFeatured: boolean
-  createdAt: string
+  isFeatured?: boolean
+  status?: ContentStatus
+  createdAt?: string
 }
 
 export type MarketplaceCategory =
+  // Social Media Accounts
   | 'youtube-channels'
   | 'facebook-pages'
   | 'tiktok-accounts'
@@ -160,17 +163,121 @@ export type MarketplaceCategory =
   | 'telegram-channels'
   | 'telegram-groups'
   | 'whatsapp-business'
+  // Social Media Services
   | 'social-media-management'
+  | 'page-management'
+  | 'content-scheduling'
+  | 'audience-growth'
+  | 'community-management'
+  | 'brand-management'
+  // Digital Marketing
   | 'facebook-boosting'
   | 'youtube-promotion'
-  | 'subscribers-views'
   | 'seo-services'
+  | 'email-marketing'
+  | 'tiktok-marketing'
+  | 'linkedin-marketing'
+  | 'instagram-marketing'
+  | 'telegram-marketing'
+  // Creative Services
   | 'graphic-design'
   | 'video-editing'
   | 'logo-design'
-  | 'website-services'
-  | 'marketing-consultation'
+  | 'ui-ux-design'
+  | 'motion-graphics'
+  | 'thumbnail-design'
+  // Development
+  | 'website-development'
+  | 'react-development'
+  | 'flutter-development'
+  | 'mobile-apps'
+  | 'backend-apis'
+  | 'wordpress'
+  // Technology
+  | 'cloud-computing'
+  | 'cybersecurity'
+  | 'ai-services'
+  | 'automation'
+  | 'technical-support'
+  // Training
+  | 'computer-training'
+  | 'digital-skills'
+  | 'technology-courses'
+  | 'freelancing-coaching'
+  // Digital Products
+  | 'templates'
+  | 'ebooks'
+  | 'source-code'
+  | 'ui-kits'
+  | 'icons'
+  | 'graphics'
+  | 'presentations'
+  // Legacy / Misc
+  | 'subscribers-views'
   | 'advertising-services'
+  | 'marketing-consultation'
+  | 'website-services'
+
+// --- Seller Profile ---
+export interface SellerProfile {
+  id: string
+  userId: string
+  displayName: string
+  avatar?: string
+  coverImage?: string
+  bio: string
+  skills: string[]
+  languages: string[]
+  responseTime: string
+  memberSince: string
+  rating: number
+  totalReviews: number
+  totalListings: number
+  completedOrders?: number
+  socialLinks?: {
+    website?: string
+    telegram?: string
+    instagram?: string
+    linkedin?: string
+  }
+  verified: boolean
+  location?: string
+}
+
+// --- Favorite ---
+export interface Favorite {
+  listingId: string
+  savedAt: string
+}
+
+export interface FavoritesState {
+  items: Favorite[]
+}
+
+// --- Inquiry / Contact ---
+export interface Inquiry {
+  id: string
+  listingId: string
+  listingTitle: string
+  sellerName: string
+  buyerName: string
+  buyerEmail: string
+  buyerPhone?: string
+  message: string
+  status: 'unread' | 'read' | 'replied'
+  sentAt: string
+}
+
+// --- Review ---
+export interface Review {
+  id: string
+  listingId: string
+  authorName: string
+  authorAvatar?: string
+  rating: number
+  comment: string
+  createdAt: string
+}
 
 // --- News ---
 export interface NewsArticle {
@@ -210,21 +317,27 @@ export interface Instructor {
   totalCourses?: number
   totalStudents?: number
   rating?: number
+  role?: string
 }
 
 export interface Seller {
-  id: string
+  id?: string
   name: string
   avatar?: string
   rating?: number
   totalListings?: number
   verified?: boolean
+  joined?: string
+  bio?: string
+  skills?: string[]
+  responseTime?: string
 }
 
 export interface Author {
-  id: string
+  id?: string
   name: string
   avatar?: string
+  role?: string
 }
 
 export type ContentStatus = 'draft' | 'published' | 'archived'
@@ -308,11 +421,12 @@ export interface CoursesFilter {
 }
 
 export interface MarketplaceFilter {
-  category?: MarketplaceCategory
+  category?: string
   minPrice?: number
   maxPrice?: number
+  minRating?: number
   search?: string
-  sort?: 'latest' | 'popular' | 'price-asc' | 'price-desc'
+  sort?: 'latest' | 'popular' | 'price-asc' | 'price-desc' | 'rating'
   page?: number
   limit?: number
 }
@@ -330,4 +444,18 @@ export interface ContactForm {
 export interface NewsletterSubscription {
   email: string
   name?: string
+}
+
+// --- Listing Form ---
+export interface ListingFormData {
+  title: string
+  category: MarketplaceCategory | ''
+  price: number
+  currency: string
+  priceType: 'fixed' | 'negotiable' | 'contact'
+  description: string
+  features: string[]
+  deliveryTime: string
+  tags: string[]
+  thumbnail?: string
 }

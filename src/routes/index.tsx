@@ -14,6 +14,7 @@ const MobileSolutionsPage = lazy(() => import('@/pages/mobile-solutions/MobileSo
 const MobileSolutionDetailPage = lazy(() => import('@/pages/mobile-solutions/MobileSolutionDetailPage'))
 const MarketplacePage = lazy(() => import('@/pages/marketplace/MarketplacePage'))
 const ListingDetailPage = lazy(() => import('@/pages/marketplace/ListingDetailPage'))
+const SellerProfilePage = lazy(() => import('@/pages/marketplace/SellerProfilePage'))
 const TechNewsPage = lazy(() => import('@/pages/news/TechNewsPage'))
 const NewsDetailPage = lazy(() => import('@/pages/news/NewsDetailPage'))
 
@@ -31,6 +32,9 @@ const TermsPage = lazy(() => import('@/pages/static/TermsPage'))
 const DashboardPage = lazy(() => import('@/pages/dashboard/DashboardPage'))
 const MyCoursesPage = lazy(() => import('@/pages/dashboard/MyCoursesPage'))
 const MyListingsPage = lazy(() => import('@/pages/dashboard/MyListingsPage'))
+const FavoritesPage = lazy(() => import('@/pages/dashboard/FavoritesPage'))
+const MessagesPage = lazy(() => import('@/pages/dashboard/MessagesPage'))
+const SellerAnalyticsPage = lazy(() => import('@/pages/dashboard/SellerAnalyticsPage'))
 const ProfilePage = lazy(() => import('@/pages/dashboard/ProfilePage'))
 
 // Admin Pages
@@ -55,6 +59,7 @@ export const router = createBrowserRouter([
       { path: 'mobile-solutions/:slug', element: <MobileSolutionDetailPage /> },
       { path: 'marketplace', element: <MarketplacePage /> },
       { path: 'marketplace/:id', element: <ListingDetailPage /> },
+      { path: 'marketplace/seller/:id', element: <SellerProfilePage /> },
       { path: 'news', element: <TechNewsPage /> },
       { path: 'news/:slug', element: <NewsDetailPage /> },
       { path: 'community', element: <CommunityPage /> },
@@ -74,6 +79,9 @@ export const router = createBrowserRouter([
       { index: true, element: <DashboardPage /> },
       { path: 'my-courses', element: <MyCoursesPage /> },
       { path: 'my-listings', element: <MyListingsPage /> },
+      { path: 'favorites', element: <FavoritesPage /> },
+      { path: 'messages', element: <MessagesPage /> },
+      { path: 'analytics', element: <SellerAnalyticsPage /> },
       { path: 'profile', element: <ProfilePage /> },
     ],
   },
