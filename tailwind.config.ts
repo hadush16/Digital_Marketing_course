@@ -76,15 +76,19 @@ export default {
         'gradient-mesh':      'radial-gradient(at 40% 20%, hsla(228,100%,60%,0.15) 0px, transparent 50%), radial-gradient(at 80% 0%, hsla(261,100%,60%,0.1) 0px, transparent 50%), radial-gradient(at 0% 50%, hsla(355,100%,60%,0.05) 0px, transparent 50%)',
       },
       animation: {
-        'float':        'float 6s ease-in-out infinite',
-        'glow':         'glow 2s ease-in-out infinite alternate',
-        'slide-up':     'slideUp 0.6s ease-out',
-        'fade-in':      'fadeIn 0.5s ease-out',
-        'pulse-slow':   'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'spin-slow':    'spin 8s linear infinite',
-        'bounce-slow':  'bounce 3s infinite',
-        'shimmer':      'shimmer 2s infinite',
-        'gradient-x':   'gradientX 15s ease infinite',
+        'float':          'float 6s ease-in-out infinite',
+        'glow':           'glow 2s ease-in-out infinite alternate',
+        'slide-up':       'slideUp 0.6s ease-out',
+        'fade-in':        'fadeIn 0.5s ease-out',
+        'pulse-slow':     'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'spin-slow':      'spin 8s linear infinite',
+        'bounce-slow':    'bounce 3s infinite',
+        'shimmer':        'shimmer 2s infinite',
+        'gradient-x':     'gradientX 15s ease infinite',
+        'gemini-aurora':  'geminiaur 8s ease infinite',
+        'pulse-glow':     'pulseGlow 3s ease-in-out infinite',
+        'slide-in-right': 'slideInRight 0.4s ease-out',
+        'slide-in-left':  'slideInLeft 0.4s ease-out',
       },
       keyframes: {
         float: {
@@ -110,6 +114,23 @@ export default {
         gradientX: {
           '0%, 100%': { backgroundSize: '200% 200%', backgroundPosition: 'left center' },
           '50%':      { backgroundSize: '200% 200%', backgroundPosition: 'right center' },
+        },
+        geminiaur: {
+          '0%':   { backgroundPosition: '0% 50%' },
+          '50%':  { backgroundPosition: '100% 50%' },
+          '100%': { backgroundPosition: '0% 50%' },
+        },
+        pulseGlow: {
+          '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
+          '50%':      { opacity: '0.8', transform: 'scale(1.05)' },
+        },
+        slideInRight: {
+          '0%':   { transform: 'translateX(30px)', opacity: '0' },
+          '100%': { transform: 'translateX(0)',    opacity: '1' },
+        },
+        slideInLeft: {
+          '0%':   { transform: 'translateX(-30px)', opacity: '0' },
+          '100%': { transform: 'translateX(0)',     opacity: '1' },
         },
       },
       boxShadow: {

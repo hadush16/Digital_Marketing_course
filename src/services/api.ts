@@ -30,7 +30,10 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    const isAuthRoute = error.config?.url?.includes('/api/auth/')
+    const isLoginPage = window.location.pathname === '/login' || window.location.pathname === '/register'
+    
+    if (error.response?.status === 401 && !isAuthRoute && !isLoginPage) {
       store.dispatch(logout())
       window.location.href = '/login'
     }

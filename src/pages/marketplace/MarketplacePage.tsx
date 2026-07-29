@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import {
   HiSearch,
@@ -11,14 +11,25 @@ import {
   HiBadgeCheck,
   HiStar,
   HiShoppingBag,
-  HiTag,
   HiTrendingUp,
+  HiChevronLeft,
+  HiChevronRight,
+  HiLightningBolt,
+  HiTag,
 } from 'react-icons/hi'
 import { cn } from '@/utils'
 import { MARKET_LISTINGS, SELLER_PROFILES } from '@/data/mockDatabase'
 import ListingCard from '@/components/marketplace/ListingCard'
 import CategoryNav from '@/components/marketplace/CategoryNav'
 import CreateListingModal from '@/components/marketplace/CreateListingModal'
+import FeaturedCarousel from '@/components/marketplace/FeaturedCarousel'
+
+const STATS = [
+  { label: 'Active Listings', value: '2,400+', icon: HiShoppingBag, color: 'from-primary-500 to-primary-700' },
+  { label: 'Verified Sellers', value: '850+', icon: HiBadgeCheck, color: 'from-secondary-500 to-secondary-700' },
+  { label: 'Deals Completed', value: '12K+', icon: HiTrendingUp, color: 'from-accent-500 to-accent-700' },
+  { label: 'Avg Delivery', value: '2 Days', icon: HiLightningBolt, color: 'from-yellow-500 to-orange-500' },
+]
 
 export default function MarketplacePage() {
   const [selectedCat, setSelectedCat] = useState('all')
@@ -29,16 +40,15 @@ export default function MarketplacePage() {
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false)
   const [createModalOpen, setCreateModalOpen] = useState(false)
   const [allListings, setAllListings] = useState(MARKET_LISTINGS)
+  const sellersRef = useRef<HTMLDivElement>(null)
 
   // Filter listings
   const filtered = allListings.filter((item) => {
-    // category filter
     let matchesCat = selectedCat === 'all'
     if (!matchesCat) {
       if (item.category === selectedCat) {
         matchesCat = true
       } else {
-        // match parent category groupings if needed
         const catMap: Record<string, string[]> = {
           'social-accounts': ['youtube-channels', 'facebook-pages', 'tiktok-accounts', 'instagram-accounts', 'telegram-channels', 'telegram-groups', 'whatsapp-business'],
           'digital-marketing': ['facebook-boosting', 'youtube-promotion', 'seo-services', 'email-marketing', 'tiktok-marketing', 'linkedin-marketing', 'instagram-marketing', 'telegram-marketing'],
@@ -49,13 +59,10 @@ export default function MarketplacePage() {
           'training': ['computer-training', 'digital-skills', 'technology-courses', 'freelancing-coaching'],
           'digital-products': ['templates', 'ebooks', 'source-code', 'ui-kits', 'icons', 'presentations'],
         }
-        if (catMap[selectedCat]?.includes(item.category)) {
-          matchesCat = true
-        }
+        if (catMap[selectedCat]?.includes(item.category)) matchesCat = true
       }
     }
 
-    // search query
     const query = searchQuery.toLowerCase()
     const matchesSearch =
       !query ||
@@ -64,7 +71,6 @@ export default function MarketplacePage() {
       item.category.toLowerCase().includes(query) ||
       (item.tags && item.tags.some((t) => t.toLowerCase().includes(query)))
 
-    // price filter
     const itemPrice = item.price
     const matchesMin = !minPrice || itemPrice >= Number(minPrice)
     const matchesMax = !maxPrice || itemPrice <= Number(maxPrice)
@@ -72,13 +78,12 @@ export default function MarketplacePage() {
     return matchesCat && matchesSearch && matchesMin && matchesMax
   })
 
-  // Sort listings
   const sorted = [...filtered].sort((a, b) => {
     if (sortBy === 'popular') return b.views - a.views
     if (sortBy === 'rating') return b.rating - a.rating
     if (sortBy === 'price-asc') return a.price - b.price
     if (sortBy === 'price-desc') return b.price - a.price
-    return Number(b.id) - Number(a.id) // latest
+    return Number(b.id) - Number(a.id)
   })
 
   const featuredListings = allListings.filter((i) => i.isFeatured)
@@ -87,187 +92,307 @@ export default function MarketplacePage() {
     setAllListings([newListing, ...allListings])
   }
 
+  const scrollSellers = (dir: 'left' | 'right') => {
+    if (!sellersRef.current) return
+    sellersRef.current.scrollBy({ left: dir === 'right' ? 260 : -260, behavior: 'smooth' })
+  }
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.06 } },
+  }
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.35 } },
+  }
+
   return (
-    <div className="py-8 bg-light-bg dark:bg-dark-bg min-h-screen">
-      <div className="container-custom">
-        {/* HERO BANNER */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary-900 via-dark-surface to-secondary-900 p-8 sm:p-12 mb-12 border border-white/10 shadow-2xl">
-          <div className="absolute -right-16 -top-16 w-80 h-80 rounded-full bg-primary-500/20 blur-3xl pointer-events-none" />
-          <div className="absolute -left-16 -bottom-16 w-80 h-80 rounded-full bg-secondary-500/20 blur-3xl pointer-events-none" />
+    <div className="py-8 bg-light-bg dark:bg-dark-bg min-h-screen relative overflow-hidden">
+      {/* Gemini ambient mesh — full page background glow */}
+      <div className="fixed inset-0 mesh-bg opacity-20 pointer-events-none" />
 
-          <div className="relative z-10 max-w-3xl">
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-accent-400 text-xs font-bold mb-4"
-            >
-              <HiSparkles className="w-4 h-4" />
-              <span>RYOIT Digital Marketplace Platform</span>
-            </motion.div>
+      <div className="container-custom relative z-10">
 
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="font-display font-black text-3xl sm:text-5xl text-white leading-tight mb-4"
-            >
-              Buy & Sell <span className="gradient-text-accent">Digital Services</span>, Accounts & Products
-            </motion.h1>
+        {/* ═══ HERO BANNER — Gemini Aurora ═══ */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="relative overflow-hidden rounded-3xl mb-10 border border-white/10 shadow-2xl"
+        >
+          {/* Aurora gradient animated background */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: 'linear-gradient(135deg, #0a0a1a 0%, #0d0d2b 30%, #0a1a0d 60%, #1a0a1a 100%)',
+            }}
+          />
+          <div
+            className="absolute inset-0 pointer-events-none opacity-60"
+            style={{
+              background: 'linear-gradient(135deg, rgba(0,102,255,0.25) 0%, rgba(124,58,237,0.2) 40%, rgba(0,212,170,0.15) 80%)',
+              backgroundSize: '300% 300%',
+              animation: 'gemini-aurora 10s ease infinite',
+            }}
+          />
+          {/* Glow orbs */}
+          <div className="absolute -right-20 -top-20 w-96 h-96 rounded-full bg-primary-500/15 blur-3xl pointer-events-none" />
+          <div className="absolute -left-20 -bottom-20 w-96 h-96 rounded-full bg-secondary-500/15 blur-3xl pointer-events-none" />
+          <div className="absolute right-1/3 top-1/2 w-64 h-64 rounded-full bg-accent-500/10 blur-3xl pointer-events-none" />
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-sm sm:text-base text-gray-300 mb-8 max-w-2xl leading-relaxed"
-            >
-              Safely acquire YouTube channels, Facebook pages, graphic design services, web development, video editing, and digital templates from verified sellers across Ethiopia.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="flex flex-wrap items-center gap-3"
-            >
-              <a href="#marketplace-browse" className="btn-primary btn-md gap-2">
-                <HiShoppingBag className="w-5 h-5" /> Browse Marketplace
-              </a>
-              <button
-                onClick={() => setCreateModalOpen(true)}
-                className="btn-secondary btn-md gap-2"
+          <div className="relative z-10 p-8 sm:p-12">
+            <div className="max-w-3xl">
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/15 backdrop-blur-md text-accent-400 text-xs font-bold mb-5"
+                style={{ background: 'rgba(0,212,170,0.08)' }}
               >
-                <HiPlus className="w-5 h-5" /> Post a Service
-              </button>
-              <Link to="/register" className="btn-ghost text-white hover:bg-white/10 btn-md gap-2">
-                Become a Seller <HiArrowRight />
-              </Link>
-            </motion.div>
-          </div>
-        </div>
+                <HiSparkles className="w-4 h-4" />
+                <span>RYOIT Digital Marketplace Platform</span>
+              </motion.div>
 
-        {/* FEATURED SELLERS ROW */}
-        <div className="mb-12">
-          <div className="flex items-center justify-between mb-6">
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="font-display font-black text-3xl sm:text-5xl text-white leading-tight mb-4"
+              >
+                Buy &amp; Sell{' '}
+                <span className="gradient-text-gemini">Digital Services</span>
+                , Accounts &amp; Products
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="text-sm sm:text-base text-gray-400 mb-8 max-w-2xl leading-relaxed"
+              >
+                Safely acquire YouTube channels, Facebook pages, graphic design services, web development, video editing, and digital templates from verified sellers across Ethiopia.
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="flex flex-wrap items-center gap-3"
+              >
+                <a href="#marketplace-browse" className="btn-gemini btn-md gap-2 text-sm">
+                  <HiShoppingBag className="w-5 h-5" /> Browse Marketplace
+                </a>
+                <button
+                  onClick={() => setCreateModalOpen(true)}
+                  className="btn-md gap-2 text-sm text-white font-bold rounded-xl border border-white/20 backdrop-blur-md transition-all hover:bg-white/10 active:scale-95"
+                >
+                  <HiPlus className="w-5 h-5" /> Post a Service
+                </button>
+                <Link to="/register" className="text-white/70 hover:text-white text-sm font-semibold flex items-center gap-1.5 transition-colors">
+                  Become a Seller <HiArrowRight />
+                </Link>
+              </motion.div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* ═══ STATS ROW ═══ */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10"
+        >
+          {STATS.map((stat) => (
+            <motion.div
+              key={stat.label}
+              variants={itemVariants}
+              whileHover={{ y: -3, scale: 1.02 }}
+              className="gemini-card rounded-2xl p-4 border border-white/10 flex items-center gap-3 cursor-default"
+            >
+              <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center shrink-0 shadow-glow-sm`}>
+                <stat.icon className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <div className="font-display font-black text-xl text-white leading-none">{stat.value}</div>
+                <div className="text-[11px] text-dark-muted mt-0.5">{stat.label}</div>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* ═══ FEATURED GEMINI SPOTLIGHT CAROUSEL ═══ */}
+        {featuredListings.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+          >
+            <div className="flex items-center gap-2 mb-4">
+              <div className="flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold text-white border border-white/10"
+                style={{ background: 'linear-gradient(90deg, rgba(0,102,255,0.15), rgba(124,58,237,0.15), rgba(0,212,170,0.10))' }}>
+                <HiSparkles className="text-accent-400 w-3.5 h-3.5" />
+                <span className="gradient-text-gemini">Gemini Spotlight</span>
+              </div>
+              <span className="text-dark-muted text-xs">Featured & top-rated listings</span>
+            </div>
+            <FeaturedCarousel items={featuredListings} />
+          </motion.div>
+        )}
+
+        {/* ═══ VERIFIED SELLERS — Horizontal Scroll Strip ═══ */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="mb-12"
+        >
+          <div className="flex items-center justify-between mb-4">
             <div>
               <h2 className="font-display font-bold text-xl text-light-text dark:text-dark-text flex items-center gap-2">
                 <span>Verified Sellers</span>
-                <span className="badge-accent badge text-[10px]">Top Rated</span>
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold text-accent-400 border border-accent-400/30 bg-accent-400/10">Top Rated</span>
               </h2>
               <p className="text-xs text-light-muted dark:text-dark-muted mt-0.5">
-                Trustworthy digital service providers and asset managers
+                Trustworthy digital service providers
               </p>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <button
+                onClick={() => scrollSellers('left')}
+                className="p-2 rounded-xl border border-white/10 bg-dark-surface/60 hover:bg-white/10 text-white transition-all active:scale-95"
+              >
+                <HiChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => scrollSellers('right')}
+                className="p-2 rounded-xl border border-white/10 bg-dark-surface/60 hover:bg-white/10 text-white transition-all active:scale-95"
+              >
+                <HiChevronRight className="w-4 h-4" />
+              </button>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            {SELLER_PROFILES.map((seller) => (
-              <Link
+          <div
+            ref={sellersRef}
+            className="flex gap-4 overflow-x-auto scrollbar-none pb-2"
+          >
+            {SELLER_PROFILES.map((seller, idx) => (
+              <motion.div
                 key={seller.id}
-                to={`/marketplace/seller/${seller.id}`}
-                className="glass-card rounded-2xl p-4 border border-light-border dark:border-dark-border hover:border-primary-500/40 transition-all duration-300 hover:-translate-y-1 block group"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.05 * idx }}
+                whileHover={{ y: -4, scale: 1.02 }}
+                className="shrink-0"
               >
-                <div className="flex items-center gap-3">
-                  <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0 bg-gradient-primary p-0.5">
+                <Link
+                  to={`/marketplace/seller/${seller.id}`}
+                  className="block w-52 gemini-card rounded-2xl p-4 border border-white/10 hover:border-primary-500/40 transition-all duration-300 group"
+                >
+                  {/* Seller avatar */}
+                  <div className="relative w-14 h-14 rounded-2xl overflow-hidden bg-gradient-primary p-0.5 mx-auto mb-3">
                     <img
                       src={seller.avatar}
                       alt={seller.displayName}
-                      className="w-full h-full object-cover rounded-full bg-dark-card"
+                      className="w-full h-full object-cover rounded-[14px] bg-dark-card"
                     />
+                    {seller.verified && (
+                      <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-accent-500 border-2 border-dark-card flex items-center justify-center">
+                        <HiBadgeCheck className="text-dark-bg w-3 h-3" />
+                      </div>
+                    )}
                   </div>
-                  <div className="min-w-0 flex-1">
-                    <h3 className="font-display font-bold text-sm text-light-text dark:text-dark-text truncate group-hover:text-primary-500 transition-colors flex items-center gap-1">
-                      <span>{seller.displayName}</span>
-                      {seller.verified && <HiBadgeCheck className="text-accent-500 shrink-0 w-4 h-4" />}
-                    </h3>
-                    <div className="flex items-center gap-2 text-xs text-light-muted dark:text-dark-muted mt-0.5">
-                      <span className="flex items-center gap-0.5 text-yellow-500 font-semibold">
-                        <HiStar className="w-3.5 h-3.5 fill-yellow-500" />
-                        {seller.rating}
-                      </span>
-                      <span>({seller.totalReviews})</span>
-                    </div>
+                  <h3 className="font-display font-bold text-sm text-center text-dark-text group-hover:text-primary-400 transition-colors truncate">
+                    {seller.displayName}
+                  </h3>
+                  <div className="flex items-center justify-center gap-1 text-xs text-yellow-400 mt-1">
+                    <HiStar className="w-3.5 h-3.5 fill-yellow-400" />
+                    <span className="font-bold">{seller.rating}</span>
+                    <span className="text-dark-muted">({seller.totalReviews})</span>
                   </div>
-                </div>
-              </Link>
+                  <div className="mt-2 text-center">
+                    <span className="text-[10px] text-dark-muted">View Profile →</span>
+                  </div>
+                </Link>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
-        {/* SEARCH & FILTERS BAR */}
+        {/* ═══ SEARCH & FILTERS BAR ═══ */}
         <div id="marketplace-browse" className="mb-8 space-y-4">
-          <div className="flex flex-col md:flex-row gap-3 items-center justify-between">
+          <div className="gemini-card rounded-2xl p-4 border border-white/10 flex flex-col md:flex-row gap-3 items-center">
             {/* Search Input */}
-            <div className="relative w-full md:w-96">
-              <HiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-light-muted w-5 h-5" />
+            <div className="relative w-full md:flex-1">
+              <HiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-dark-muted w-5 h-5" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search accounts, services, templates..."
-                className="input pl-11"
+                className="input pl-11 bg-dark-surface/80 border-white/10 text-white placeholder:text-dark-muted/50 focus:ring-primary-500/50"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-light-muted hover:text-light-text"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-dark-muted hover:text-white"
                 >
                   <HiX className="w-4 h-4" />
                 </button>
               )}
             </div>
 
-            {/* Mobile Filter Toggle */}
-            <div className="flex items-center gap-3 w-full md:w-auto justify-between md:justify-end">
-              <button
-                onClick={() => setMobileFilterOpen(!mobileFilterOpen)}
-                className="md:hidden btn-outline btn-md gap-2"
-              >
-                <HiFilter /> Categories & Filters
-              </button>
-
-              {/* Price Filter Inputs */}
-              <div className="hidden lg:flex items-center gap-2">
-                <input
-                  type="number"
-                  placeholder="Min ETB"
-                  value={minPrice}
-                  onChange={(e) => setMinPrice(e.target.value)}
-                  className="input w-28 text-xs py-2"
-                />
-                <span className="text-light-muted dark:text-dark-muted text-xs">-</span>
-                <input
-                  type="number"
-                  placeholder="Max ETB"
-                  value={maxPrice}
-                  onChange={(e) => setMaxPrice(e.target.value)}
-                  className="input w-28 text-xs py-2"
-                />
-              </div>
-
-              {/* Sort Select */}
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as any)}
-                className="input w-auto text-xs py-2 font-semibold"
-              >
-                <option value="latest">Sort: Recently Added</option>
-                <option value="popular">Sort: Most Popular</option>
-                <option value="rating">Sort: Top Rated</option>
-                <option value="price-asc">Sort: Price (Low to High)</option>
-                <option value="price-desc">Sort: Price (High to Low)</option>
-              </select>
-
-              <button
-                onClick={() => setCreateModalOpen(true)}
-                className="btn-primary btn-md gap-1.5 shrink-0 hidden sm:inline-flex"
-              >
-                <HiPlus /> Add Listing
-              </button>
+            {/* Price Inputs */}
+            <div className="hidden lg:flex items-center gap-2">
+              <HiTag className="text-dark-muted w-4 h-4 shrink-0" />
+              <input
+                type="number"
+                placeholder="Min ETB"
+                value={minPrice}
+                onChange={(e) => setMinPrice(e.target.value)}
+                className="input w-28 text-xs py-2 bg-dark-surface/80 border-white/10 text-white placeholder:text-dark-muted/50"
+              />
+              <span className="text-dark-muted text-xs">–</span>
+              <input
+                type="number"
+                placeholder="Max ETB"
+                value={maxPrice}
+                onChange={(e) => setMaxPrice(e.target.value)}
+                className="input w-28 text-xs py-2 bg-dark-surface/80 border-white/10 text-white placeholder:text-dark-muted/50"
+              />
             </div>
+
+            {/* Sort Select */}
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as any)}
+              className="input w-auto text-xs py-2 font-semibold bg-dark-surface/80 border-white/10 text-white shrink-0"
+            >
+              <option value="latest">Recently Added</option>
+              <option value="popular">Most Popular</option>
+              <option value="rating">Top Rated</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+            </select>
+
+            {/* Mobile Filter Button */}
+            <button
+              onClick={() => setMobileFilterOpen(!mobileFilterOpen)}
+              className="md:hidden border border-white/10 bg-dark-surface/80 text-white text-xs font-bold px-4 py-2.5 rounded-xl flex items-center gap-2 transition-all hover:bg-white/10"
+            >
+              <HiFilter /> Filters
+            </button>
+
+            <button
+              onClick={() => setCreateModalOpen(true)}
+              className="btn-gemini text-xs px-5 py-2.5 rounded-xl font-bold gap-1.5 hidden sm:flex items-center shrink-0"
+            >
+              <HiPlus /> Add Listing
+            </button>
           </div>
         </div>
 
-        {/* MAIN MARKETPLACE LAYOUT */}
+        {/* ═══ MAIN MARKETPLACE LAYOUT ═══ */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 items-start">
           {/* CATEGORIES SIDEBAR (Desktop) */}
           <div className="hidden md:block">
@@ -278,27 +403,34 @@ export default function MarketplacePage() {
           </div>
 
           {/* MOBILE CATEGORY DRAWER */}
-          {mobileFilterOpen && (
-            <div className="md:hidden col-span-1 mb-6">
-              <CategoryNav
-                selectedCategory={selectedCat}
-                onSelectCategory={(cat) => {
-                  setSelectedCat(cat)
-                  setMobileFilterOpen(false)
-                }}
-              />
-            </div>
-          )}
+          <AnimatePresence>
+            {mobileFilterOpen && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                className="md:hidden col-span-1 mb-6 overflow-hidden"
+              >
+                <CategoryNav
+                  selectedCategory={selectedCat}
+                  onSelectCategory={(cat) => {
+                    setSelectedCat(cat)
+                    setMobileFilterOpen(false)
+                  }}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* LISTINGS GRID */}
           <div className="md:col-span-3 space-y-6">
             {/* Active Filters Display */}
-            <div className="flex items-center justify-between text-xs text-light-muted dark:text-dark-muted">
+            <div className="flex items-center justify-between text-xs text-dark-muted">
               <span>
-                Showing <strong>{sorted.length}</strong> listings
+                Showing <strong className="text-white">{sorted.length}</strong> listings
                 {selectedCat !== 'all' && (
                   <span>
-                    {' '}in <strong className="capitalize">{selectedCat.replace(/-/g, ' ')}</strong>
+                    {' '}in <strong className="text-primary-400 capitalize">{selectedCat.replace(/-/g, ' ')}</strong>
                   </span>
                 )}
               </span>
@@ -310,29 +442,38 @@ export default function MarketplacePage() {
                     setMinPrice('')
                     setMaxPrice('')
                   }}
-                  className="text-primary-500 hover:underline font-semibold"
+                  className="text-primary-400 hover:underline font-semibold"
                 >
-                  Clear all filters
+                  Clear filters
                 </button>
               )}
             </div>
 
             {/* Grid */}
             {sorted.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <motion.div
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+              >
                 {sorted.map((item, index) => (
-                  <ListingCard key={item.id} item={item} index={index} />
+                  <motion.div key={item.id} variants={itemVariants}>
+                    <ListingCard item={item} index={index} />
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
             ) : (
-              <div className="glass-card rounded-3xl p-12 text-center border border-light-border dark:border-dark-border">
-                <div className="w-16 h-16 rounded-full bg-primary-500/10 flex items-center justify-center mx-auto mb-4 text-primary-500">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.97 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="gemini-card rounded-3xl p-12 text-center border border-white/10"
+              >
+                <div className="w-16 h-16 rounded-full bg-primary-500/10 flex items-center justify-center mx-auto mb-4 text-primary-400">
                   <HiShoppingBag className="w-8 h-8" />
                 </div>
-                <h3 className="font-display font-bold text-lg text-light-text dark:text-dark-text mb-2">
-                  No listings found
-                </h3>
-                <p className="text-xs text-light-muted dark:text-dark-muted max-w-sm mx-auto mb-6">
+                <h3 className="font-display font-bold text-lg text-white mb-2">No listings found</h3>
+                <p className="text-xs text-dark-muted max-w-sm mx-auto mb-6">
                   Try adjusting your search filters or browse other categories.
                 </p>
                 <button
@@ -342,11 +483,11 @@ export default function MarketplacePage() {
                     setMinPrice('')
                     setMaxPrice('')
                   }}
-                  className="btn-primary btn-sm"
+                  className="btn-gemini text-xs px-5 py-2.5 rounded-xl font-bold"
                 >
                   Reset Filters
                 </button>
-              </div>
+              </motion.div>
             )}
           </div>
         </div>

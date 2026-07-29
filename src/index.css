@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /* ============================================
-   RYOIT PLATFORM — GLOBAL STYLES
+   RYOIT PLATFORM — GLOBAL STYLES & GEMINI AI AESTHETICS
    ============================================ */
 
 @layer base {
@@ -42,7 +42,7 @@
     @apply max-w-full;
   }
 
-  /* Scrollbar styling */
+  /* Custom Gemini Scrollbar styling */
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -51,10 +51,10 @@
     @apply bg-transparent;
   }
   ::-webkit-scrollbar-thumb {
-    @apply bg-primary-500/40 rounded-full;
+    @apply bg-gradient-to-b from-primary-500/50 via-secondary-500/50 to-accent-500/50 rounded-full;
   }
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-primary-500/70;
+    @apply bg-primary-500/80;
   }
 
   /* Selection */
@@ -64,10 +64,43 @@
 }
 
 /* ============================================
+   GEMINI DESIGN SYSTEM & KEYFRAMES
+   ============================================ */
+
+@keyframes gemini-aurora {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.05); }
+}
+
+@keyframes float-particle {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(3deg); }
+}
+
+/* ============================================
    COMPONENT LAYER
    ============================================ */
 
 @layer components {
+
+  /* ---- Gemini Card ---- */
+  .gemini-card {
+    @apply relative backdrop-blur-2xl border transition-all duration-300;
+    @apply bg-white/85 border-white/30 dark:bg-dark-card/85 dark:border-white/10;
+    @apply shadow-[0_8px_32px_0_rgba(0,102,255,0.08)];
+    @apply dark:shadow-[0_8px_32px_0_rgba(124,58,237,0.12)];
+  }
+
+  .gemini-card:hover {
+    @apply border-primary-500/40 dark:border-primary-400/40;
+    @apply shadow-[0_12px_40px_0_rgba(0,102,255,0.18)];
+  }
 
   /* ---- Glass Card ---- */
   .glass-card {
@@ -82,7 +115,7 @@
     @apply shadow-dark;
   }
 
-  /* ---- Gradient Text ---- */
+  /* ---- Gemini Shimmer Gradient Text ---- */
   .gradient-text {
     @apply bg-gradient-primary bg-clip-text text-transparent;
     -webkit-background-clip: text;
@@ -91,6 +124,14 @@
 
   .gradient-text-accent {
     @apply bg-gradient-accent bg-clip-text text-transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .gradient-text-gemini {
+    background: linear-gradient(135deg, #0066FF 0%, #7C3AED 40%, #00D4AA 80%, #0066FF 100%);
+    background-size: 200% auto;
+    animation: gemini-aurora 6s ease infinite;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -113,6 +154,14 @@
     @apply shadow-glow-sm hover:shadow-glow;
     @apply focus:ring-primary-500;
     @apply active:scale-95;
+  }
+
+  .btn-gemini {
+    background: linear-gradient(135deg, #0066FF 0%, #7C3AED 50%, #00D4AA 100%);
+    background-size: 200% 200%;
+    animation: gemini-aurora 6s ease infinite;
+    @apply text-white font-bold rounded-xl shadow-[0_4px_20px_rgba(124,58,237,0.35)];
+    @apply hover:shadow-[0_6px_28px_rgba(0,102,255,0.5)] hover:scale-[1.02] active:scale-95 transition-all;
   }
 
   .btn-secondary {
@@ -167,6 +216,11 @@
   .badge {
     @apply inline-flex items-center gap-1;
     @apply px-2.5 py-1 rounded-lg text-xs font-semibold;
+  }
+
+  .badge-gemini {
+    @apply badge text-white font-bold backdrop-blur-md border border-white/20;
+    background: linear-gradient(135deg, rgba(0,102,255,0.2) 0%, rgba(124,58,237,0.3) 50%, rgba(0,212,170,0.2) 100%);
   }
 
   .badge-primary  { @apply badge bg-primary-500/10 text-primary-500 dark:text-primary-400; }
@@ -261,37 +315,13 @@
   .gradient-border::before {
     content: '';
     @apply absolute inset-0 rounded-2xl p-px;
-    background: linear-gradient(135deg, #0066FF, #7C3AED);
+    background: linear-gradient(135deg, #0066FF, #7C3AED, #00D4AA);
     -webkit-mask:
       linear-gradient(#fff 0 0) content-box,
       linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;
-  }
-
-  /* ---- Prose ---- */
-  .prose-ryoit {
-    @apply text-light-text dark:text-dark-text leading-relaxed;
-    @apply max-w-none;
-  }
-  .prose-ryoit h2 {
-    @apply text-2xl font-bold mt-8 mb-4;
-  }
-  .prose-ryoit h3 {
-    @apply text-xl font-semibold mt-6 mb-3;
-  }
-  .prose-ryoit p {
-    @apply mb-4 text-light-muted dark:text-dark-muted;
-  }
-  .prose-ryoit ul, .prose-ryoit ol {
-    @apply ml-6 mb-4 space-y-2;
-  }
-  .prose-ryoit li {
-    @apply text-light-muted dark:text-dark-muted;
-  }
-  .prose-ryoit a {
-    @apply text-primary-500 hover:underline;
   }
 }
 
@@ -312,22 +342,18 @@
   /* Mesh gradient overlay */
   .mesh-bg {
     background-image:
-      radial-gradient(at 40% 20%, rgba(0,102,255,0.15) 0px, transparent 50%),
-      radial-gradient(at 80% 0%, rgba(124,58,237,0.1) 0px, transparent 50%),
-      radial-gradient(at 0% 50%, rgba(0,212,170,0.05) 0px, transparent 50%),
-      radial-gradient(at 80% 100%, rgba(0,102,255,0.08) 0px, transparent 50%);
+      radial-gradient(at 40% 20%, rgba(0,102,255,0.2) 0px, transparent 50%),
+      radial-gradient(at 80% 0%, rgba(124,58,237,0.18) 0px, transparent 50%),
+      radial-gradient(at 0% 50%, rgba(0,212,170,0.12) 0px, transparent 50%),
+      radial-gradient(at 80% 100%, rgba(0,102,255,0.15) 0px, transparent 50%);
   }
 
-  /* Noise texture */
-  .noise-bg::after {
-    content: '';
-    @apply absolute inset-0 opacity-[0.015];
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    pointer-events: none;
+  /* Scrollbar hide for sliding carousels */
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
-
-  /* Truncate lines */
-  .line-clamp-1 { -webkit-line-clamp: 1; }
-  .line-clamp-2 { -webkit-line-clamp: 2; }
-  .line-clamp-3 { -webkit-line-clamp: 3; }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
 }
