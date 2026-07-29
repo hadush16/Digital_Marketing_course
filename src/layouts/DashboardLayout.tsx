@@ -49,9 +49,7 @@ export default function DashboardLayout() {
       {/* Desktop Sidebar */}
       <aside className="hidden lg:flex w-64 border-r border-light-border dark:border-dark-border bg-light-surface dark:bg-dark-surface p-6 flex-col shrink-0">
         <Link to="/" className="flex items-center gap-2 mb-8 px-2">
-          <div className="w-8 h-8 rounded-xl bg-gradient-primary flex items-center justify-center text-white font-display font-black text-sm">
-            R
-          </div>
+          <img src="/assets/img/ryoit-logo.png" alt="Ryoit Logo" className="w-8 h-8 rounded-xl object-cover" />
           <span className="font-display font-black text-lg text-light-text dark:text-dark-text">
             Ryoit
           </span>
@@ -114,9 +112,7 @@ export default function DashboardLayout() {
       >
         <div className="flex items-center justify-between mb-8">
           <Link to="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-xl bg-gradient-primary flex items-center justify-center text-white font-display font-black text-sm">
-              R
-            </div>
+            <img src="/assets/img/ryoit-logo.png" alt="Ryoit Logo" className="w-8 h-8 rounded-xl object-cover" />
             <span className="font-display font-black text-lg text-light-text dark:text-dark-text">
               Ryoit
             </span>

@@ -140,9 +140,7 @@ export default function LoginPage() {
           {/* Logo Header */}
           <div className="flex flex-col items-center mb-6 text-center">
             <Link to="/" className="flex items-center gap-2.5 group mb-1.5">
-              <div className="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center shadow-glow-sm group-hover:scale-105 transition-transform duration-300">
-                <span className="text-white font-display font-black text-lg tracking-wider">R</span>
-              </div>
+              <img src="/assets/img/ryoit-logo.png" alt="Ryoit Logo" className="w-10 h-10 rounded-xl object-cover shadow-glow-sm group-hover:scale-105 transition-transform duration-300" />
               <span className="font-display font-black text-2xl text-white tracking-tight">Ryoit</span>
             </Link>
             <p className="text-xs text-dark-muted leading-relaxed">

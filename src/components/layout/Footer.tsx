@@ -91,9 +91,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link to="/" className="flex items-center gap-2 mb-5">
-              <div className="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center shadow-glow-sm">
-                <span className="text-white font-display font-black text-base">R</span>
-              </div>
+              <img src="/assets/img/ryoit-logo.png" alt="Ryoit Logo" className="w-10 h-10 rounded-xl object-cover shadow-glow-sm" />
               <span className="font-display font-black text-2xl text-white">Ryoit</span>
             </Link>
             <p className="text-dark-muted text-sm leading-relaxed mb-6 max-w-xs">

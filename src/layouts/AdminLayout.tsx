@@ -205,9 +205,7 @@ export default function AdminLayout() {
       {/* Sidebar */}
       <aside className="w-64 border-r border-dark-border bg-dark-surface p-5 flex flex-col shrink-0">
         <Link to="/" className="flex items-center gap-2.5 mb-6 px-2">
-          <div className="w-8 h-8 rounded-xl bg-gradient-primary flex items-center justify-center text-white font-display font-black text-sm">
-            R
-          </div>
+          <img src="/assets/img/ryoit-logo.png" alt="Ryoit Logo" className="w-8 h-8 rounded-xl object-cover" />
           <span className="font-display font-black text-base text-white">Ryoit Admin</span>
         </Link>
 

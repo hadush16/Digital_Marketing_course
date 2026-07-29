@@ -102,9 +102,7 @@ export default function Navbar() {
               className="flex items-center gap-2 group"
               onClick={closeAll}
             >
-              <div className="w-9 h-9 rounded-xl bg-gradient-primary flex items-center justify-center shadow-glow-sm group-hover:shadow-glow transition-shadow duration-300">
-                <span className="text-white font-display font-black text-sm">R</span>
-              </div>
+              <img src="/assets/img/ryoit-logo.png" alt="Ryoit Logo" className="w-9 h-9 rounded-xl object-cover shadow-glow-sm group-hover:shadow-glow transition-shadow duration-300" />
               <span className="font-display font-black text-xl text-light-text dark:text-dark-text group-hover:gradient-text transition-all duration-300">
                 Ryoit
               </span>
