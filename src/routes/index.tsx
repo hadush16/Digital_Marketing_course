@@ -27,6 +27,7 @@ const ContactPage = lazy(() => import('@/pages/static/ContactPage'))
 const FAQPage = lazy(() => import('@/pages/static/FAQPage'))
 const PrivacyPolicyPage = lazy(() => import('@/pages/static/PrivacyPolicyPage'))
 const TermsPage = lazy(() => import('@/pages/static/TermsPage'))
+const AgencyServicesPage = lazy(() => import('@/pages/static/AgencyServicesPage'))
 
 // Dashboard Pages
 const DashboardPage = lazy(() => import('@/pages/dashboard/DashboardPage'))
@@ -36,6 +37,8 @@ const FavoritesPage = lazy(() => import('@/pages/dashboard/FavoritesPage'))
 const MessagesPage = lazy(() => import('@/pages/dashboard/MessagesPage'))
 const SellerAnalyticsPage = lazy(() => import('@/pages/dashboard/SellerAnalyticsPage'))
 const ProfilePage = lazy(() => import('@/pages/dashboard/ProfilePage'))
+const ChatPage = lazy(() => import('@/pages/dashboard/ChatPage'))
+const NotificationsPage = lazy(() => import('@/pages/dashboard/NotificationsPage'))
 
 // Admin Pages
 const AdminDashboard = lazy(() => import('@/pages/admin/AdminDashboard'))
@@ -70,6 +73,7 @@ export const router = createBrowserRouter([
       { path: 'faq', element: <FAQPage /> },
       { path: 'privacy', element: <PrivacyPolicyPage /> },
       { path: 'terms', element: <TermsPage /> },
+      { path: 'services', element: <AgencyServicesPage /> },
     ],
   },
   {
@@ -80,7 +84,8 @@ export const router = createBrowserRouter([
       { path: 'my-courses', element: <MyCoursesPage /> },
       { path: 'my-listings', element: <MyListingsPage /> },
       { path: 'favorites', element: <FavoritesPage /> },
-      { path: 'messages', element: <MessagesPage /> },
+      { path: 'messages', element: <ChatPage /> },
+      { path: 'notifications', element: <NotificationsPage /> },
       { path: 'analytics', element: <SellerAnalyticsPage /> },
       { path: 'profile', element: <ProfilePage /> },
     ],

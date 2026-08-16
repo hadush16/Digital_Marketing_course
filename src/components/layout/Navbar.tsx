@@ -6,42 +6,42 @@ import {
   HiUser, HiChevronDown, HiLogout, HiViewGrid,
   HiBell,
 } from 'react-icons/hi'
-import { useTheme }    from '@/hooks/useTheme'
-import { useAuth }     from '@/hooks/useAuth'
+import { useTheme } from '@/hooks/useTheme'
+import { useAuth } from '@/hooks/useAuth'
 import { useAppDispatch } from '@/hooks/useRedux'
-import { logout }        from '@/redux/slices/authSlice'
-import { cn }            from '@/utils'
+import { logout } from '@/redux/slices/authSlice'
+import { cn } from '@/utils'
 
 const navItems = [
-  { label: 'Home',             href: '/' },
-  { label: 'Courses',          href: '/courses' },
+  { label: 'Home', href: '/' },
+  { label: 'Courses', href: '/courses' },
   { label: 'Mobile Solutions', href: '/mobile-solutions' },
-  { label: 'Marketplace',      href: '/marketplace' },
-  { label: 'Tech News',        href: '/news' },
+  { label: 'Marketplace', href: '/marketplace' },
+  { label: 'Tech News', href: '/news' },
   {
     label: 'More',
     href: '#',
     children: [
-      { label: 'Community',             href: '/community' },
-      { label: 'Marketing Opportunities',href: '/opportunities' },
+      { label: 'Community', href: '/community' },
+      { label: 'Marketing Opportunities', href: '/opportunities' },
       { label: 'Social Media Services', href: '/social-media-services' },
-      { label: 'About',                 href: '/about' },
-      { label: 'Contact',               href: '/contact' },
-      { label: 'FAQ',                   href: '/faq' },
+      { label: 'About', href: '/about' },
+      { label: 'Contact', href: '/contact' },
+      { label: 'FAQ', href: '/faq' },
     ],
   },
 ]
 
 export default function Navbar() {
-  const [scrolled,    setScrolled]    = useState(false)
-  const [mobileOpen,  setMobileOpen]  = useState(false)
-  const [searchOpen,  setSearchOpen]  = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [dropdownOpen, setDropdownOpen] = useState<string | null>(null)
   const [userMenuOpen, setUserMenuOpen] = useState(false)
-  const searchRef  = useRef<HTMLInputElement>(null)
-  const navigate   = useNavigate()
-  const dispatch   = useAppDispatch()
+  const searchRef = useRef<HTMLInputElement>(null)
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
   const { isDark, toggle: toggleTheme } = useTheme()
   const { isAuthenticated, user, isAdmin } = useAuth()
 
@@ -209,7 +209,7 @@ export default function Navbar() {
               >
                 <AnimatePresence mode="wait">
                   {isDark ? (
-                    <motion.div key="sun"  initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.2 }}>
+                    <motion.div key="sun" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.2 }}>
                       <HiSun className="w-5 h-5" />
                     </motion.div>
                   ) : (

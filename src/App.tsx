@@ -5,6 +5,7 @@ import { HelmetProvider } from 'react-helmet-async'
 import { Toaster } from 'react-hot-toast'
 import { store } from './redux/store'
 import { router } from './routes'
+import CookieConsentBanner from '@/components/ui/CookieConsentBanner'
 import './index.css'
 
 const queryClient = new QueryClient({
@@ -29,6 +30,7 @@ export default function App() {
               duration: 4000,
             }}
           />
+          <CookieConsentBanner />
         </HelmetProvider>
       </QueryClientProvider>
     </Provider>

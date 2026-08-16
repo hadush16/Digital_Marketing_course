@@ -35,13 +35,14 @@ export default function DashboardLayout() {
   }
 
   const menuItems = [
-    { label: 'Overview', href: '/dashboard', icon: HiHome },
-    { label: 'My Courses', href: '/dashboard/my-courses', icon: HiBookOpen },
-    { label: 'My Listings', href: '/dashboard/my-listings', icon: HiShoppingBag },
-    { label: 'Favorites', href: '/dashboard/favorites', icon: HiHeart },
-    { label: 'Messages', href: '/dashboard/messages', icon: HiChatAlt2 },
-    { label: 'Analytics', href: '/dashboard/analytics', icon: HiChartBar },
-    { label: 'Edit Profile', href: '/dashboard/profile', icon: HiUser },
+    { label: 'Overview',      href: '/dashboard',              icon: HiHome },
+    { label: 'My Courses',    href: '/dashboard/my-courses',   icon: HiBookOpen },
+    { label: 'My Listings',   href: '/dashboard/my-listings',  icon: HiShoppingBag },
+    { label: 'Favorites',     href: '/dashboard/favorites',    icon: HiHeart },
+    { label: 'Messages',      href: '/dashboard/messages',     icon: HiChatAlt2 },
+    { label: 'Notifications', href: '/dashboard/notifications',icon: HiBell },
+    { label: 'Analytics',     href: '/dashboard/analytics',    icon: HiChartBar },
+    { label: 'Edit Profile',  href: '/dashboard/profile',      icon: HiUser },
   ]
 
   return (
