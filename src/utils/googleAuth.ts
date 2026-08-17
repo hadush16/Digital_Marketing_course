@@ -12,15 +12,6 @@ export interface GoogleAuthAuditResult {
   errorMessage: string | null
 }
 
-/**
- * Hardcoded fallback Web OAuth Client ID.
- * Used when VITE_GOOGLE_CLIENT_ID is not defined in the environment
- * (e.g. a host environment without the variable configured).
- * The env variable always takes priority over this value.
- */
-const FALLBACK_GOOGLE_CLIENT_ID =
-  '853536644056-goqjj7s2olijf7ffrqbb4nkrg04nq744.apps.googleusercontent.com'
-
 const PLACEHOLDER_PATTERNS = [
   'placeholder_client_id',
   'your-google-client-id-here',
@@ -32,16 +23,14 @@ const PLACEHOLDER_PATTERNS = [
 ]
 
 /**
- * Retrieves and sanitizes the configured Google OAuth Client ID.
- * Falls back to the hardcoded FALLBACK_GOOGLE_CLIENT_ID when the
- * VITE_GOOGLE_CLIENT_ID environment variable is absent or empty.
+ * Retrieves and sanitizes the configured Google OAuth Client ID
  */
 export function getGoogleClientId(): string {
   const envVal = import.meta.env.VITE_GOOGLE_CLIENT_ID
-  const raw = (envVal && typeof envVal === 'string' ? envVal : '') || FALLBACK_GOOGLE_CLIENT_ID
-
-  // Trim surrounding quotes and whitespace
-  const cleaned = raw.trim().replace(/^["']|["']$/g, '')
+  if (!envVal || typeof envVal !== 'string') return ''
+  
+  // Trim quotes and whitespace
+  const cleaned = envVal.trim().replace(/^["']|["']$/g, '')
   return cleaned
 }
 
@@ -79,7 +68,7 @@ export function getGoogleClientIdError(): string {
  * Performs a complete diagnostic audit of Google OAuth configuration
  */
 export function auditGoogleOAuth(): GoogleAuthAuditResult {
-  const rawClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || `(fallback) ${FALLBACK_GOOGLE_CLIENT_ID}`
+  const rawClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || ''
   const sanitized = getGoogleClientId()
   const isValid = isGoogleClientIdValid()
   const lower = sanitized.toLowerCase()
@@ -101,13 +90,8 @@ export function auditGoogleOAuth(): GoogleAuthAuditResult {
     console.group('🔍 [Google OAuth Configuration Audit]')
     console.log('Environment Mode:', envMode)
     console.log('API Base URL:', apiUrl)
-    console.log(
-      'VITE_GOOGLE_CLIENT_ID (env):',
-      import.meta.env.VITE_GOOGLE_CLIENT_ID
-        ? `"${import.meta.env.VITE_GOOGLE_CLIENT_ID.slice(0, 12)}..."`
-        : '(not set — using hardcoded fallback)',
-    )
-    console.log('Resolved Client ID:', `${sanitized.slice(0, 20)}...apps.googleusercontent.com`)
+    console.log('Raw VITE_GOOGLE_CLIENT_ID:', rawClientId ? `"${rawClientId.slice(0, 12)}..."` : '(EMPTY)')
+    console.log('Sanitized Client ID:', sanitized ? `${sanitized.slice(0, 12)}...apps.googleusercontent.com` : '(EMPTY)')
     console.log('Is Valid Client ID:', isValid ? '✅ YES' : '❌ NO')
     console.log('Is Placeholder:', isPlaceholder ? '⚠️ YES' : '✅ NO')
     console.log('Auth SDK:', '@react-oauth/google (Google Identity Services GSI)')
@@ -115,9 +99,9 @@ export function auditGoogleOAuth(): GoogleAuthAuditResult {
     if (!isValid) {
       console.warn('⚠️ Google OAuth Warning:', errorMessage)
       console.warn(
-        '👉 FIX: Set a valid VITE_GOOGLE_CLIENT_ID in .env or your host environment (Netlify / Vercel / Render).',
+        '👉 FIX REQUIRED: Set a valid Google OAuth Client ID in your .env file or host environment (Render / Netlify / Vercel).'
       )
-      console.warn('👉 Google Console: https://console.cloud.google.com/apis/credentials')
+      console.warn('👉 Google Console Link: https://console.cloud.google.com/apis/credentials')
     } else {
       console.log('✨ Google OAuth initialized successfully.')
     }
