@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
@@ -39,7 +39,9 @@ export default function Navbar() {
   const [searchQuery, setSearchQuery] = useState('')
   const [dropdownOpen, setDropdownOpen] = useState<string | null>(null)
   const [userMenuOpen, setUserMenuOpen] = useState(false)
+  const [logoError, setLogoError] = useState(false)
   const searchRef = useRef<HTMLInputElement>(null)
+  const handleLogoError = useCallback(() => setLogoError(true), [])
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const { isDark, toggle: toggleTheme } = useTheme()
@@ -102,7 +104,18 @@ export default function Navbar() {
               className="flex items-center gap-2 group"
               onClick={closeAll}
             >
-              <img src="/assets/img/ryoit-logo.png" alt="Ryoit Logo" className="w-9 h-9 rounded-xl object-cover shadow-glow-sm group-hover:shadow-glow transition-shadow duration-300" />
+              {logoError ? (
+                <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center shadow-glow-sm group-hover:shadow-glow transition-shadow duration-300 flex-shrink-0">
+                  <span className="text-white font-black text-base leading-none">R</span>
+                </div>
+              ) : (
+                <img
+                  src="/ryoit-logo.png"
+                  alt="Ryoit Logo"
+                  className="w-9 h-9 rounded-xl object-cover shadow-glow-sm group-hover:shadow-glow transition-shadow duration-300"
+                  onError={handleLogoError}
+                />
+              )}
               <span className="font-display font-black text-xl text-light-text dark:text-dark-text group-hover:gradient-text transition-all duration-300">
                 Ryoit
               </span>

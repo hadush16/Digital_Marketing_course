@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useAppDispatch } from '@/hooks/useRedux'
@@ -23,8 +23,10 @@ export default function LoginPage() {
   const [rememberMe, setRememberMe] = useState(false)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [logoError, setLogoError] = useState(false)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const handleLogoError = useCallback(() => setLogoError(true), [])
 
   const isGoogleAuthValid = isGoogleClientIdValid()
 
@@ -140,7 +142,18 @@ export default function LoginPage() {
           {/* Logo Header */}
           <div className="flex flex-col items-center mb-6 text-center">
             <Link to="/" className="flex items-center gap-2.5 group mb-1.5">
-              <img src="/assets/img/ryoit-logo.png" alt="Ryoit Logo" className="w-10 h-10 rounded-xl object-cover shadow-glow-sm group-hover:scale-105 transition-transform duration-300" />
+              {logoError ? (
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center shadow-glow-sm group-hover:scale-105 transition-transform duration-300 flex-shrink-0">
+                  <span className="text-white font-black text-lg leading-none">R</span>
+                </div>
+              ) : (
+                <img
+                  src="/ryoit-logo.png"
+                  alt="Ryoit Logo"
+                  className="w-10 h-10 rounded-xl object-cover shadow-glow-sm group-hover:scale-105 transition-transform duration-300"
+                  onError={handleLogoError}
+                />
+              )}
               <span className="font-display font-black text-2xl text-white tracking-tight">Ryoit</span>
             </Link>
             <p className="text-xs text-dark-muted leading-relaxed">
@@ -254,8 +267,9 @@ export default function LoginPage() {
               <GoogleLogin
                 onSuccess={handleGoogleSuccess}
                 onError={() => {
-                  setError('Google OAuth Client ID is missing or invalid.')
-                  toast.error('Google OAuth Client ID is missing or invalid.')
+                  const msg = 'Google Sign-In failed or was cancelled. Please try again.'
+                  setError(msg)
+                  toast.error(msg)
                 }}
                 useOneTap
                 theme="filled_black"
