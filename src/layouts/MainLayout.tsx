@@ -3,6 +3,7 @@ import { useEffect, Suspense } from 'react'
 import PageLoader from '@/components/ui/PageLoader'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
+import { AdSenseScript } from '@/components/ads'
 
 export default function MainLayout() {
   const { pathname } = useLocation()
@@ -14,6 +15,7 @@ export default function MainLayout() {
 
   return (
     <div className="flex flex-col min-h-screen bg-light-bg dark:bg-dark-bg">
+      <AdSenseScript />
       <Navbar />
       <main className="flex-1 pt-16 lg:pt-20">
         <Suspense fallback={<PageLoader />}>

@@ -40,16 +40,14 @@ We will never sell your personal data to third parties.`,
   },
   {
     icon: HiEye,
-    title: '3. Cookies & Tracking Technologies',
-    content: `Our website uses cookies and similar technologies to:
+    title: '3. Cookies & Advertising Technologies',
+    content: `Our website uses cookies and similar technologies to enhance user experience and support monetization:
 
-• Store your dark/light mode preference
-• Keep you logged in securely between sessions
-• Support Google Analytics for traffic analysis
-• Power Google AdSense advertisement placements
-• Enable essential platform functionality
-
-You may accept or reject non-essential cookies via our cookie consent banner. Rejecting cookies may limit certain platform features.`,
+• Essential Preferences: Storing your dark/light mode preference and session state.
+• Analytics: Google Analytics to understand traffic patterns and user interactions.
+• Google AdSense & Advertising Cookies: Third-party vendors, including Google, use cookies to serve ads based on a user's prior visits to our website or other websites on the Internet.
+• Personalized Advertising: Google's use of advertising cookies enables it and its partners to serve ads to you based on your visit to this site and/or other sites on the Internet.
+• Opt-Out Choices: You may opt out of personalized advertising by visiting Google Ads Settings (https://www.google.com/settings/ads) or by visiting https://www.aboutads.info. You can also manage or reject non-essential cookies using our on-site cookie consent banner.`,
   },
   {
     icon: HiLockClosed,

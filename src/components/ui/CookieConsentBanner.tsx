@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 
 export default function CookieConsentBanner() {
@@ -36,7 +37,7 @@ export default function CookieConsentBanner() {
               <h3 className="text-white font-display font-semibold text-lg mb-2">We value your privacy</h3>
               <p className="text-dark-muted text-sm leading-relaxed">
                 We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. By clicking "Accept All", you consent to our use of cookies.
-                Read our <a href="/privacy" className="text-primary-400 hover:underline">Privacy Policy</a> for more details.
+                Read our <Link to="/privacy" className="text-primary-400 hover:underline">Privacy Policy</Link> for more details.
               </p>
             </div>
             <div className="flex items-center gap-3 w-full md:w-auto">

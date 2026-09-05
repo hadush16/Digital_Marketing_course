@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+Allow: /ads.txt
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /api/
+
+User-agent: Mediapartners-Google
+Allow: /
+
+User-agent: AdsBot-Google
+Allow: /
+
+Sitemap: https://ryoit.com/sitemap.xml
