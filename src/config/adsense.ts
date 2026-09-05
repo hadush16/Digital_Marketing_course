@@ -1,27 +1,48 @@
 /**
  * Google AdSense Central Configuration
  *
- * Official Publisher ID: ca-pub-1190706248323157
- * Authorized ads.txt: google.com, pub-1190706248323157, DIRECT, f08c47fec0942fa0
+ * Primary Publisher ID: ca-pub-1190706248323157
+ * Additional Publisher ID: ca-pub-5929508651136297
+ *
+ * Authorized ads.txt:
+ * - google.com, pub-1190706248323157, DIRECT, f08c47fec0942fa0
+ * - google.com, pub-5929508651136297, DIRECT, f08c47fec0942fa0
  */
 
 export const ADSENSE_CONFIG = {
   /**
-   * Primary Publisher ID for Google AdSense
+   * Primary Publisher ID
    */
   publisherId: (import.meta.env.VITE_ADSENSE_PUBLISHER_ID as string) || 'ca-pub-1190706248323157',
 
   /**
-   * Full AdSense script source URL
+   * All active authorized Publisher IDs (supports multiple approved/pending AdSense accounts)
+   */
+  publisherIds: ['ca-pub-1190706248323157', 'ca-pub-5929508651136297'],
+
+  /**
+   * Script URLs for all configured publishers
+   */
+  get scriptSources(): string[] {
+    return this.publisherIds.map(
+      (id) => `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${id}`
+    )
+  },
+
+  /**
+   * Primary script source URL
    */
   get scriptSrc(): string {
     return `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${this.publisherId}`
   },
 
   /**
-   * Official ads.txt seller entry for authorization
+   * Official ads.txt seller entries
    */
-  adsTxtEntry: 'google.com, pub-1190706248323157, DIRECT, f08c47fec0942fa0',
+  adsTxtEntries: [
+    'google.com, pub-1190706248323157, DIRECT, f08c47fec0942fa0',
+    'google.com, pub-5929508651136297, DIRECT, f08c47fec0942fa0',
+  ],
 
   /**
    * Global toggle for AdSense serving (can be disabled in staging/local development via .env)
