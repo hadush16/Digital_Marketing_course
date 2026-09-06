@@ -6,6 +6,7 @@ import { Toaster } from 'react-hot-toast'
 import { store } from './redux/store'
 import { router } from './routes'
 import CookieConsentBanner from '@/components/ui/CookieConsentBanner'
+import ErrorBoundary from '@/components/ui/ErrorBoundary'
 import './index.css'
 
 const queryClient = new QueryClient({
@@ -19,20 +20,22 @@ const queryClient = new QueryClient({
 
 export default function App() {
   return (
-    <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
-        <HelmetProvider>
-          <RouterProvider router={router} />
-          <Toaster
-            position="top-right"
-            toastOptions={{
-              className: 'dark:bg-dark-card dark:text-dark-text border dark:border-dark-border',
-              duration: 4000,
-            }}
-          />
-          <CookieConsentBanner />
-        </HelmetProvider>
-      </QueryClientProvider>
-    </Provider>
+    <ErrorBoundary>
+      <Provider store={store}>
+        <QueryClientProvider client={queryClient}>
+          <HelmetProvider>
+            <RouterProvider router={router} />
+            <Toaster
+              position="top-right"
+              toastOptions={{
+                className: 'dark:bg-dark-card dark:text-dark-text border dark:border-dark-border',
+                duration: 4000,
+              }}
+            />
+            <CookieConsentBanner />
+          </HelmetProvider>
+        </QueryClientProvider>
+      </Provider>
+    </ErrorBoundary>
   )
 }

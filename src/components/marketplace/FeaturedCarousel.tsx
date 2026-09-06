@@ -49,10 +49,10 @@ export default function FeaturedCarousel({ items }: FeaturedCarouselProps) {
   useEffect(() => {
     if (total <= 1) return
     const timer = setInterval(() => {
-      nextSlide()
+      setCurrentIndex((prev) => (prev + 1) % total)
     }, 5000)
     return () => clearInterval(timer)
-  }, [currentIndex, total])
+  }, [total])
 
   if (!items || items.length === 0) return null
 
