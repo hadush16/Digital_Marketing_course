@@ -5,6 +5,7 @@ import { HiClock, HiUsers, HiStar, HiCheck, HiPlay, HiLockClosed } from 'react-i
 import { cn } from '@/utils'
 
 import { COURSES_DATA } from '@/data/mockDatabase'
+import { AdSenseAd } from '@/components/ads'
 
 export default function CourseDetailPage() {
   const { slug } = useParams()
@@ -175,6 +176,11 @@ export default function CourseDetailPage() {
                   </p>
                 </div>
               )}
+            </div>
+
+            {/* In-page Course Ad */}
+            <div className="mt-8">
+              <AdSenseAd slotId="4047270762" />
             </div>
           </div>
         </div>

@@ -1,7 +1,8 @@
 /**
  * Google AdSense Central Configuration
  *
- * Primary Publisher ID: ca-pub-1190706248323157
+ * Official Publisher ID: ca-pub-1190706248323157
+ * Official Ad Slot ID: 4047270762
  * Additional Publisher ID: ca-pub-5929508651136297
  *
  * Authorized ads.txt:
@@ -16,25 +17,14 @@ export const ADSENSE_CONFIG = {
   publisherId: (import.meta.env.VITE_ADSENSE_PUBLISHER_ID as string) || 'ca-pub-1190706248323157',
 
   /**
-   * All active authorized Publisher IDs (supports multiple approved/pending AdSense accounts)
+   * Default verified ad slot unit
+   */
+  defaultSlotId: '4047270762',
+
+  /**
+   * All active authorized Publisher IDs
    */
   publisherIds: ['ca-pub-1190706248323157', 'ca-pub-5929508651136297'],
-
-  /**
-   * Script URLs for all configured publishers
-   */
-  get scriptSources(): string[] {
-    return this.publisherIds.map(
-      (id) => `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${id}`
-    )
-  },
-
-  /**
-   * Primary script source URL
-   */
-  get scriptSrc(): string {
-    return `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${this.publisherId}`
-  },
 
   /**
    * Official ads.txt seller entries
@@ -45,14 +35,13 @@ export const ADSENSE_CONFIG = {
   ],
 
   /**
-   * Global toggle for AdSense serving (can be disabled in staging/local development via .env)
+   * Global toggle for AdSense serving
    */
   isEnabled(): boolean {
     const envVal = import.meta.env.VITE_ADSENSE_ENABLED
     if (envVal !== undefined && envVal !== null) {
       return String(envVal).toLowerCase() === 'true'
     }
-    // Default to enabled in production, or if no explicit false is set
     return true
   },
 
@@ -100,8 +89,16 @@ export const ADSENSE_CONFIG = {
 }
 
 /**
+ * Helper to check if current route belongs to admin/dashboard/auth areas.
+ */
+export function isAdminRoute(pathname: string): boolean {
+  const normalized = (pathname || '/').trim()
+  return ADSENSE_CONFIG.excludedRoutePatterns.some((pattern) => pattern.test(normalized))
+}
+
+/**
  * Determines whether a given route path is eligible for monetization.
- * Route-level architectural gate to strictly prevent ads on admin/dashboard/auth pages.
+ * Route-level architectural gate strictly preventing ads on admin/dashboard/auth pages.
  */
 export function isMonetizableRoute(pathname: string): boolean {
   if (!ADSENSE_CONFIG.isEnabled()) {
@@ -111,10 +108,8 @@ export function isMonetizableRoute(pathname: string): boolean {
   const normalized = (pathname || '/').trim()
 
   // 1. Check against excluded patterns
-  for (const pattern of ADSENSE_CONFIG.excludedRoutePatterns) {
-    if (pattern.test(normalized)) {
-      return false
-    }
+  if (isAdminRoute(normalized)) {
+    return false
   }
 
   // 2. Check if route is within public areas

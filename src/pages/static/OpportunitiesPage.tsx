@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { HiBriefcase, HiCurrencyDollar, HiLocationMarker, HiSearch } from 'react-icons/hi'
 import { useState } from 'react'
+import { AdSenseAd } from '@/components/ads'
 
 const OPPS = [
   {
@@ -139,6 +140,11 @@ export default function OpportunitiesPage() {
               No marketing opportunities found.
             </div>
           )}
+        </div>
+
+        {/* Ad Unit */}
+        <div className="mt-12 max-w-4xl mx-auto">
+          <AdSenseAd slotId="4047270762" />
         </div>
       </div>
     </div>

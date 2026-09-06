@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { HiSearch, HiStar, HiEye, HiDownload, HiFilter, HiX } from 'react-icons/hi'
 import { cn } from '@/utils'
 import { SOLUTIONS_DATA } from '@/data/mockDatabase'
+import { AdSenseAd } from '@/components/ads'
 const MOBILE_CATEGORIES = [
   { name: 'All Solutions', value: 'all' },
   { name: 'Hardware Repair', value: 'hardware-repair' },
@@ -175,6 +176,11 @@ export default function MobileSolutionsPage() {
               </div>
             )}
           </div>
+        </div>
+
+        {/* Ad Unit */}
+        <div className="mt-12 max-w-6xl mx-auto">
+          <AdSenseAd slotId="4047270762" />
         </div>
       </div>
     </div>

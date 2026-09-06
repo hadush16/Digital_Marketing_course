@@ -3,9 +3,10 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { HiSearch, HiClock, HiUsers, HiStar, HiFilter, HiX } from 'react-icons/hi'
-import { cn } from '@/utils'
+import { cn, formatPrice } from '@/utils'
 import { coursesService } from '@/services/courses.service'
 import { COURSES_DATA } from '@/data/mockDatabase'
+import { AdSenseAd } from '@/components/ads'
 import type { Course } from '@/types'
 
 const CATEGORIES = [
@@ -200,6 +201,11 @@ export default function CoursesPage() {
               </div>
             )}
           </div>
+        </div>
+
+        {/* Ad Unit */}
+        <div className="mt-12 max-w-6xl mx-auto">
+          <AdSenseAd slotId="4047270762" />
         </div>
       </div>
 

@@ -5,6 +5,7 @@ import MarketplaceSection from '@/components/home/MarketplaceSection'
 import TechNewsSection from '@/components/home/TechNewsSection'
 import TestimonialsSection from '@/components/home/TestimonialsSection'
 import PartnersCTASection from '@/components/home/PartnersCTASection'
+import { AdSenseAd } from '@/components/ads'
 
 export default function HomePage() {
   return (
@@ -12,6 +13,9 @@ export default function HomePage() {
       <HeroSection />
       <FeaturedCourses />
       <MobileSolutionsSection />
+      <div className="container-custom max-w-6xl my-4">
+        <AdSenseAd slotId="4047270762" />
+      </div>
       <MarketplaceSection />
       <TechNewsSection />
       <TestimonialsSection />

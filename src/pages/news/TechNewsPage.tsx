@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { HiSearch, HiClock, HiEye, HiArrowRight } from 'react-icons/hi'
 import { cn } from '@/utils'
 import { NEWS_DATA } from '@/data/mockDatabase'
+import { AdSenseAd } from '@/components/ads'
 const NEWS_CATEGORIES = [
   { name: 'All News', value: 'all' },
   { name: 'Mobile Repair', value: 'mobile-repair' },
@@ -140,6 +141,11 @@ export default function TechNewsPage() {
               </div>
             )}
           </div>
+        </div>
+
+        {/* Ad Unit */}
+        <div className="mt-12 max-w-6xl mx-auto">
+          <AdSenseAd slotId="4047270762" />
         </div>
       </div>
     </div>

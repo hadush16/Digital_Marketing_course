@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { HiClock, HiEye, HiArrowLeft } from 'react-icons/hi'
 
 import { NEWS_DATA } from '@/data/mockDatabase'
+import { AdSenseAd } from '@/components/ads'
 
 export default function NewsDetailPage() {
   const { slug } = useParams()
@@ -70,9 +71,10 @@ export default function NewsDetailPage() {
 
           {/* Reading body */}
           <div className="lg:col-span-3 prose-ryoit">
-            <p className="text-sm text-light-muted dark:text-dark-muted leading-relaxed whitespace-pre-line">
+            <p className="text-sm text-light-muted dark:text-dark-muted leading-relaxed whitespace-pre-line mb-8">
               {DETAIL_MOCK.content}
             </p>
+            <AdSenseAd slotId="4047270762" />
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useLocation } from 'react-router-dom'
-import { ADSENSE_CONFIG, isMonetizableRoute } from '@/config/adsense'
+import { ADSENSE_CONFIG, isMonetizableRoute, isAdminRoute } from '@/config/adsense'
 
 declare global {
   interface Window {
@@ -8,18 +8,21 @@ declare global {
   }
 }
 
-interface AdSenseAdProps {
+export interface AdSenseAdProps {
   /**
-   * AdSense ad slot ID (if assigned in AdSense dashboard for fixed manual units)
+   * AdSense ad slot ID (defaults to official unit 4047270762)
    */
   slotId?: string
   /**
+   * Publisher client ID (defaults to ca-pub-1190706248323157)
+   */
+  client?: string
+  /**
    * Ad format: 'auto' | 'fluid' | 'rectangle' | 'horizontal' | 'vertical'
-   * Defaults to 'auto'
    */
   format?: 'auto' | 'fluid' | 'rectangle' | 'horizontal' | 'vertical'
   /**
-   * Whether the ad is full width responsive (data-full-width-responsive)
+   * Whether the ad is full width responsive
    */
   responsive?: boolean
   /**
@@ -27,32 +30,47 @@ interface AdSenseAdProps {
    */
   className?: string
   /**
-   * Inline style overrides for the wrapper or ins tag
+   * Optional inline styles
    */
   style?: React.CSSProperties
+  /**
+   * Optional ad label/title for accessibility (e.g. 'Advertisement')
+   */
+  label?: string
 }
 
 /**
- * AdSenseAd Component
+ * Production-Safe Google AdSense Ad Unit Component
  *
- * Safe, responsive Google AdSense ad slot component.
- * Automatically respects route monetization rules and avoids double-initialization.
+ * - Renders verified ad slot 4047270762 under publisher ca-pub-1190706248323157
+ * - Strictly disabled on Admin (/admin/*), Dashboard (/dashboard/*), and Auth routes
+ * - Prevents duplicate initialization in React StrictMode & re-renders
+ * - Completely isolated from core app state (AdSense 403 / ad blocker will never crash React)
  */
 export default function AdSenseAd({
-  slotId,
+  slotId = ADSENSE_CONFIG.defaultSlotId,
+  client = ADSENSE_CONFIG.publisherId,
   format = 'auto',
   responsive = true,
   className = '',
   style = {},
+  label = 'Advertisement',
 }: AdSenseAdProps) {
   const { pathname } = useLocation()
-  const adRef = useRef<HTMLModElement | null>(null)
+  const insRef = useRef<HTMLModElement | null>(null)
   const isPushed = useRef(false)
 
-  const isEligible = isMonetizableRoute(pathname)
+  // Double-gate check: Admin and private routes must NEVER display or initialize ads
+  const isEligible = !isAdminRoute(pathname) && isMonetizableRoute(pathname)
 
   useEffect(() => {
     if (!isEligible || isPushed.current) {
+      return
+    }
+
+    // Check if element already processed by AdSense library
+    if (insRef.current && insRef.current.getAttribute('data-adsbygoogle-status')) {
+      isPushed.current = true
       return
     }
 
@@ -63,29 +81,32 @@ export default function AdSenseAd({
         isPushed.current = true
       }
     } catch (err) {
-      // Catch duplicate push or script initialization errors cleanly
-      console.debug('AdSense initialization notice:', err)
+      // Non-fatal notice: Ad blocker or pending approval will not disrupt page rendering
+      console.debug('AdSense ad push notice:', err)
     }
   }, [isEligible, pathname])
 
+  // If on admin, dashboard, auth, or low-value route, return null completely
   if (!isEligible) {
     return null
   }
 
   return (
-    <div
-      className={`adsense-wrapper my-6 flex justify-center items-center overflow-hidden min-h-[90px] ${className}`}
-      aria-label="Advertisement"
+    <aside
+      className={`adsense-container my-6 w-full max-w-full flex flex-col items-center justify-center overflow-hidden transition-all ${className}`}
+      aria-label={label}
     >
-      <ins
-        ref={adRef}
-        className="adsbygoogle"
-        style={{ display: 'block', width: '100%', ...style }}
-        data-ad-client={ADSENSE_CONFIG.publisherId}
-        {...(slotId ? { 'data-ad-slot': slotId } : {})}
-        data-ad-format={format}
-        data-full-width-responsive={responsive ? 'true' : 'false'}
-      />
-    </div>
+      <div className="w-full flex justify-center items-center">
+        <ins
+          ref={insRef}
+          className="adsbygoogle block w-full text-center"
+          style={{ display: 'block', minHeight: '90px', ...style }}
+          data-ad-client={client}
+          data-ad-slot={slotId}
+          data-ad-format={format}
+          data-full-width-responsive={responsive ? 'true' : 'false'}
+        />
+      </div>
+    </aside>
   )
 }

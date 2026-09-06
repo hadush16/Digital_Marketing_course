@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import { AdSenseAd } from '@/components/ads'
 import { HiChatAlt, HiThumbUp, HiEye, HiBadgeCheck, HiSearch } from 'react-icons/hi'
 
 const TOPICS = [
@@ -174,6 +175,11 @@ export default function CommunityPage() {
               No discussions found matching your query.
             </div>
           )}
+        </div>
+
+        {/* Ad Unit */}
+        <div className="mt-12 max-w-4xl mx-auto">
+          <AdSenseAd slotId="4047270762" />
         </div>
       </div>
     </div>
