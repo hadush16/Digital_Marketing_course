@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import { useQuery } from '@tanstack/react-query'
 import { HiSearch, HiClock, HiUsers, HiStar, HiFilter, HiX } from 'react-icons/hi'
 import { cn, formatPrice } from '@/utils'
@@ -64,7 +65,23 @@ export default function CoursesPage() {
   })
 
   return (
-    <div className="py-12 bg-light-bg dark:bg-dark-bg min-h-screen">
+    <>
+      <Helmet>
+        <title>Digital Marketing Courses, Meta Ads & Monetization Classes — Ryoit</title>
+        <meta
+          name="description"
+          content="Explore practical courses on Facebook Marketing, Meta & TikTok Ads, YouTube Monetization, SEO, and video content creation taught in Amharic and English on Ryoit."
+        />
+        <link rel="canonical" href="https://ryoit.com/courses" />
+        <meta property="og:title" content="Digital Marketing Courses, Meta Ads & Monetization Classes — Ryoit" />
+        <meta
+          property="og:description"
+          content="Explore practical courses on Facebook Marketing, Meta & TikTok Ads, YouTube Monetization, SEO, and video content creation taught in Amharic and English on Ryoit."
+        />
+        <meta property="og:url" content="https://ryoit.com/courses" />
+      </Helmet>
+
+      <div className="py-12 bg-light-bg dark:bg-dark-bg min-h-screen">
       <div className="container-custom">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
@@ -245,5 +262,6 @@ export default function CoursesPage() {
         </div>
       )}
     </div>
+    </>
   )
 }

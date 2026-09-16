@@ -280,6 +280,25 @@ export interface Review {
 }
 
 // --- News ---
+export interface ArticleSection {
+  heading: string
+  subheading?: string
+  body: string
+  bullets?: string[]
+  table?: {
+    headers: string[]
+    rows: string[][]
+  }
+  callout?: {
+    type: 'tip' | 'warning' | 'info' | 'caution'
+    text: string
+  }
+  codeSnippet?: {
+    language: string
+    code: string
+  }
+}
+
 export interface NewsArticle {
   id: string
   title: string
@@ -292,10 +311,14 @@ export interface NewsArticle {
   tags: string[]
   views: number
   readTime: number
-  status: ContentStatus
-  isFeatured: boolean
+  status?: ContentStatus
+  isFeatured?: boolean
   publishedAt: string
-  createdAt: string
+  updatedAt?: string
+  createdAt?: string
+  keyTakeaways?: string[]
+  sections?: ArticleSection[]
+  faqs?: { question: string; answer: string }[]
 }
 
 export type NewsCategory =
@@ -307,6 +330,8 @@ export type NewsCategory =
   | 'apple-news'
   | 'samsung-news'
   | 'industry-updates'
+  | 'digital-marketing'
+  | 'seo'
 
 // --- Common ---
 export interface Instructor {
