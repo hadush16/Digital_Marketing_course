@@ -3,11 +3,12 @@
  *
  * Official Publisher ID: ca-pub-1190706248323157
  * Official Ad Slot ID: 4047270762
- * Additional Publisher ID: ca-pub-5929508651136297
+ * Additional Publisher IDs: ca-pub-5929508651136297, ca-pub-7180181814386452
  *
  * Authorized ads.txt:
  * - google.com, pub-1190706248323157, DIRECT, f08c47fec0942fa0
  * - google.com, pub-5929508651136297, DIRECT, f08c47fec0942fa0
+ * - google.com, pub-7180181814386452, DIRECT, f08c47fec0942fa0
  */
 
 export const ADSENSE_CONFIG = {
@@ -24,7 +25,11 @@ export const ADSENSE_CONFIG = {
   /**
    * All active authorized Publisher IDs
    */
-  publisherIds: ['ca-pub-1190706248323157', 'ca-pub-5929508651136297'],
+  publisherIds: [
+    'ca-pub-1190706248323157',
+    'ca-pub-5929508651136297',
+    'ca-pub-7180181814386452',
+  ],
 
   /**
    * Official ads.txt seller entries
@@ -32,6 +37,7 @@ export const ADSENSE_CONFIG = {
   adsTxtEntries: [
     'google.com, pub-1190706248323157, DIRECT, f08c47fec0942fa0',
     'google.com, pub-5929508651136297, DIRECT, f08c47fec0942fa0',
+    'google.com, pub-7180181814386452, DIRECT, f08c47fec0942fa0',
   ],
 
   /**
