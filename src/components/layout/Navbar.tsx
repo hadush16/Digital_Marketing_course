@@ -14,6 +14,7 @@ import { cn } from '@/utils'
 
 const navItems = [
   { label: 'Home', href: '/' },
+  { label: 'Services', href: '/services' },
   { label: 'Courses', href: '/courses' },
   { label: 'Mobile Solutions', href: '/mobile-solutions' },
   { label: 'Marketplace', href: '/marketplace' },
@@ -22,9 +23,12 @@ const navItems = [
     label: 'More',
     href: '#',
     children: [
+      { label: 'Social Platforms', href: '/platforms' },
+      { label: 'Portfolio', href: '/portfolio' },
+      { label: 'Exchange Rates', href: '/exchange-rates' },
+      { label: 'Social Media Services', href: '/social-media-services' },
       { label: 'Community', href: '/community' },
       { label: 'Marketing Opportunities', href: '/opportunities' },
-      { label: 'Social Media Services', href: '/social-media-services' },
       { label: 'About', href: '/about' },
       { label: 'Contact', href: '/contact' },
       { label: 'FAQ', href: '/faq' },

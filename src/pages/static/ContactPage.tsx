@@ -1,24 +1,48 @@
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { HiMail, HiPhone, HiLocationMarker, HiPaperAirplane, HiClock, HiCheckCircle } from 'react-icons/hi'
+import { agencyService, type CompanyProfile } from '@/services/agency.service'
+import toast from 'react-hot-toast'
 
 export default function ContactPage() {
+  const [profile, setProfile] = useState<CompanyProfile | null>(null)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     subject: '',
+    platform: '',
     message: '',
   })
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    agencyService.getCompanyProfile().then((res) => setProfile(res.data.data)).catch(() => {})
+  }, [])
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setSubmitted(true)
-    setTimeout(() => {
-      setSubmitted(false)
-      setFormData({ name: '', email: '', subject: '', message: '' })
-    }, 4000)
+    setSubmitting(true)
+    try {
+      await agencyService.submitInquiry({
+        customerName: formData.name,
+        email: formData.email,
+        phone: formData.phone || undefined,
+        requestedService: formData.subject || 'General Contact',
+        platform: formData.platform || undefined,
+        message: formData.message,
+      })
+      setSubmitted(true)
+      setFormData({ name: '', email: '', phone: '', subject: '', platform: '', message: '' })
+      toast.success('Inquiry sent! We will respond shortly.')
+      setTimeout(() => setSubmitted(false), 5000)
+    } catch (err: any) {
+      toast.error(err?.response?.data?.message || 'Failed to send inquiry')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const contactSchema = {

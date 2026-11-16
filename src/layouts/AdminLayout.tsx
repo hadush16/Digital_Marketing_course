@@ -10,6 +10,18 @@ import {
   HiCog,
   HiUserGroup,
   HiEnvelope,
+  HiBuildingOffice2,
+  HiSquares2X2,
+  HiBriefcase,
+  HiShare,
+  HiCreditCard,
+  HiCurrencyDollar,
+  HiPhoto,
+  HiChatBubbleLeftRight,
+  HiInbox,
+  HiDocumentText,
+  HiBars3,
+  HiXMark,
 } from 'react-icons/hi2'
 import {
   HiLogout,
@@ -35,11 +47,12 @@ export default function AdminLayout() {
   const navigate = useNavigate()
 
   // Admin login form state for discrete authentication at /admin
-  const [adminEmail, setAdminEmail] = useState('admin@ryoit.com')
-  const [adminPassword, setAdminPassword] = useState('admin123')
+  const [adminEmail, setAdminEmail] = useState('')
+  const [adminPassword, setAdminPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [adminLoading, setAdminLoading] = useState(false)
   const [adminError, setAdminError] = useState('')
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const handleAdminAuth = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -50,10 +63,14 @@ export default function AdminLayout() {
       const response = await authService.login({ email: adminEmail, password: adminPassword })
       if (response.data.success) {
         const user = response.data.data.user
-        user.role = 'admin'
+        const normalizedRole = String(user.role || '').toLowerCase()
+        if (normalizedRole !== 'admin') {
+          setAdminError('Access denied: Administrator privileges are required.')
+          return
+        }
         dispatch(
           setCredentials({
-            user,
+            user: { ...user, role: 'admin' },
             token: response.data.data.accessToken,
           })
         )
@@ -62,21 +79,7 @@ export default function AdminLayout() {
         setAdminError('Invalid admin authorization credentials.')
       }
     } catch (err: any) {
-      // Development fallback for System Administrator access
-      const mockAdminUser = {
-        id: 'u-admin-sys',
-        name: 'System Administrator',
-        email: adminEmail || 'admin@ryoit.com',
-        role: 'admin' as const,
-        createdAt: new Date().toISOString(),
-      }
-      dispatch(
-        setCredentials({
-          user: mockAdminUser,
-          token: 'admin_jwt_token_' + Date.now(),
-        })
-      )
-      toast.success('System Administrator Authorized!')
+      setAdminError(err?.response?.data?.message || 'Authentication failed. Please check your credentials.')
     } finally {
       setAdminLoading(false)
     }
@@ -197,58 +200,105 @@ export default function AdminLayout() {
     { label: 'Mobile Solutions', href: '/admin/mobile-solutions', icon: HiCpuChip },
     { label: 'Marketplace', href: '/admin/marketplace', icon: HiShoppingBag },
     { label: 'Tech News', href: '/admin/news', icon: HiNewspaper },
+    { label: 'Company Profile', href: '/admin/company-profile', icon: HiBuildingOffice2 },
+    { label: 'Service Categories', href: '/admin/service-categories', icon: HiSquares2X2 },
+    { label: 'Services Management', href: '/admin/services', icon: HiBriefcase },
+    { label: 'Social Media Platforms', href: '/admin/platforms', icon: HiShare },
+    { label: 'Monetization Services', href: '/admin/monetization', icon: HiSparkles },
+    { label: 'Payment & Withdrawal', href: '/admin/payment-support', icon: HiCreditCard },
+    { label: 'Exchange Rates', href: '/admin/exchange-rates', icon: HiCurrencyDollar },
+    { label: 'Portfolio Projects', href: '/admin/portfolio', icon: HiPhoto },
+    { label: 'Testimonials', href: '/admin/testimonials', icon: HiChatBubbleLeftRight },
+    { label: 'Contact Inquiries', href: '/admin/inquiries', icon: HiInbox },
+    { label: 'Website Content', href: '/admin/website-content', icon: HiDocumentText },
     { label: 'Settings', href: '/admin/settings', icon: HiCog },
   ]
 
-  return (
-    <div className="flex min-h-screen bg-dark-bg text-dark-text">
-      {/* Sidebar */}
-      <aside className="w-64 border-r border-dark-border bg-dark-surface p-5 flex flex-col shrink-0">
-        <Link to="/" className="flex items-center gap-2.5 mb-6 px-2">
+  const sidebarContent = (
+    <>
+      <div className="flex items-center justify-between mb-6 px-2">
+        <Link to="/" className="flex items-center gap-2.5">
           <img src="/assets/img/ryoit-logo.png" alt="Ryoit Logo" className="w-8 h-8 rounded-xl object-cover" />
           <span className="font-display font-black text-base text-white">Ryoit Admin</span>
         </Link>
-
-        <nav className="flex-1 space-y-1 overflow-y-auto">
-          {navs.map((item) => (
-            <NavLink
-              key={item.href}
-              to={item.href}
-              end
-              className={({ isActive }) =>
-                cn(
-                  'flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-colors',
-                  isActive
-                    ? 'bg-secondary-500/20 text-secondary-400 border border-secondary-500/30 font-bold'
-                    : 'text-dark-muted hover:bg-dark-border/40 hover:text-white'
-                )
-              }
-            >
-              <item.icon className="w-4 h-4" />
-              {item.label}
-            </NavLink>
-          ))}
-        </nav>
-
         <button
-          onClick={handleLogout}
-          className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-red-400 hover:bg-red-500/10 transition-colors mt-auto pt-3 border-t border-dark-border"
+          type="button"
+          onClick={() => setMobileMenuOpen(false)}
+          className="lg:hidden p-1.5 rounded-lg text-dark-muted hover:text-white"
         >
-          <HiLogout className="w-4 h-4" />
-          Sign Out Admin
+          <HiXMark className="w-5 h-5" />
         </button>
+      </div>
+
+      <nav className="flex-1 space-y-1 overflow-y-auto pr-1">
+        {navs.map((item) => (
+          <NavLink
+            key={item.href}
+            to={item.href}
+            end={item.href === '/admin'}
+            onClick={() => setMobileMenuOpen(false)}
+            className={({ isActive }) =>
+              cn(
+                'flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors',
+                isActive
+                  ? 'bg-secondary-500/20 text-secondary-400 border border-secondary-500/30 font-bold'
+                  : 'text-dark-muted hover:bg-dark-border/40 hover:text-white'
+              )
+            }
+          >
+            <item.icon className="w-4 h-4 shrink-0" />
+            <span className="truncate">{item.label}</span>
+          </NavLink>
+        ))}
+      </nav>
+
+      <button
+        onClick={handleLogout}
+        className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-red-400 hover:bg-red-500/10 transition-colors mt-auto pt-3 border-t border-dark-border"
+      >
+        <HiLogout className="w-4 h-4" />
+        Sign Out Admin
+      </button>
+    </>
+  )
+
+  return (
+    <div className="flex min-h-screen bg-dark-bg text-dark-text">
+      {/* Desktop Sidebar */}
+      <aside className="hidden lg:flex w-64 border-r border-dark-border bg-dark-surface p-5 flex-col shrink-0">
+        {sidebarContent}
       </aside>
+
+      {/* Mobile Sidebar Drawer */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-50 lg:hidden flex">
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)} />
+          <aside className="relative z-10 w-72 max-w-[85vw] bg-dark-surface border-r border-dark-border p-5 flex flex-col h-full">
+            {sidebarContent}
+          </aside>
+        </div>
+      )}
 
       {/* Main area */}
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="h-14 border-b border-dark-border bg-dark-surface px-6 flex items-center justify-between shrink-0">
-          <h2 className="font-display font-bold text-sm text-white">Admin Console</h2>
+        <header className="h-14 border-b border-dark-border bg-dark-surface px-4 sm:px-6 flex items-center justify-between shrink-0">
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(true)}
+              className="lg:hidden p-2 rounded-xl bg-dark-bg border border-dark-border text-white"
+              aria-label="Open admin menu"
+            >
+              <HiBars3 className="w-5 h-5" />
+            </button>
+            <h2 className="font-display font-bold text-sm text-white">Ryoit Agency Admin Console</h2>
+          </div>
           <span className="badge bg-secondary-500/20 text-secondary-400 border border-secondary-500/30 font-bold text-[11px]">
             System Administrator
           </span>
         </header>
 
-        <main className="p-6 flex-1 overflow-y-auto">
+        <main className="p-4 sm:p-6 flex-1 overflow-y-auto">
           <Suspense fallback={<PageLoader />}>
             <Outlet />
           </Suspense>

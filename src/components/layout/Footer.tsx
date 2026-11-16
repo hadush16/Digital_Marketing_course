@@ -1,5 +1,8 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { agencyService } from '@/services/agency.service'
+import toast from 'react-hot-toast'
 import {
   FaFacebook, FaInstagram, FaTiktok, FaYoutube,
   FaTelegram, FaTwitter, FaLinkedin,
@@ -47,6 +50,23 @@ const socials = [
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
+  const [newsletterEmail, setNewsletterEmail] = useState('')
+  const [subscribing, setSubscribing] = useState(false)
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!newsletterEmail.trim()) return
+    setSubscribing(true)
+    try {
+      await agencyService.subscribeNewsletter(newsletterEmail.trim())
+      toast.success('Subscribed to Ryoit updates!')
+      setNewsletterEmail('')
+    } catch (err: any) {
+      toast.error(err?.response?.data?.message || 'Subscription failed')
+    } finally {
+      setSubscribing(false)
+    }
+  }
 
   return (
     <footer className="bg-dark-bg border-t border-dark-border">
@@ -65,19 +85,23 @@ export default function Footer() {
             </div>
             <form
               className="flex w-full max-w-md gap-3"
-              onSubmit={(e) => e.preventDefault()}
+              onSubmit={handleSubscribe}
             >
               <input
                 type="email"
+                required
+                value={newsletterEmail}
+                onChange={(e) => setNewsletterEmail(e.target.value)}
                 placeholder="Enter your email"
                 className="flex-1 px-4 py-3 rounded-xl bg-dark-card border border-dark-border text-white placeholder:text-dark-muted focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm"
               />
               <button
                 type="submit"
+                disabled={subscribing}
                 className="btn-primary btn-md whitespace-nowrap"
                 id="footer-newsletter-btn"
               >
-                Subscribe <HiArrowRight className="w-4 h-4" />
+                {subscribing ? 'Subscribing...' : 'Subscribe'} <HiArrowRight className="w-4 h-4" />
               </button>
             </form>
           </div>

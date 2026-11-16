@@ -7,6 +7,7 @@ interface ModalProps {
   title: string
   children: React.ReactNode
   maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl'
+  size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl'
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -14,8 +15,10 @@ export const Modal: React.FC<ModalProps> = ({
   onClose,
   title,
   children,
-  maxWidth = 'lg',
+  maxWidth,
+  size,
 }) => {
+  const resolvedMaxWidth = maxWidth || size || 'lg'
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isOpen) {
@@ -52,7 +55,7 @@ export const Modal: React.FC<ModalProps> = ({
 
       {/* Dialog container */}
       <div
-        className={`relative w-full ${maxWidthClasses[maxWidth]} bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden z-10 transform transition-all animate-in fade-in zoom-in-95 duration-150`}
+        className={`relative w-full ${maxWidthClasses[resolvedMaxWidth]} bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden z-10 transform transition-all animate-in fade-in zoom-in-95 duration-150`}
       >
         {/* Header */}
         <div className="flex items-center justify-between border-b border-slate-800 px-6 py-4">

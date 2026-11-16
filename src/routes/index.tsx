@@ -28,6 +28,10 @@ const FAQPage = lazy(() => import('@/pages/static/FAQPage'))
 const PrivacyPolicyPage = lazy(() => import('@/pages/static/PrivacyPolicyPage'))
 const TermsPage = lazy(() => import('@/pages/static/TermsPage'))
 const AgencyServicesPage = lazy(() => import('@/pages/static/AgencyServicesPage'))
+const ServiceDetailPage = lazy(() => import('@/pages/agency/ServiceDetailPage'))
+const PlatformsPage = lazy(() => import('@/pages/agency/PlatformsPage'))
+const PortfolioPage = lazy(() => import('@/pages/agency/PortfolioPage'))
+const ExchangeRatesPage = lazy(() => import('@/pages/agency/ExchangeRatesPage'))
 
 // Dashboard Pages
 const DashboardPage = lazy(() => import('@/pages/dashboard/DashboardPage'))
@@ -49,6 +53,16 @@ const MobileSolutionsManagePage = lazy(() => import('@/pages/admin/MobileSolutio
 const MarketplaceManagePage = lazy(() => import('@/pages/admin/MarketplaceManagePage'))
 const NewsManagePage = lazy(() => import('@/pages/admin/NewsManagePage'))
 const SettingsPage = lazy(() => import('@/pages/admin/SettingsPage'))
+const CompanyProfileManagePage = lazy(() => import('@/pages/admin/CompanyProfileManagePage'))
+const ServiceCategoriesManagePage = lazy(() => import('@/pages/admin/ServiceCategoriesManagePage'))
+const ServicesManagePage = lazy(() => import('@/pages/admin/ServicesManagePage'))
+const PlatformsManagePage = lazy(() => import('@/pages/admin/PlatformsManagePage'))
+const PaymentSupportManagePage = lazy(() => import('@/pages/admin/PaymentSupportManagePage'))
+const ExchangeRatesManagePage = lazy(() => import('@/pages/admin/ExchangeRatesManagePage'))
+const PortfolioManagePage = lazy(() => import('@/pages/admin/PortfolioManagePage'))
+const TestimonialsManagePage = lazy(() => import('@/pages/admin/TestimonialsManagePage'))
+const InquiriesManagePage = lazy(() => import('@/pages/admin/InquiriesManagePage'))
+const WebsiteContentManagePage = lazy(() => import('@/pages/admin/WebsiteContentManagePage'))
 
 export const router = createBrowserRouter([
   {
@@ -74,6 +88,12 @@ export const router = createBrowserRouter([
       { path: 'privacy', element: <PrivacyPolicyPage /> },
       { path: 'terms', element: <TermsPage /> },
       { path: 'services', element: <AgencyServicesPage /> },
+      { path: 'services/:slug', element: <ServiceDetailPage /> },
+      { path: 'platforms', element: <PlatformsPage /> },
+      { path: 'platforms/:slug', element: <PlatformsPage /> },
+      { path: 'portfolio', element: <PortfolioPage /> },
+      { path: 'portfolio/:slug', element: <PortfolioPage /> },
+      { path: 'exchange-rates', element: <ExchangeRatesPage /> },
     ],
   },
   {
@@ -101,6 +121,26 @@ export const router = createBrowserRouter([
       { path: 'mobile-solutions', element: <MobileSolutionsManagePage /> },
       { path: 'marketplace', element: <MarketplaceManagePage /> },
       { path: 'news', element: <NewsManagePage /> },
+      { path: 'company-profile', element: <CompanyProfileManagePage /> },
+      { path: 'service-categories', element: <ServiceCategoriesManagePage /> },
+      { path: 'services', element: <ServicesManagePage /> },
+      { path: 'platforms', element: <PlatformsManagePage /> },
+      {
+        path: 'monetization',
+        element: (
+          <ServicesManagePage
+            defaultType="MONETIZATION"
+            pageTitle="Monetization Services"
+            pageSubtitle="Manage Facebook, YouTube, TikTok, and Instagram monetization readiness & guidance services."
+          />
+        ),
+      },
+      { path: 'payment-support', element: <PaymentSupportManagePage /> },
+      { path: 'exchange-rates', element: <ExchangeRatesManagePage /> },
+      { path: 'portfolio', element: <PortfolioManagePage /> },
+      { path: 'testimonials', element: <TestimonialsManagePage /> },
+      { path: 'inquiries', element: <InquiriesManagePage /> },
+      { path: 'website-content', element: <WebsiteContentManagePage /> },
       { path: 'settings', element: <SettingsPage /> },
     ],
   },
